@@ -130,12 +130,9 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="GameWindow.h" />
     <ClInclude Include="Graphics.h" />
-    <ClInclude Include="GraphicsOptions.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="GameWindow.cpp" />
     <ClCompile Include="Graphics.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
