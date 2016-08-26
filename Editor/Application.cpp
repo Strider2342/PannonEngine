@@ -10,6 +10,8 @@ void Application::Run()
 	graphics.Init();
 	MSG msg;
 
+	scene.Init(graphics);
+
 	std::cout << "Application started";
 
 	while (true)
@@ -22,5 +24,10 @@ void Application::Run()
 			if (msg.message == WM_QUIT)
 				break;
 		}
+
+		scene.Update();
+		scene.Draw();
 	}
+
+	graphics.CleanD3D();
 }

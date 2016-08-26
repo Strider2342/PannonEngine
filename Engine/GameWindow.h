@@ -29,4 +29,7 @@ public:
 	HWND& CreateBorderless();
 
 	WNDCLASSEX& CreateWindowClass(LPCWSTR CLASS_NAME);
+
+	// get
+	HWND& GetHWND();
 };

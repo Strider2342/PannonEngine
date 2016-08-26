@@ -90,3 +90,8 @@ WNDCLASSEX& GameWindow::CreateWindowClass(LPCWSTR CLASS_NAME)
 
 	return wc;
 }
+
+HWND& GameWindow::GetHWND()
+{
+	return hWnd;
+}
