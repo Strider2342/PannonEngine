@@ -23,11 +23,10 @@ private:
 
 public:
 	Shader();
+	~Shader();
 
 	void Init(ID3D11Device *dev, ID3D11DeviceContext *devcon);
 	void SetInputLayout();
 	void CreateVertexShader(std::string filename, std::string entrypoint);
 	void CreatePixelShader(std::string filename, std::string entrypoint);
-
-	void Clear();
 };

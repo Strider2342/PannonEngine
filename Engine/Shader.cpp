@@ -1,5 +1,12 @@
 #include "Shader.h"
 
+Shader::~Shader()
+{
+	pLayout->Release();
+	pVS->Release();
+	pPS->Release();
+}
+
 void Shader::Init(ID3D11Device *dev, ID3D11DeviceContext *devcon)
 {
 	this->dev = dev;
@@ -60,11 +67,4 @@ void Shader::CreatePixelShader(std::string filename, std::string entrypoint)
 	{
 		dev->CreatePixelShader(PS->GetBufferPointer(), PS->GetBufferSize(), NULL, &pPS);
 	}
-}
-
-void Shader::Clear()
-{
-	pLayout->Release();
-	pVS->Release();
-	pPS->Release();
 }
