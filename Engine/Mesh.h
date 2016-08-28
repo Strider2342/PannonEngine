@@ -25,6 +25,7 @@ public:
 	~Mesh();
 
 	void Init(GameObject *gameObject);
+	GameObject *GetGameObject();
 
 	void Sajt()
 	{

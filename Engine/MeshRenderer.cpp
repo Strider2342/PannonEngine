@@ -5,9 +5,9 @@ MeshRenderer::MeshRenderer()
 
 MeshRenderer::~MeshRenderer()
 {
-	delete material;
+	/*delete material;
 
-	material = nullptr;
+	material = nullptr;*/
 }
 
 void MeshRenderer::Init(ID3D11Device *dev, ID3D11DeviceContext *devcon)

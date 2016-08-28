@@ -14,11 +14,11 @@ Material::Material(ID3D11Device *dev, ID3D11DeviceContext *devcon)
 
 Material::~Material()
 {
-	delete texture;
+	/*delete texture;
 	delete shader;
 
 	texture = nullptr;
-	shader = nullptr;
+	shader = nullptr;*/
 }
 
 ID3D11ShaderResourceView* Material::GetTexture()

@@ -17,3 +17,8 @@ GameObject::~GameObject()
 	transform = nullptr;
 	renderer = nullptr;
 }
+
+Mesh* GameObject::GetMesh()
+{
+	return mesh;
+}

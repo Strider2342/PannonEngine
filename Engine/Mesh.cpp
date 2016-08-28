@@ -12,3 +12,8 @@ void Mesh::Init(GameObject *gameObject)
 {
 	this->gameObject = gameObject;
 }
+
+GameObject* Mesh::GetGameObject()
+{
+	return gameObject;
+}
