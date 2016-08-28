@@ -1,5 +1,8 @@
 #include "Material.h"
 
+Material::Material()
+{ }
+
 Material::Material(ID3D11Device *dev, ID3D11DeviceContext *devcon)
 {
 	shader = new Shader();

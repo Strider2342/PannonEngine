@@ -11,14 +11,23 @@ struct Vertex
 	DirectX::XMFLOAT2 uv;
 };
 
+class GameObject;
 class Mesh
 {
 private:
+	GameObject *gameObject = nullptr;
+
 	std::vector<Vertex> vertices;
 	std::vector<DWORD> indices;
 
 public:
 	Mesh();
+	~Mesh();
 
-	void Init();
+	void Init(GameObject *gameObject);
+
+	void Sajt()
+	{
+		std::cout << "Mesh!" << std::endl;
+	}
 };
