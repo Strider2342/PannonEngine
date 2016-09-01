@@ -12,6 +12,12 @@ Vector3::Vector3(int X, int Y, int Z)
 	this->Y = Y;
 	this->Z = Z;
 }
+Vector3::Vector3(float X, float Y, float Z)
+{
+	this->X = X;
+	this->Y = Y;
+	this->Z = Z;
+}
 Vector3::Vector3(const Vector3 &vector)
 {
 	this->X = vector.X;

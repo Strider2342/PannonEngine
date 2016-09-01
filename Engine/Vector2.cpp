@@ -10,6 +10,11 @@ Vector2::Vector2(int X, int Y)
 	this->X = X;
 	this->Y = Y;
 }
+Vector2::Vector2(float X, float Y)
+{
+	this->X = X;
+	this->Y = Y;
+}
 Vector2::Vector2(const Vector2 &vector)
 {
 	this->X = vector.X;
