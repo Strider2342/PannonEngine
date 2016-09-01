@@ -5,7 +5,7 @@ Mesh::Mesh()
 
 Mesh::~Mesh()
 {
-	gameObject = nullptr;
+	//gameObject = nullptr;
 }
 
 void Mesh::Init(GameObject *gameObject)
