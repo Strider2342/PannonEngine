@@ -29,4 +29,8 @@ public:
 	void SetInputLayout();
 	void CreateVertexShader(std::string filename, std::string entrypoint);
 	void CreatePixelShader(std::string filename, std::string entrypoint);
+
+	ID3D11InputLayout* GetLayout();
+	ID3D11VertexShader* GetVertexShader();
+	ID3D11PixelShader* GetPixelShader();
 };

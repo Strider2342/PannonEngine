@@ -71,3 +71,18 @@ void Shader::CreatePixelShader(std::string filename, std::string entrypoint)
 		dev->CreatePixelShader(PS->GetBufferPointer(), PS->GetBufferSize(), NULL, &pPS);
 	}
 }
+
+ID3D11InputLayout* Shader::GetLayout()
+{
+	return pLayout;
+}
+
+ID3D11VertexShader* Shader::GetVertexShader()
+{
+	return pVS;
+}
+
+ID3D11PixelShader * Shader::GetPixelShader()
+{
+	return pPS;
+}

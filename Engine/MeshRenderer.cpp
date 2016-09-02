@@ -81,11 +81,16 @@ void MeshRenderer::Render()
 
 	UINT stride = sizeof(Vertex);
 	UINT offset = 0;
-	/*devcon->VSSetShader(pVS, 0, 0);
-	devcon->PSSetShader(pPS, 0, 0);
-	devcon->IASetInputLayout(pLayout);
+	devcon->VSSetShader(material->GetShader().GetVertexShader(), 0, 0);
+	devcon->PSSetShader(material->GetShader().GetPixelShader(), 0, 0);
+	devcon->IASetInputLayout(material->GetShader().GetLayout());
 	devcon->IASetVertexBuffers(0, 1, &pVBuffer, &stride, &offset);
-	devcon->IASetIndexBuffer(pIBuffer, DXGI_FORMAT_R32_UINT, 0);*/
+	devcon->IASetIndexBuffer(pIBuffer, DXGI_FORMAT_R32_UINT, 0);
+
+	devcon->VSSetConstantBuffers(0, 1, &pCBuffer);
+	devcon->UpdateSubresource(pCBuffer, 0, 0, &cBuffer, 0, 0);
+	devcon->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_POINTLIST);
+	devcon->DrawIndexed(mesh->GetIndices().size(), 0, 0);
 }
 
 Material* MeshRenderer::GetMaterial()
