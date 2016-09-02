@@ -8,8 +8,8 @@ void Material::Init(ID3D11Device *dev, ID3D11DeviceContext *devcon)
 	shader = new Shader();
 	shader->Init(dev, devcon);
 
-	shader->CreateVertexShader("Shaders/DefShader.hlsl", "VSMain");
-	shader->CreatePixelShader("Shaders/DefShader.hlsl", "PSMain");
+	shader->CreateVertexShader("Shaders/DefShader.hlsl", "VShader");
+	shader->CreatePixelShader("Shaders/DefShader.hlsl", "PShader");
 }
 
 Material::~Material()
