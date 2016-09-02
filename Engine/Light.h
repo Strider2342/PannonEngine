@@ -12,6 +12,7 @@ public:
 		Point,
 		Spot
 	};
+
 private:
 	GameObject *gameObject = nullptr;
 	Transform *transform = nullptr;
