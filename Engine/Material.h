@@ -26,6 +26,18 @@ public:
 	Texture& GetTexture();
 	Shader& GetShader();
 
+	DirectX::XMFLOAT3 GetDiffuse();
+	DirectX::XMFLOAT3 GetSpecular();
+	DirectX::XMFLOAT3 GetAmbient();
+	DirectX::XMFLOAT3 GetEmissive();
+	float GetPower();
+
 	void SetTexture(Texture *texture);
 	void SetShader(Shader *shader);
+
+	void SetDiffuse(float r, float g, float b);
+	void SetSpecular(float r, float g, float b);
+	void SetAmbient(float r, float g, float b);
+	void SetEmissive(float r, float g, float b);
+	void SetPower(float value);
 };

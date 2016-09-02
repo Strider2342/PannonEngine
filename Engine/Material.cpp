@@ -36,6 +36,31 @@ Shader& Material::GetShader()
 	return *shader;
 }
 
+DirectX::XMFLOAT3 Material::GetDiffuse()
+{
+	return diffuse;
+}
+
+DirectX::XMFLOAT3 Material::GetSpecular()
+{
+	return specular;
+}
+
+DirectX::XMFLOAT3 Material::GetAmbient()
+{
+	return ambient;
+}
+
+DirectX::XMFLOAT3 Material::GetEmissive()
+{
+	return emissive;
+}
+
+float Material::GetPower()
+{
+	return power;
+}
+
 void Material::SetTexture(Texture *texture)
 {
 	this->texture = texture;
@@ -44,4 +69,29 @@ void Material::SetTexture(Texture *texture)
 void Material::SetShader(Shader *shader)
 {
 	this->shader = shader;
+}
+
+void Material::SetDiffuse(float r, float g, float b)
+{
+	diffuse = DirectX::XMFLOAT3(r, g, b);
+}
+
+void Material::SetSpecular(float r, float g, float b)
+{
+	specular = DirectX::XMFLOAT3(r, g, b);
+}
+
+void Material::SetAmbient(float r, float g, float b)
+{
+	ambient = DirectX::XMFLOAT3(r, g, b);
+}
+
+void Material::SetEmissive(float r, float g, float b)
+{
+	emissive = DirectX::XMFLOAT3(r, g, b);
+}
+
+void Material::SetPower(float value)
+{
+	power = value;
 }
