@@ -1,4 +1,5 @@
 #pragma once
+#include "Mesh.h"
 #include "Material.h"
 #include "Camera.h"
 
@@ -24,6 +25,7 @@ private:
 	Material *material;
 	CBUFFER cBuffer;
 
+	Mesh *mesh;
 	Camera *camera;
 
 public:
@@ -39,8 +41,10 @@ public:
 	void Render();
 
 	Material *GetMaterial();
+	Mesh *GetMesh();
 	Camera *GetCamera();
 
 	void SetMaterial(Material *material);
+	void SetMesh(Mesh *mesh);
 	void SetCamera(Camera *camera);
 };

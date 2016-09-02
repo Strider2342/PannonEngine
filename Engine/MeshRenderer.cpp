@@ -58,6 +58,11 @@ Material* MeshRenderer::GetMaterial()
 	return material;
 }
 
+Mesh* MeshRenderer::GetMesh()
+{
+	return mesh;
+}
+
 Camera* MeshRenderer::GetCamera()
 {
 	return camera;
@@ -66,6 +71,11 @@ Camera* MeshRenderer::GetCamera()
 void MeshRenderer::SetMaterial(Material *material)
 {
 	this->material = material;
+}
+
+void MeshRenderer::SetMesh(Mesh *mesh)
+{
+	this->mesh = mesh;
 }
 
 void MeshRenderer::SetCamera(Camera *camera)
