@@ -1,4 +1,4 @@
-#pragma onc
+#pragma once
 #include <d3d11.h>
 #include "Transform.h"
 #include "Mesh.h"
@@ -27,6 +27,8 @@ private:
 	Camera *camera = nullptr;
 	Light *light = nullptr;
 
+	std::string name;
+
 public:
 	GameObject();
 	~GameObject();
@@ -41,4 +43,6 @@ public:
 	MeshRenderer *GetMeshRenderer();
 	Camera *GetCamera();
 	Light *GetLight();
+
+	std::string GetName();
 };

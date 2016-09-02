@@ -1,19 +1,18 @@
 #pragma once
+#include <list>
 #include "Graphics.h"
 #include "GameObject.h"
 
 class Scene
 {
-private:
+protected:
 	Graphics graphics;
 
-	GameObject test;
+	std::list<GameObject> gameObjects;
 
 public:
 	Scene();
 
 	void Init(Graphics &graphics);
-	void Load();
-	void Update();
-	void Draw();
+	GameObject* FindGameObject(std::string name);
 };

@@ -67,3 +67,8 @@ Light * GameObject::GetLight()
 {
 	return light;
 }
+
+std::string GameObject::GetName()
+{
+	return name;
+}
