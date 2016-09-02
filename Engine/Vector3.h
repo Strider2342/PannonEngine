@@ -30,5 +30,5 @@ public:
 	float GetLength() const;
 
 	std::string ToString();
-	DirectX::XMVECTOR ToDXVector();
+	DirectX::XMVECTOR ToXMVector();
 };

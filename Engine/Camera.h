@@ -1,6 +1,7 @@
 #pragma once
 #include <d3d11.h>
 #include <DirectXMath.h>
+#include "Object.h"
 #include "Vector3.h"
 
 enum ProjectionType
@@ -9,14 +10,9 @@ enum ProjectionType
 	Orthographic
 };
 
-class Camera
+class Camera : public Object
 {
 private:
-	Vector3 position;
-	Vector3 rotation;
-
-	Vector3 up;
-
 	DirectX::XMMATRIX matView;
 	DirectX::XMMATRIX matProjection;
 	
@@ -27,7 +23,7 @@ private:
 	
 public:
 	Camera();
-
+	
 	DirectX::XMMATRIX& GetViewMatrix();
 	DirectX::XMMATRIX& GetProjectionMatrix();
 };

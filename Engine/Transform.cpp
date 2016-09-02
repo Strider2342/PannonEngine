@@ -8,11 +8,6 @@ Transform::Transform()
 	parent = nullptr;
 }
 
-void Transform::Init(GameObject *gameObject)
-{
-	this->gameObject = gameObject;
-}
-
 Vector3& Transform::GetPosition()
 {
 	return position;

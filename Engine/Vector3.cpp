@@ -72,7 +72,7 @@ std::string Vector3::ToString()
 	return "{" + std::to_string(X) + "; " + std::to_string(Y) + "; " + std::to_string(Z) + "}";
 }
 
-DirectX::XMVECTOR Vector3::ToDXVector()
+DirectX::XMVECTOR Vector3::ToXMVector()
 {
 	return DirectX::XMVectorSet(GetX(), GetY(), GetZ(), 1.0f);
 }

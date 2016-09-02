@@ -11,14 +11,10 @@ GameObject::~GameObject()
 	delete transform;
 	delete mesh;
 	delete renderer;
-	delete camera;
-	delete light;
 
 	transform = nullptr;
 	mesh = nullptr;
 	renderer = nullptr;
-	camera = nullptr;
-	light = nullptr;
 }
 
 void GameObject::InitEmpty()
@@ -34,18 +30,6 @@ void GameObject::InitMesh()
 	mesh = new Mesh();
 	renderer = new MeshRenderer();
 }
-void GameObject::InitCamera()
-{
-	type = Type::CameraObject;
-
-	camera = new Camera();
-}
-void GameObject::InitLight()
-{
-	type = Type::LightObject;
-
-	light = new Light();
-}
 
 Transform* GameObject::GetTransform()
 {
@@ -58,14 +42,6 @@ Mesh* GameObject::GetMesh()
 MeshRenderer* GameObject::GetMeshRenderer()
 {
 	return renderer;
-}
-Camera * GameObject::GetCamera()
-{
-	return camera;
-}
-Light * GameObject::GetLight()
-{
-	return light;
 }
 
 std::string GameObject::GetName()
