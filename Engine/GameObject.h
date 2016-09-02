@@ -5,7 +5,18 @@
 
 class GameObject
 {
+public:
+	static enum Type
+	{
+		EmptyObject,
+		MeshObject,
+		CameraObject,
+		LightObject
+	};
+
 private:
+	Type type;
+
 	Mesh *mesh = nullptr;
 	Transform *transform = nullptr;
 	MeshRenderer *renderer = nullptr;
@@ -15,5 +26,8 @@ public:
 	~GameObject();
 
 	void Init();
+
+	Transform *GetTransform();
 	Mesh *GetMesh();
+	MeshRenderer *GetMeshRenderer();
 };

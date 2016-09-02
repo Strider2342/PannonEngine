@@ -2,9 +2,9 @@
 
 GameObject::GameObject()
 {
-	mesh = new Mesh();
+	type = Type::EmptyObject;
+
 	transform = new Transform();
-	renderer = new MeshRenderer();
 }
 
 GameObject::~GameObject()
@@ -18,7 +18,17 @@ GameObject::~GameObject()
 	renderer = nullptr;
 }
 
+Transform* GameObject::GetTransform()
+{
+	return transform;
+}
+
 Mesh* GameObject::GetMesh()
 {
 	return mesh;
+}
+
+MeshRenderer* GameObject::GetMeshRenderer()
+{
+	return renderer;
 }
