@@ -31,8 +31,7 @@ public:
 	void SetPosition(Vector3 value);
 	void SetRotation(Vector3 value);
 	void SetScale(Vector3 value);
-
-
+	
 	void SetParent(Transform *parent);
 
 	DirectX::XMMATRIX GetWorldMatrix();

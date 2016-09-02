@@ -77,7 +77,15 @@ void MeshRenderer::CreateIndexBuffer()
 
 void MeshRenderer::Render()
 {
-	DirectX::XMMATRIX matFinal;
+	DirectX::XMMATRIX matFinal = transform->GetWorldMatrix() * camera->GetViewMatrix() * camera->GetProjectionMatrix();
+
+	UINT stride = sizeof(Vertex);
+	UINT offset = 0;
+	/*devcon->VSSetShader(pVS, 0, 0);
+	devcon->PSSetShader(pPS, 0, 0);
+	devcon->IASetInputLayout(pLayout);
+	devcon->IASetVertexBuffers(0, 1, &pVBuffer, &stride, &offset);
+	devcon->IASetIndexBuffer(pIBuffer, DXGI_FORMAT_R32_UINT, 0);*/
 }
 
 Material* MeshRenderer::GetMaterial()

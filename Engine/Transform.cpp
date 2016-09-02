@@ -5,6 +5,11 @@ Transform::Transform()
 	position = Vector3(0, 0, 0);
 	rotation = Vector3(0, 0, 0);
 	scale = Vector3(1, 1, 1);
+
+	forward = Vector3(0, 0, 1);
+	up = Vector3(0, 1, 0);
+	right = Vector3(1, 0, 0);
+
 	parent = nullptr;
 }
 
@@ -19,6 +24,18 @@ Vector3& Transform::GetRotation()
 Vector3& Transform::GetScale()
 {
 	return scale;
+}
+Vector3& Transform::GetForward()
+{
+	return forward;
+}
+Vector3& Transform::GetUp()
+{
+	return up;
+}
+Vector3& Transform::GetRight()
+{
+	return right;
 }
 Transform* Transform::GetParent()
 {
@@ -36,6 +53,11 @@ void Transform::SetRotation(Vector3 value)
 void Transform::SetScale(Vector3 value)
 {
 	scale = Vector3(value.GetX(), value.GetY(), value.GetZ());
+}
+
+void Transform::SetParent(Transform* parent)
+{
+	this->parent = parent;
 }
 
 DirectX::XMMATRIX Transform::GetWorldMatrix()
