@@ -3,7 +3,7 @@
 Material::Material()
 { }
 
-Material::Material(ID3D11Device *dev, ID3D11DeviceContext *devcon)
+void Material::Init(ID3D11Device *dev, ID3D11DeviceContext *devcon)
 {
 	shader = new Shader();
 	shader->Init(dev, devcon);
@@ -21,9 +21,19 @@ Material::~Material()
 	shader = nullptr;*/
 }
 
-ID3D11ShaderResourceView* Material::GetTexture()
+ID3D11ShaderResourceView* Material::GetTextureResource()
 {
 	return texture->GetTexture();
+}
+
+Texture& Material::GetTexture()
+{
+	return *texture;
+}
+
+Shader& Material::GetShader()
+{
+	return *shader;
 }
 
 void Material::SetTexture(Texture *texture)

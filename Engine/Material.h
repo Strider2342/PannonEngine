@@ -17,11 +17,15 @@ private:
 
 public:
 	Material();
-	Material(ID3D11Device *dev, ID3D11DeviceContext *devcon);
 	~Material();
 
-	ID3D11ShaderResourceView *GetTexture();
+	void Init(ID3D11Device *dev, ID3D11DeviceContext *devcon);
+
+	ID3D11ShaderResourceView *GetTextureResource();
 	
+	Texture& GetTexture();
+	Shader& GetShader();
+
 	void SetTexture(Texture *texture);
 	void SetShader(Shader *shader);
 };

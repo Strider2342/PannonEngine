@@ -14,6 +14,8 @@ void MeshRenderer::Init(ID3D11Device *dev, ID3D11DeviceContext *devcon)
 {
 	this->dev = dev;
 	this->devcon = devcon;
+
+	material->Init(dev, devcon);
 }
 
 void MeshRenderer::InitPipeline()
@@ -32,12 +34,14 @@ void MeshRenderer::InitPipeline()
 
 void MeshRenderer::LoadShader()
 {
-
+	material->GetShader().CreateVertexShader("defshader.hlsl", "VShader");
+	material->GetShader().CreatePixelShader("defshader.hlsl", "PShader");
+	material->GetShader().SetInputLayout();
 }
 
 void MeshRenderer::Render()
 {
-
+	DirectX::XMMATRIX matFinal;
 }
 
 void MeshRenderer::SetMaterial(Material *material)

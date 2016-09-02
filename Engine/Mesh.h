@@ -26,9 +26,4 @@ public:
 
 	void Init(GameObject *gameObject);
 	GameObject *GetGameObject();
-
-	void Sajt()
-	{
-		std::cout << "Mesh!" << std::endl;
-	}
 };

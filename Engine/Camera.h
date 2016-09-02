@@ -15,10 +15,15 @@ private:
 	Vector3 position;
 	Vector3 rotation;
 
+	Vector3 up;
+
+	DirectX::XMMATRIX matView;
+	DirectX::XMMATRIX matProjection;
+	
+	float fov;
+	float aspectRatio;
 	float nearClippingPlane;
 	float farClippingPlane;
-
-	float fov;
 	
 public:
 	Camera();

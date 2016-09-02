@@ -1,14 +1,27 @@
 #include "Camera.h"
 
 Camera::Camera()
-{ }
+{
+	fov = 75.0f;
+	aspectRatio = 1280 / 720;
+	nearClippingPlane = 0.0f;
+	farClippingPlane = 100.0f;
+}
 
 DirectX::XMMATRIX& Camera::GetViewMatrix()
 {
-	return DirectX::XMMatrixIdentity();
+	DirectX::XMVECTOR eyePos = position.ToDXVector();
+	DirectX::XMVECTOR focusPos = DirectX::XMVectorSet(0.0f, 0.0f, 1.0f, 1.0f);
+	DirectX::XMVECTOR upDir = DirectX::XMVectorSet(up.GetX(), up.GetY(), up.GetZ(), 1.0f);
+
+	matView = DirectX::XMMatrixLookAtLH(eyePos, focusPos, upDir);
+
+	return matView;
 }
 
 DirectX::XMMATRIX& Camera::GetProjectionMatrix()
 {
-	return DirectX::XMMatrixIdentity();
+	matProjection = DirectX::XMMatrixPerspectiveFovLH(fov, aspectRatio, nearClippingPlane, farClippingPlane);
+
+	return matProjection;
 }

@@ -1,6 +1,7 @@
 #pragma once
 #include <iostream>
 #include <string>
+#include <DirectXMath.h>
 
 class Vector3
 {
@@ -29,4 +30,5 @@ public:
 	float GetLength() const;
 
 	std::string ToString();
+	DirectX::XMVECTOR ToDXVector();
 };
