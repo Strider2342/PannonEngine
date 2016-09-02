@@ -102,6 +102,9 @@ Texture* ContentManager::LoadTexture(std::string filename)
 
 Mesh* ContentManager::LoadMesh(std::string filename)
 {
+	Mesh *newmesh = new Mesh();
+	Material *newmaterial = new Material();
+
 	Assimp::Importer importer;
 	const aiScene *scene = importer.ReadFile(filename, aiProcessPreset_TargetRealtime_Fast);
 
@@ -113,5 +116,41 @@ Mesh* ContentManager::LoadMesh(std::string filename)
 	aiColor3D ambient;
 	aiColor3D emissive;
 
-	return nullptr;
+	material->Get(AI_MATKEY_COLOR_DIFFUSE, diffuse);
+	material->Get(AI_MATKEY_COLOR_SPECULAR, specular);
+	material->Get(AI_MATKEY_COLOR_AMBIENT, ambient);
+	material->Get(AI_MATKEY_COLOR_EMISSIVE, emissive);
+
+	newmaterial->SetDiffuse(diffuse.r, diffuse.g, diffuse.b);
+	newmaterial->SetSpecular(specular.r, specular.g, specular.b);
+	newmaterial->SetAmbient(ambient.r, ambient.g, ambient.b);
+	newmaterial->SetEmissive(emissive.r, emissive.g, emissive.b);
+
+	std::vector<Vertex> vertices;
+	std::vector<DWORD> indices;
+
+	for (unsigned int i = 0; i < mesh->mNumVertices; i++)
+	{
+		Vertex vertex;
+
+		vertex.position = DirectX::XMFLOAT3(mesh->mVertices[i].x, mesh->mVertices[i].y, mesh->mVertices[i].z);
+		vertex.normal = DirectX::XMFLOAT3(mesh->mNormals[i].x, mesh->mNormals[i].y, mesh->mNormals[i].z);
+		vertex.uv = DirectX::XMFLOAT2(mesh->mTextureCoords[0][i].x, mesh->mTextureCoords[0][i].y);
+
+		vertices.push_back(vertex);
+	}
+
+	for (unsigned int i = 0; i < mesh->mNumFaces; i++)
+	{
+		const aiFace face = mesh->mFaces[i];
+
+		indices.push_back(face.mIndices[0]);
+		indices.push_back(face.mIndices[1]);
+		indices.push_back(face.mIndices[2]);
+	}
+
+	newmesh->SetVertices(vertices);
+	newmesh->SetIndices(indices);
+
+	return newmesh;
 }

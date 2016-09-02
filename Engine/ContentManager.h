@@ -1,7 +1,9 @@
 #pragma once
 #include <iostream>
+#include <list>
 #include "stb_image.h"
 #include "Texture.h"
+#include "Material.h"
 #include "Mesh.h"
 
 #include <Importer.hpp>
