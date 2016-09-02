@@ -30,6 +30,7 @@ void GameObject::InitMesh()
 	mesh = new Mesh();
 	renderer = new MeshRenderer();
 	renderer->SetMesh(mesh);
+	renderer->SetTransform(transform);
 }
 
 Transform* GameObject::GetTransform()
