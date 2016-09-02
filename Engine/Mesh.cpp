@@ -4,16 +4,24 @@ Mesh::Mesh()
 { }
 
 Mesh::~Mesh()
+{ }
+
+std::vector<Vertex>& Mesh::GetVertices()
 {
-	//gameObject = nullptr;
+	return vertices;
 }
 
-void Mesh::Init(GameObject *gameObject)
+std::vector<DWORD>& Mesh::GetIndices()
 {
-	this->gameObject = gameObject;
+	return indices;
 }
 
-GameObject* Mesh::GetGameObject()
+void Mesh::SetVertices(std::vector<Vertex>& vertices)
 {
-	return gameObject;
+	this->vertices = vertices;
+}
+
+void Mesh::SetIndices(std::vector<DWORD>& indices)
+{
+	this->indices = indices;
 }

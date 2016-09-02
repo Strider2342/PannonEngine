@@ -1,5 +1,6 @@
 #pragma once
 #include "Material.h"
+#include "Camera.h"
 
 struct CBUFFER
 {
@@ -23,6 +24,8 @@ private:
 	Material *material;
 	CBUFFER cBuffer;
 
+	Camera *camera;
+
 public:
 	MeshRenderer();
 	~MeshRenderer();
@@ -36,6 +39,8 @@ public:
 	void Render();
 
 	Material *GetMaterial();
+	Camera *GetCamera();
 
 	void SetMaterial(Material *material);
+	void SetCamera(Camera *camera);
 };

@@ -39,12 +39,36 @@ void MeshRenderer::LoadShader()
 	material->GetShader().SetInputLayout();
 }
 
+void MeshRenderer::CreateVertexBuffer()
+{
+
+}
+
+void MeshRenderer::CreateIndexBuffer()
+{
+}
+
 void MeshRenderer::Render()
 {
 	DirectX::XMMATRIX matFinal;
 }
 
+Material* MeshRenderer::GetMaterial()
+{
+	return material;
+}
+
+Camera* MeshRenderer::GetCamera()
+{
+	return camera;
+}
+
 void MeshRenderer::SetMaterial(Material *material)
 {
 	this->material = material;
+}
+
+void MeshRenderer::SetCamera(Camera *camera)
+{
+	this->camera = camera;
 }

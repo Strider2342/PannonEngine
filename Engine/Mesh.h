@@ -11,12 +11,9 @@ struct Vertex
 	DirectX::XMFLOAT2 uv;
 };
 
-class GameObject;
 class Mesh
 {
 private:
-	GameObject *gameObject = nullptr;
-
 	std::vector<Vertex> vertices;
 	std::vector<DWORD> indices;
 
@@ -24,6 +21,9 @@ public:
 	Mesh();
 	~Mesh();
 
-	void Init(GameObject *gameObject);
-	GameObject *GetGameObject();
+	std::vector<Vertex>& GetVertices();
+	std::vector<DWORD>& GetIndices();
+
+	void SetVertices(std::vector<Vertex> &vertices);
+	void SetIndices(std::vector<DWORD> &indices);
 };
