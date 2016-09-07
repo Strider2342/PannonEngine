@@ -31,10 +31,13 @@ public:
 	void SetPosition(Vector3 value);
 	void SetRotation(Vector3 value);
 	void SetScale(Vector3 value);
+
+	void MultiplyScale(float value);
 	
 	void SetParent(Transform *parent);
 
 	DirectX::XMMATRIX GetWorldMatrix();
+	DirectX::XMMATRIX GetRotationMatrix();
 
 	bool HasParent();
 };

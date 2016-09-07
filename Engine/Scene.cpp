@@ -39,3 +39,8 @@ Camera* Scene::GetMainCamera()
 {
 	return mainCamera;
 }
+
+void Scene::SetMainCamera(Camera *camera)
+{
+	mainCamera = camera;
+}

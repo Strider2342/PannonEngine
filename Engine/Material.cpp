@@ -2,16 +2,6 @@
 
 Material::Material()
 { }
-
-void Material::Init(ID3D11Device *dev, ID3D11DeviceContext *devcon)
-{
-	shader = new Shader();
-	shader->Init(dev, devcon);
-
-	shader->CreateVertexShader("Shaders/DefShader.hlsl", "VShader");
-	shader->CreatePixelShader("Shaders/DefShader.hlsl", "PShader");
-}
-
 Material::~Material()
 {
 	/*delete texture;
@@ -19,6 +9,20 @@ Material::~Material()
 
 	texture = nullptr;
 	shader = nullptr;*/
+}
+
+void Material::Init(ID3D11Device *dev, ID3D11DeviceContext *devcon)
+{
+	shader = new Shader();
+	shader->Init(dev, devcon);
+
+	diffuse = DirectX::XMFLOAT3(0.8f, 0.8f, 0.8f);
+	specular = DirectX::XMFLOAT3(0.8f, 0.8f, 0.8f);
+	ambient = DirectX::XMFLOAT3(0.8f, 0.8f, 0.8f);
+	emissive = DirectX::XMFLOAT3(0.8f, 0.8f, 0.8f);
+
+	shader->CreateVertexShader(L"../Engine/Shaders/DefShader.hlsl", "VShader");
+	shader->CreatePixelShader(L"../Engine/Shaders/DefShader.hlsl", "PShader");
 }
 
 ID3D11ShaderResourceView* Material::GetTextureResource()

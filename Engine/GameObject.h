@@ -26,11 +26,13 @@ public:
 	~GameObject();
 
 	void InitEmpty();
-	void InitMesh();
+	void InitMesh(ID3D11Device *dev, ID3D11DeviceContext *devcon);
 
 	Transform *GetTransform();
 	Mesh *GetMesh();
 	MeshRenderer *GetMeshRenderer();
 
 	std::string GetName();
+
+	void SetMesh(Mesh *mesh);
 };

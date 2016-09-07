@@ -24,6 +24,8 @@ private:
 public:
 	Camera();
 	
+	void Init();
+
 	DirectX::XMMATRIX& GetViewMatrix();
 	DirectX::XMMATRIX& GetProjectionMatrix();
 };

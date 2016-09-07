@@ -15,28 +15,22 @@ void MeshRenderer::Init(ID3D11Device *dev, ID3D11DeviceContext *devcon)
 	this->dev = dev;
 	this->devcon = devcon;
 
-	material->Init(dev, devcon);
+	CreateVertexBuffer();
+	CreateIndexBuffer();
+	InitPipeline();
 }
 
 void MeshRenderer::InitPipeline()
 {
-	D3D11_BUFFER_DESC bd;
-
-	// constant buffer		
-	ZeroMemory(&bd, sizeof(bd));
-
-	bd.Usage = D3D11_USAGE_DEFAULT;
-	bd.ByteWidth = sizeof(cBuffer);
-	bd.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
-
-	dev->CreateBuffer(&bd, NULL, &pCBuffer);
+	CreateConstantBuffer();
+		
+	LoadShader();
 }
 
 void MeshRenderer::LoadShader()
 {
-	material->GetShader().CreateVertexShader("defshader.hlsl", "VShader");
-	material->GetShader().CreatePixelShader("defshader.hlsl", "PShader");
-	material->GetShader().SetInputLayout();
+	material->GetShader().CreateVertexShader(L"../Engine/Shaders/DefShader.hlsl", "VShader");
+	material->GetShader().CreatePixelShader(L"../Engine/Shaders/DefShader.hlsl", "PShader");
 }
 
 void MeshRenderer::CreateVertexBuffer()
@@ -75,21 +69,54 @@ void MeshRenderer::CreateIndexBuffer()
 	devcon->Unmap(pIBuffer, NULL);
 }
 
-void MeshRenderer::Render()
+void MeshRenderer::CreateConstantBuffer()
+{
+	D3D11_BUFFER_DESC bd;
+	ZeroMemory(&bd, sizeof(bd));
+
+	bd.Usage = D3D11_USAGE_DEFAULT;
+	bd.ByteWidth = sizeof(cBuffer);
+	bd.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
+
+	dev->CreateBuffer(&bd, NULL, &pCBuffer);
+}
+
+void MeshRenderer::SetConstantBuffer()
 {
 	DirectX::XMMATRIX matFinal = transform->GetWorldMatrix() * camera->GetViewMatrix() * camera->GetProjectionMatrix();
 
+	cBuffer.final = matFinal;
+	cBuffer.rotation = transform->GetRotationMatrix();
+	cBuffer.lightvector = DirectX::XMVectorSet(1.0f, 1.0f, 1.0f, 0.0f);
+	cBuffer.lightcolor = DirectX::XMVectorSet(0.1f, 0.1f, 0.1f, 1.0f);
+	cBuffer.ambientcolor = DirectX::XMLoadFloat3(&material->GetAmbient());
+}
+
+void MeshRenderer::Render()
+{
+	DirectX::XMMATRIX matWorld = transform->GetWorldMatrix();
+	DirectX::XMMATRIX matView = camera->GetViewMatrix();
+	DirectX::XMMATRIX matProj = camera->GetProjectionMatrix();
+	DirectX::XMMATRIX matFinal = transform->GetWorldMatrix() * camera->GetViewMatrix() * camera->GetProjectionMatrix();
+
+	SetConstantBuffer();
+
 	UINT stride = sizeof(Vertex);
 	UINT offset = 0;
-	devcon->VSSetShader(material->GetShader().GetVertexShader(), 0, 0);
-	devcon->PSSetShader(material->GetShader().GetPixelShader(), 0, 0);
-	devcon->IASetInputLayout(material->GetShader().GetLayout());
+
+	ID3D11VertexShader *vs = material->GetShader().GetVertexShader();
+	ID3D11PixelShader *ps = material->GetShader().GetPixelShader();
+	ID3D11InputLayout *layout = material->GetShader().GetLayout();
+	
+	devcon->VSSetShader(vs, 0, 0);
+	devcon->PSSetShader(ps, 0, 0);
+	devcon->IASetInputLayout(layout);
 	devcon->IASetVertexBuffers(0, 1, &pVBuffer, &stride, &offset);
 	devcon->IASetIndexBuffer(pIBuffer, DXGI_FORMAT_R32_UINT, 0);
 
 	devcon->VSSetConstantBuffers(0, 1, &pCBuffer);
-	devcon->UpdateSubresource(pCBuffer, 0, 0, &cBuffer, 0, 0);
-	devcon->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_POINTLIST);
+	devcon->UpdateSubresource(pCBuffer, 0, 0, &matFinal, 0, 0);
+	devcon->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 	devcon->DrawIndexed(mesh->GetIndices().size(), 0, 0);
 }
 

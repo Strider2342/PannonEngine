@@ -18,17 +18,14 @@ private:
 	ID3D11GeometryShader *pGS = nullptr;
 	ID3D11PixelShader *pPS = nullptr;
 
-	ID3DBlob *VS = nullptr;
-	ID3DBlob *PS = nullptr;
-
 public:
 	Shader();
 	~Shader();
 
 	void Init(ID3D11Device *dev, ID3D11DeviceContext *devcon);
-	void SetInputLayout();
-	void CreateVertexShader(std::string filename, std::string entrypoint);
-	void CreatePixelShader(std::string filename, std::string entrypoint);
+	void SetInputLayout(ID3DBlob *VS);
+	void CreateVertexShader(LPCWSTR filename, std::string entrypoint);
+	void CreatePixelShader(LPCWSTR filename, std::string entrypoint);
 
 	ID3D11InputLayout* GetLayout();
 	ID3D11VertexShader* GetVertexShader();

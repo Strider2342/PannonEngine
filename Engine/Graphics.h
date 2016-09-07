@@ -41,4 +41,7 @@ public:
 	void CreateViewport();
 	void Begin();
 	void End();
+
+	ID3D11Device* GetDevice();
+	ID3D11DeviceContext* GetDeviceContext();
 };

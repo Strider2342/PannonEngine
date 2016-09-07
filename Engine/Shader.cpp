@@ -16,7 +16,7 @@ void Shader::Init(ID3D11Device *dev, ID3D11DeviceContext *devcon)
 	this->devcon = devcon;
 }
 
-void Shader::SetInputLayout()
+void Shader::SetInputLayout(ID3DBlob * VS)
 {
 	D3D11_INPUT_ELEMENT_DESC ied[] =
 	{
@@ -24,15 +24,26 @@ void Shader::SetInputLayout()
 		{ "NORMAL", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 12, D3D11_INPUT_PER_VERTEX_DATA, 0 },
 		{ "TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT, 0, 24, D3D11_INPUT_PER_VERTEX_DATA, 0 }
 	};
-	dev->CreateInputLayout(ied, ARRAYSIZE(ied), VS->GetBufferPointer(), VS->GetBufferSize(), &pLayout);
-	devcon->IASetInputLayout(pLayout);
+
+	HRESULT hr = dev->CreateInputLayout(ied, ARRAYSIZE(ied), VS->GetBufferPointer(), VS->GetBufferSize(), &pLayout);
+	
+	if (hr != S_OK)
+	{
+		std::cout << "Input layout creation failed" << std::endl;
+		return;
+	}
+	else
+	{
+		devcon->IASetInputLayout(pLayout);
+	}
 }
 
-void Shader::CreateVertexShader(std::string filename, std::string entrypoint)
+void Shader::CreateVertexShader(LPCWSTR filename, std::string entrypoint)
 {
+	ID3DBlob *VS = nullptr;
 	ID3DBlob *errorBlob = nullptr;
 	
-	HRESULT hr = D3DCompileFromFile((LPCWSTR)filename.c_str(), nullptr, 0, entrypoint.c_str(), (dev->GetFeatureLevel() >= D3D_FEATURE_LEVEL_11_0) ? "vs_5_0" : "vs_4_0", D3DCOMPILE_DEBUG, 0, &VS, &errorBlob);
+	HRESULT hr = D3DCompileFromFile(filename, nullptr, 0, entrypoint.c_str(), (dev->GetFeatureLevel() >= D3D_FEATURE_LEVEL_11_0) ? "vs_5_0" : "vs_4_0", D3DCOMPILE_DEBUG, 0, &VS, &errorBlob);
 
 	if (errorBlob)
 	{
@@ -42,19 +53,23 @@ void Shader::CreateVertexShader(std::string filename, std::string entrypoint)
 
 	if (hr != S_OK)
 	{
+		std::cout << "Vertex shader failed to load" << std::endl;
 		return;
 	}
 	else
 	{
 		dev->CreateVertexShader(VS->GetBufferPointer(), VS->GetBufferSize(), NULL, &pVS);
 	}
+
+	SetInputLayout(VS);
 }
 
-void Shader::CreatePixelShader(std::string filename, std::string entrypoint)
+void Shader::CreatePixelShader(LPCWSTR filename, std::string entrypoint)
 {
+	ID3DBlob *PS = nullptr;
 	ID3DBlob *errorBlob = nullptr;
 
-	HRESULT hr = D3DCompileFromFile((LPCWSTR)filename.c_str(), nullptr, 0, entrypoint.c_str(), (dev->GetFeatureLevel() >= D3D_FEATURE_LEVEL_11_0) ? "vs_5_0" : "vs_4_0", D3DCOMPILE_DEBUG, 0, &PS, &errorBlob);
+	HRESULT hr = D3DCompileFromFile(filename, nullptr, 0, entrypoint.c_str(), (dev->GetFeatureLevel() >= D3D_FEATURE_LEVEL_11_0) ? "ps_5_0" : "ps_4_0", D3DCOMPILE_DEBUG, 0, &PS, &errorBlob);
 
 	if (errorBlob)
 	{
@@ -64,6 +79,7 @@ void Shader::CreatePixelShader(std::string filename, std::string entrypoint)
 
 	if (hr != S_OK)
 	{
+		std::cout << "Pixel shader failed to load" << std::endl;
 		return;
 	}
 	else

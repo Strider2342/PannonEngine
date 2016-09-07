@@ -55,6 +55,11 @@ void Transform::SetScale(Vector3 value)
 	scale = Vector3(value.GetX(), value.GetY(), value.GetZ());
 }
 
+void Transform::MultiplyScale(float value)
+{
+	scale = Vector3(scale.GetX() * value, scale.GetY() * value, scale.GetZ() * value);
+}
+
 void Transform::SetParent(Transform* parent)
 {
 	this->parent = parent;
@@ -78,6 +83,13 @@ DirectX::XMMATRIX Transform::GetWorldMatrix()
 	{
 		return matRotateX * matRotateY * matRotateZ * matScale * matTranslate;
 	}
+}
+
+DirectX::XMMATRIX Transform::GetRotationMatrix()
+{
+	DirectX::XMMATRIX matRotateX, matRotateY, matRotateZ;
+
+	return matRotateX * matRotateY * matRotateZ;
 }
 
 bool Transform::HasParent()

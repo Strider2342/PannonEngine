@@ -26,4 +26,6 @@ public:
 	void AddCamera(Camera *camera);
 
 	Camera* GetMainCamera();
+
+	void SetMainCamera(Camera *camera);
 };

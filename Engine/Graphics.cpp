@@ -176,3 +176,13 @@ void Graphics::End()
 	swapchain->Present(0, 0);
 	devcon->ClearState();
 }
+
+ID3D11Device* Graphics::GetDevice()
+{
+	return dev;
+}
+
+ID3D11DeviceContext* Graphics::GetDeviceContext()
+{
+	return devcon;
+}

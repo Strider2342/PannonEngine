@@ -11,6 +11,7 @@ void Application::Run()
 	MSG msg;
 
 	scene.Init(graphics);
+	scene.Load();
 
 	std::cout << "Application started";
 

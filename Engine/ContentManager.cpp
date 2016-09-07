@@ -139,7 +139,7 @@ Mesh* ContentManager::LoadMesh(std::string filename)
 
 		vertices.push_back(vertex);
 	}
-
+	
 	for (unsigned int i = 0; i < mesh->mNumFaces; i++)
 	{
 		const aiFace face = mesh->mFaces[i];

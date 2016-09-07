@@ -39,6 +39,8 @@ public:
 	void LoadShader();
 	void CreateVertexBuffer();
 	void CreateIndexBuffer();
+	void CreateConstantBuffer();
+	void SetConstantBuffer();
 
 	void Render();
 
