@@ -76,3 +76,20 @@ DirectX::XMVECTOR Vector3::ToXMVector()
 {
 	return DirectX::XMVectorSet(GetX(), GetY(), GetZ(), 1.0f);
 }
+
+// static functions
+
+Vector3& Vector3::Normalize(Vector3 vector)
+{
+	return Vector3(vector.GetX() / vector.GetLength(), vector.GetY() / vector.GetLength(), vector.GetZ() / vector.GetLength());
+}
+Vector3& Vector3::TransformByMatrix(Vector3 vector, DirectX::XMMATRIX &matrix)
+{
+	DirectX::XMVECTOR xmvec = DirectX::XMVectorSet(vector.GetX(), vector.GetY(), vector.GetZ(), 1.0f);
+	xmvec = XMVector3Transform(xmvec, matrix);
+
+	DirectX::XMFLOAT3 floatVector;
+	DirectX::XMStoreFloat3(&floatVector, xmvec);
+
+	return Vector3::Normalize(Vector3(floatVector.x, floatVector.y, floatVector.z));
+}

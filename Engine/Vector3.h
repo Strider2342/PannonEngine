@@ -22,7 +22,9 @@ public:
 	void SetY(float value);
 	void SetZ(int value);
 	void SetZ(float value);
-	
+
+	void Normalize();
+
 	float GetX() const;
 	float GetY() const;
 	float GetZ() const;
@@ -31,4 +33,7 @@ public:
 
 	std::string ToString();
 	DirectX::XMVECTOR ToXMVector();
+	
+	static Vector3& Normalize(Vector3 vector);
+	static Vector3& TransformByMatrix(Vector3 vector, DirectX::XMMATRIX &matrix);
 };

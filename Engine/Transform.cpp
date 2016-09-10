@@ -27,15 +27,15 @@ Vector3& Transform::GetScale()
 }
 Vector3& Transform::GetForward()
 {
-	return forward;
+	return Vector3::TransformByMatrix(forward, this->GetWorldMatrix());
 }
 Vector3& Transform::GetUp()
 {
-	return up;
+	return Vector3::TransformByMatrix(up, this->GetWorldMatrix());
 }
 Vector3& Transform::GetRight()
 {
-	return right;
+	return Vector3::TransformByMatrix(right, this->GetWorldMatrix());
 }
 Transform* Transform::GetParent()
 {

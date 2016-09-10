@@ -94,11 +94,6 @@ void MeshRenderer::SetConstantBuffer()
 
 void MeshRenderer::Render()
 {
-	DirectX::XMMATRIX matWorld = transform->GetWorldMatrix();
-	DirectX::XMMATRIX matView = camera->GetViewMatrix();
-	DirectX::XMMATRIX matProj = camera->GetProjectionMatrix();
-	DirectX::XMMATRIX matFinal = transform->GetWorldMatrix() * camera->GetViewMatrix() * camera->GetProjectionMatrix();
-
 	SetConstantBuffer();
 
 	UINT stride = sizeof(Vertex);
@@ -115,7 +110,7 @@ void MeshRenderer::Render()
 	devcon->IASetIndexBuffer(pIBuffer, DXGI_FORMAT_R32_UINT, 0);
 
 	devcon->VSSetConstantBuffers(0, 1, &pCBuffer);
-	devcon->UpdateSubresource(pCBuffer, 0, 0, &matFinal, 0, 0);
+	devcon->UpdateSubresource(pCBuffer, 0, 0, &cBuffer, 0, 0);
 	devcon->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 	devcon->DrawIndexed(mesh->GetIndices().size(), 0, 0);
 }
