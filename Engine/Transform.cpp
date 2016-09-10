@@ -2,62 +2,71 @@
 
 Transform::Transform()
 {
-	position = Vector3(0, 0, 0);
-	rotation = Vector3(0, 0, 0);
-	scale = Vector3(1, 1, 1);
+	position = XMFLOAT3(0, 0, 0);
+	rotation = XMFLOAT3(0, 0, 0);
+	scale = XMFLOAT3(1, 1, 1);
 
-	forward = Vector3(0, 0, 1);
-	up = Vector3(0, 1, 0);
-	right = Vector3(1, 0, 0);
+	forward = XMFLOAT3(0, 0, 1);
+	up = XMFLOAT3(0, 1, 0);
+	right = XMFLOAT3(1, 0, 0);
 
 	parent = nullptr;
 }
 
-Vector3& Transform::GetPosition()
+XMFLOAT3& Transform::GetPosition()
 {
 	return position;
 }
-Vector3& Transform::GetRotation()
+XMFLOAT3& Transform::GetRotation()
 {
 	return rotation;
 }
-Vector3& Transform::GetScale()
+XMFLOAT3& Transform::GetScale()
 {
 	return scale;
 }
-Vector3& Transform::GetForward()
+XMFLOAT3& Transform::GetForward()
 {
-	return Vector3::TransformByMatrix(forward, this->GetWorldMatrix());
+	XMFLOAT3 vector;
+	XMStoreFloat3(&vector, XMVector3Normalize(XMVector3Transform(XMLoadFloat3(&forward), GetRotationMatrix())));
+
+	return vector;
 }
-Vector3& Transform::GetUp()
+XMFLOAT3& Transform::GetUp()
 {
-	return Vector3::TransformByMatrix(up, this->GetWorldMatrix());
+	XMFLOAT3 vector;
+	XMStoreFloat3(&vector, XMVector3Normalize(XMVector3Transform(XMLoadFloat3(&up), GetRotationMatrix())));
+
+	return vector;
 }
-Vector3& Transform::GetRight()
+XMFLOAT3& Transform::GetRight()
 {
-	return Vector3::TransformByMatrix(right, this->GetWorldMatrix());
+	XMFLOAT3 vector;
+	XMStoreFloat3(&vector, XMVector3Normalize(XMVector3Transform(XMLoadFloat3(&right), GetRotationMatrix())));
+
+	return vector;
 }
 Transform* Transform::GetParent()
 {
 	return parent;
 }
 
-void Transform::SetPosition(Vector3 value)
+void Transform::SetPosition(XMFLOAT3 value)
 {
-	position = Vector3(value.GetX(), value.GetY(), value.GetZ());
+	position = XMFLOAT3(value.x, value.y, value.z);
 }
-void Transform::SetRotation(Vector3 value)
+void Transform::SetRotation(XMFLOAT3 value)
 {
-	rotation = Vector3(value.GetX(), value.GetY(), value.GetZ());
+	rotation = XMFLOAT3(value.x, value.y, value.z);
 }
-void Transform::SetScale(Vector3 value)
+void Transform::SetScale(XMFLOAT3 value)
 {
-	scale = Vector3(value.GetX(), value.GetY(), value.GetZ());
+	scale = XMFLOAT3(value.x, value.y, value.z);
 }
 
 void Transform::MultiplyScale(float value)
 {
-	scale = Vector3(scale.GetX() * value, scale.GetY() * value, scale.GetZ() * value);
+	scale = XMFLOAT3(scale.x * value, scale.y * value, scale.z * value);
 }
 
 void Transform::SetParent(Transform* parent)
@@ -69,11 +78,11 @@ DirectX::XMMATRIX Transform::GetWorldMatrix()
 {
 	DirectX::XMMATRIX matRotateX, matRotateY, matRotateZ, matScale, matTranslate;
 
-	matRotateX = DirectX::XMMatrixRotationX(rotation.GetX());
-	matRotateY = DirectX::XMMatrixRotationY(rotation.GetY());
-	matRotateZ = DirectX::XMMatrixRotationZ(rotation.GetZ());
-	matScale = DirectX::XMMatrixScaling(scale.GetX(), scale.GetY(), scale.GetZ());
-	matTranslate = DirectX::XMMatrixTranslation(position.GetX(), position.GetY(), position.GetZ());
+	matRotateX = DirectX::XMMatrixRotationX(rotation.x);
+	matRotateY = DirectX::XMMatrixRotationY(rotation.y);
+	matRotateZ = DirectX::XMMatrixRotationZ(rotation.z);
+	matScale = DirectX::XMMatrixScaling(scale.x, scale.y, scale.z);
+	matTranslate = DirectX::XMMatrixTranslation(position.x, position.y, position.z);
 
 	if (HasParent())
 	{
@@ -88,6 +97,10 @@ DirectX::XMMATRIX Transform::GetWorldMatrix()
 DirectX::XMMATRIX Transform::GetRotationMatrix()
 {
 	DirectX::XMMATRIX matRotateX, matRotateY, matRotateZ;
+
+	matRotateX = DirectX::XMMatrixRotationX(rotation.x);
+	matRotateY = DirectX::XMMatrixRotationY(rotation.y);
+	matRotateZ = DirectX::XMMatrixRotationZ(rotation.z);
 
 	return matRotateX * matRotateY * matRotateZ;
 }

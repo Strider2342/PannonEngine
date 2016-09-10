@@ -139,6 +139,7 @@
   <ItemGroup>
     <ClInclude Include="Camera.h" />
     <ClInclude Include="ContentManager.h" />
+    <ClInclude Include="DebugHelper.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameWindow.h" />
     <ClInclude Include="Graphics.h" />
@@ -160,6 +161,7 @@
   <ItemGroup>
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="ContentManager.cpp" />
+    <ClCompile Include="DebugHelper.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GameWindow.cpp" />
     <ClCompile Include="Graphics.cpp" />

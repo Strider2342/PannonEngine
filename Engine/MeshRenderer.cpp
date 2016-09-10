@@ -88,7 +88,7 @@ void MeshRenderer::SetConstantBuffer()
 	cBuffer.final = matFinal;
 	cBuffer.rotation = transform->GetRotationMatrix();
 	cBuffer.lightvector = DirectX::XMVectorSet(1.0f, 1.0f, 1.0f, 0.0f);
-	cBuffer.lightcolor = DirectX::XMVectorSet(0.1f, 0.1f, 0.1f, 1.0f);
+	cBuffer.lightcolor = DirectX::XMVectorSet(0.9f, 0.9f, 0.9f, 1.0f);
 	cBuffer.ambientcolor = DirectX::XMLoadFloat3(&material->GetAmbient());
 }
 

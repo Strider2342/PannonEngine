@@ -16,9 +16,9 @@ void Material::Init(ID3D11Device *dev, ID3D11DeviceContext *devcon)
 	shader = new Shader();
 	shader->Init(dev, devcon);
 
-	diffuse = DirectX::XMFLOAT3(0.8f, 0.8f, 0.8f);
+	diffuse = DirectX::XMFLOAT3(0.2f, 0.2f, 0.2f);
 	specular = DirectX::XMFLOAT3(0.8f, 0.8f, 0.8f);
-	ambient = DirectX::XMFLOAT3(0.8f, 0.8f, 0.8f);
+	ambient = DirectX::XMFLOAT3(0.2f, 0.2f, 0.2f);
 	emissive = DirectX::XMFLOAT3(0.8f, 0.8f, 0.8f);
 
 	shader->CreateVertexShader(L"../Engine/Shaders/DefShader.hlsl", "VShader");

@@ -4,6 +4,7 @@
 #include "Object.h"
 #include "GameObject.h"
 #include "Camera.h"
+#include "DebugHelper.h"
 
 class Scene
 {

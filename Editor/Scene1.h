@@ -9,6 +9,7 @@ class Scene1 : public Scene
 private:
 	Camera camera;
 	GameObject test;
+	GameObject teapot;
 	Material material;
 
 public:

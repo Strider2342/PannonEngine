@@ -2,35 +2,37 @@
 #include <DirectXMath.h>
 #include "Vector3.h"
 
+using namespace DirectX;
+
 class Transform
 {
 private:
-	Vector3 position;
-	Vector3 rotation;
-	Vector3 scale;
+	XMFLOAT3 position;
+	XMFLOAT3 rotation;
+	XMFLOAT3 scale;
 
-	Vector3 forward;
-	Vector3 up;
-	Vector3 right;
+	XMFLOAT3 forward;
+	XMFLOAT3 up;
+	XMFLOAT3 right;
 
 	Transform *parent;
 
 public:
 	Transform();
 
-	Vector3& GetPosition();
-	Vector3& GetRotation();
-	Vector3& GetScale();
+	XMFLOAT3& GetPosition();
+	XMFLOAT3& GetRotation();
+	XMFLOAT3& GetScale();
 
-	Vector3& GetForward();
-	Vector3& GetUp();
-	Vector3& GetRight();
+	XMFLOAT3& GetForward();
+	XMFLOAT3& GetUp();
+	XMFLOAT3& GetRight();
 
 	Transform* GetParent();
 
-	void SetPosition(Vector3 value);
-	void SetRotation(Vector3 value);
-	void SetScale(Vector3 value);
+	void SetPosition(XMFLOAT3 value);
+	void SetRotation(XMFLOAT3 value);
+	void SetScale(XMFLOAT3 value);
 
 	void MultiplyScale(float value);
 	

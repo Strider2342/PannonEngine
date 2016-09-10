@@ -13,9 +13,13 @@ void Camera::Init()
 
 DirectX::XMMATRIX& Camera::GetViewMatrix()
 {
-	DirectX::XMVECTOR eyePos = transform->GetPosition().ToXMVector();
-	DirectX::XMVECTOR focusPos = DirectX::XMVectorSet(transform->GetForward().GetX(), transform->GetForward().GetY(), transform->GetForward().GetZ(), 1.0f);
-	DirectX::XMVECTOR upDir = DirectX::XMVectorSet(transform->GetUp().GetX(), transform->GetUp().GetY(), transform->GetUp().GetZ(), 1.0f);
+	DirectX::XMFLOAT3 position = transform->GetPosition();
+	DirectX::XMFLOAT3 look = transform->GetForward();
+	DirectX::XMFLOAT3 up = transform->GetUp();
+
+	DirectX::XMVECTOR eyePos	= DirectX::XMLoadFloat3(&position);
+	DirectX::XMVECTOR focusPos	= DirectX::XMLoadFloat3(&look);
+	DirectX::XMVECTOR upDir		= DirectX::XMLoadFloat3(&up);
 
 	matView = DirectX::XMMatrixLookAtLH(eyePos, focusPos, upDir);
 	//matView = DirectX::XMMatrixInverse(nullptr, matView);
