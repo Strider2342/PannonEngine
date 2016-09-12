@@ -21,8 +21,8 @@ void Material::Init(ID3D11Device *dev, ID3D11DeviceContext *devcon)
 	ambient = DirectX::XMFLOAT3(0.2f, 0.2f, 0.2f);
 	emissive = DirectX::XMFLOAT3(0.8f, 0.8f, 0.8f);
 
-	shader->CreateVertexShader(L"../Engine/Shaders/DefShader.hlsl", "VShader");
-	shader->CreatePixelShader(L"../Engine/Shaders/DefShader.hlsl", "PShader");
+	shader->CreateVertexShader(L"../Shaders/DefShader.hlsl", "VShader");
+	shader->CreatePixelShader(L"../Shaders/DefShader.hlsl", "PShader");
 }
 
 ID3D11ShaderResourceView* Material::GetTextureResource()

@@ -102,6 +102,7 @@ void MeshRenderer::Render()
 	ID3D11VertexShader *vs = material->GetShader().GetVertexShader();
 	ID3D11PixelShader *ps = material->GetShader().GetPixelShader();
 	ID3D11InputLayout *layout = material->GetShader().GetLayout();
+	ID3D11ShaderResourceView *pTexture = material->GetTextureResource();
 	
 	devcon->VSSetShader(vs, 0, 0);
 	devcon->PSSetShader(ps, 0, 0);
@@ -111,6 +112,7 @@ void MeshRenderer::Render()
 
 	devcon->VSSetConstantBuffers(0, 1, &pCBuffer);
 	devcon->UpdateSubresource(pCBuffer, 0, 0, &cBuffer, 0, 0);
+	devcon->PSSetShaderResources(0, 1, &pTexture);
 	devcon->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 	devcon->DrawIndexed(mesh->GetIndices().size(), 0, 0);
 }

@@ -7,6 +7,8 @@ void ContentManager::Init(ID3D11Device* dev, ID3D11DeviceContext* devcon)
 {
 	this->dev = dev;
 	this->devcon = devcon;
+
+	resourceDir = "../";
 }
 
 Texture* ContentManager::LoadTexture(std::string filename)
@@ -14,7 +16,7 @@ Texture* ContentManager::LoadTexture(std::string filename)
 	ID3D11ShaderResourceView *texture_resource;
 	int x, y, n;
 
-	std::string path = "Textures/" + filename;
+	std::string path = resourceDir + "Textures/" + filename;
 	unsigned char *data = stbi_load(path.c_str(), &x, &y, &n, 0);
 
 	if (data == nullptr) {
@@ -100,16 +102,13 @@ Texture* ContentManager::LoadTexture(std::string filename)
 	return texture;
 }
 
-Mesh* ContentManager::LoadMesh(std::string filename)
+Material* ContentManager::LoadMaterial(std::string filename)
 {
-	Mesh *newmesh = new Mesh();
 	Material *newmaterial = new Material();
 
 	Assimp::Importer importer;
-	const aiScene *scene = importer.ReadFile(filename, aiProcessPreset_TargetRealtime_Fast);
-
-	aiMesh *mesh = scene->mMeshes[0];
-
+	const aiScene *scene = importer.ReadFile(resourceDir + filename, aiProcessPreset_TargetRealtime_Fast);
+	
 	aiMaterial *material = scene->mMaterials[0];
 	aiColor3D diffuse;
 	aiColor3D specular;
@@ -125,6 +124,18 @@ Mesh* ContentManager::LoadMesh(std::string filename)
 	newmaterial->SetSpecular(specular.r, specular.g, specular.b);
 	newmaterial->SetAmbient(ambient.r, ambient.g, ambient.b);
 	newmaterial->SetEmissive(emissive.r, emissive.g, emissive.b);
+
+	return newmaterial;
+}
+
+Mesh* ContentManager::LoadMesh(std::string filename)
+{
+	Mesh *newmesh = new Mesh();
+
+	Assimp::Importer importer;
+	const aiScene *scene = importer.ReadFile(resourceDir + filename, aiProcessPreset_TargetRealtime_Fast);
+
+	aiMesh *mesh = scene->mMeshes[0];
 
 	std::vector<Vertex> vertices;
 	std::vector<DWORD> indices;

@@ -1,9 +1,8 @@
 #pragma once
-#include "Vector3.h"
+#include <DirectXMath.h>
+#include "Object.h"
 
-class GameObject;
-class Transform;
-class Light
+class Light : public Object
 {
 public:
 	static enum Type
@@ -14,12 +13,9 @@ public:
 	};
 
 private:
-	GameObject *gameObject = nullptr;
-	Transform *transform = nullptr;
-
 	Type type;
-
-	Vector3 color;
+	
+	DirectX::XMFLOAT3 color;
 	float spotAngle;
 	float attenuation;
 	float intensity;

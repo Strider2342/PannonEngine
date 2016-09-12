@@ -16,10 +16,13 @@ private:
 	ID3D11Device *dev;
 	ID3D11DeviceContext *devcon;
 
+	std::string resourceDir;
+
 public:
 	ContentManager();
 
 	void Init(ID3D11Device *dev, ID3D11DeviceContext *devcon);
 	Texture* LoadTexture(std::string filename);
+	Material* LoadMaterial(std::string filename);
 	Mesh* LoadMesh(std::string filename);
 };
