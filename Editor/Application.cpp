@@ -2,7 +2,7 @@
 
 Application::Application()
 {
-	graphics = Graphics();
+	graphics = EditorGraphics();
 }
 
 void Application::Run()
@@ -10,8 +10,8 @@ void Application::Run()
 	graphics.Init();
 	MSG msg;
 
-	scene.Init(graphics);
-	scene.Load();
+	editor.Init(&graphics);
+	editor.Load();
 
 	std::cout << "Application started";
 
@@ -25,10 +25,14 @@ void Application::Run()
 			if (msg.message == WM_QUIT)
 				break;
 		}
-
-		scene.Update();
-		scene.Draw();
+		else
+		{
+			editor.Update();
+			editor.Draw();
+		}
 	}
+
+	ImGui_ImplDX11_Shutdown();
 
 	graphics.CleanD3D();
 }

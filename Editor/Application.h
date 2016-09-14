@@ -1,14 +1,14 @@
 #pragma once
 #include <iostream>
-#include "Graphics.h"
-#include "Scene1.h"
+#include "EditorGraphics.h"
+#include "Editor.h"
 
 class Application
 {
 private:
-	Graphics graphics;
+	EditorGraphics graphics;
 
-	Scene1 scene;
+	Editor editor;
 
 public:
 	Application();
