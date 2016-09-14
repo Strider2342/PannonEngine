@@ -11,6 +11,18 @@ void ContentManager::Init(ID3D11Device* dev, ID3D11DeviceContext* devcon)
 	resourceDir = "../";
 }
 
+Scene* ContentManager::LoadScene(std::string filename)
+{
+	Scene *newscene;
+
+	Assimp::Importer importer;
+	const aiScene *scene = importer.ReadFile(resourceDir + filename, aiProcessPreset_TargetRealtime_Fast);
+
+	
+
+	return newscene;
+}
+
 Texture* ContentManager::LoadTexture(std::string filename)
 {
 	ID3D11ShaderResourceView *texture_resource;
@@ -108,7 +120,7 @@ Material* ContentManager::LoadMaterial(std::string filename)
 
 	Assimp::Importer importer;
 	const aiScene *scene = importer.ReadFile(resourceDir + filename, aiProcessPreset_TargetRealtime_Fast);
-	
+
 	aiMaterial *material = scene->mMaterials[0];
 	aiColor3D diffuse;
 	aiColor3D specular;

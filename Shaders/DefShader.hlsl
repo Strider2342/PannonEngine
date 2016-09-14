@@ -8,7 +8,7 @@ cbuffer ConstantBuffer
 }
 
 Texture2D Texture : register(t0);
-SamplerState ss;
+SamplerState ss : register(s0);
 
 struct VOut
 {

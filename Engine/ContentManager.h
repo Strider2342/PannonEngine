@@ -2,6 +2,7 @@
 #include <iostream>
 #include <list>
 #include "stb_image.h"
+#include "Scene.h"
 #include "Texture.h"
 #include "Material.h"
 #include "Mesh.h"
@@ -22,6 +23,8 @@ public:
 	ContentManager();
 
 	void Init(ID3D11Device *dev, ID3D11DeviceContext *devcon);
+
+	Scene* LoadScene(std::string filename);
 	Texture* LoadTexture(std::string filename);
 	Material* LoadMaterial(std::string filename);
 	Mesh* LoadMesh(std::string filename);

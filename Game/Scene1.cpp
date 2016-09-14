@@ -17,7 +17,7 @@ void Scene1::Load()
 
 	ContentManager content = ContentManager();
 	content.Init(graphics.GetDevice(), graphics.GetDeviceContext());
-	
+
 	material.SetTexture(content.LoadTexture("defaulttexture.png"));
 
 	test.GetMeshRenderer()->SetCamera(mainCamera);

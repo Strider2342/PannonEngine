@@ -6,11 +6,27 @@
 class Material
 {
 private:
+	struct ShaderInput
+	{
+		DirectX::XMFLOAT4 diffuse;
+		DirectX::XMFLOAT4 specular;
+		DirectX::XMFLOAT4 ambient;
+		DirectX::XMFLOAT4 emissive;
+		float power;
+		
+		bool useTexture;
+
+		DirectX::XMFLOAT2 padding;
+	};
+
+private:
 	DirectX::XMFLOAT3 diffuse;
 	DirectX::XMFLOAT3 specular;
 	DirectX::XMFLOAT3 ambient;
 	DirectX::XMFLOAT3 emissive;
 	float power;
+
+	bool useTexture;
 
 	Texture *texture = nullptr;
 	Shader *shader = nullptr;
@@ -31,6 +47,9 @@ public:
 	DirectX::XMFLOAT3 GetAmbient();
 	DirectX::XMFLOAT3 GetEmissive();
 	float GetPower();
+	bool GetUseTexture();
+
+	ShaderInput& GetShaderInput();
 
 	void SetTexture(Texture *texture);
 	void SetShader(Shader *shader);
@@ -40,4 +59,5 @@ public:
 	void SetAmbient(float r, float g, float b);
 	void SetEmissive(float r, float g, float b);
 	void SetPower(float value);
+	void SetUseTexture(bool value);
 };
