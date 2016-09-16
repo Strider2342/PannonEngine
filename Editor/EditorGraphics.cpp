@@ -1,6 +1,9 @@
 #include "EditorGraphics.h"
 
 EditorGraphics::EditorGraphics()
+{ }
+
+void EditorGraphics::Init()
 {
 	backbufferWidth = options.resolutionX;
 	backbufferHeight = options.resolutionY;
@@ -10,12 +13,9 @@ EditorGraphics::EditorGraphics()
 	CLASS_NAME = L"Pannon Window Class";
 	this->hInstance = GetModuleHandle(NULL);
 	this->wc = CreateWindowClass();
-	this->hWnd = Create();
+	this->hWnd = CreateWnd();
 	ShowWindow(hWnd, 10);
-}
 
-void EditorGraphics::Init()
-{
 	if (!CreateDevice()) { exit(0); }
 	if (!CreateSwapChain(hWnd, backbufferWidth, backbufferHeight, 60, false)) { exit(0); }
 	if (!CreateDepthBuffer()) { exit(0); }
@@ -29,13 +29,13 @@ LRESULT CALLBACK EditorGraphics::WindowProc(HWND hWnd, UINT message, WPARAM wPar
 		return true;
 	switch (message)
 	{
-	case WM_SIZE: { // If our window is resizing
+	case WM_SIZE: {
 		ImGui_ImplDX11_InvalidateDeviceObjects();
 
-		Resize((int)LOWORD(lParam), (int)HIWORD(lParam));
+		Resize((int)LOWORD(wParam), (int)HIWORD(lParam));
 
 		ImGuiIO &io = ImGui::GetIO();
-		io.DisplaySize.x = LOWORD(lParam);
+		io.DisplaySize.x = LOWORD(wParam);
 		io.DisplaySize.y = HIWORD(lParam);
 
 		ImGui_ImplDX11_CreateDeviceObjects();
@@ -58,7 +58,7 @@ LRESULT CALLBACK EditorGraphics::WindowProc(HWND hWnd, UINT message, WPARAM wPar
 	return DefWindowProc(hWnd, message, wParam, lParam);
 }
 
-HWND& EditorGraphics::Create()
+HWND& EditorGraphics::CreateWnd()
 {
 	HWND hwnd = CreateWindowEx(0,
 		wc.lpszClassName,

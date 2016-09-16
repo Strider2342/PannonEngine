@@ -45,6 +45,9 @@
     <ClCompile Include="imgui\imgui_impl_dx11.cpp">
       <Filter>Header Files\imgui</Filter>
     </ClCompile>
+    <ClCompile Include="EditorGUI.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h">
@@ -73,6 +76,9 @@
     </ClInclude>
     <ClInclude Include="imgui\imgui_internal.h">
       <Filter>Header Files\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="EditorGUI.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

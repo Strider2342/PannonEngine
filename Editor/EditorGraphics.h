@@ -45,7 +45,7 @@ public:
 	static LRESULT CALLBACK WindowProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
 
 	// window
-	HWND& Create();
+	HWND& CreateWnd();
 	HWND& CreateBorderless();
 
 	WNDCLASSEX& CreateWindowClass();

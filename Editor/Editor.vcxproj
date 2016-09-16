@@ -157,6 +157,7 @@
   <ItemGroup>
     <ClCompile Include="Application.cpp" />
     <ClCompile Include="EditorGraphics.cpp" />
+    <ClCompile Include="EditorGUI.cpp" />
     <ClCompile Include="EditorWindow.cpp" />
     <ClCompile Include="imgui\imgui.cpp" />
     <ClCompile Include="imgui\imgui_demo.cpp" />
@@ -168,6 +169,7 @@
   <ItemGroup>
     <ClInclude Include="Application.h" />
     <ClInclude Include="EditorGraphics.h" />
+    <ClInclude Include="EditorGUI.h" />
     <ClInclude Include="EditorWindow.h" />
     <ClInclude Include="GraphicsOptions.h" />
     <ClInclude Include="Editor.h" />
