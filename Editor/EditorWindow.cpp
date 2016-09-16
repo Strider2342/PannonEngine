@@ -3,7 +3,7 @@
 EditorWindow::EditorWindow()
 { }
 
-EditorWindow::EditorWindow(int SCREEN_WIDTH, int SCREEN_HEIGHT, LPCWSTR WINDOW_NAME, LPCWSTR CLASS_NAME)
+EditorWindow::EditorWindow(int SCREEN_WIDTH, int SCREEN_HEIGHT, LPCWSTR WINDOW_NAME, LPCWSTR CLASS_NAME, ID3D11Device *dev, WNDPROC &WindowProc)
 {
 	this->SCREEN_WIDTH = SCREEN_WIDTH;
 	this->SCREEN_HEIGHT = SCREEN_HEIGHT;
@@ -11,33 +11,10 @@ EditorWindow::EditorWindow(int SCREEN_WIDTH, int SCREEN_HEIGHT, LPCWSTR WINDOW_N
 	this->CLASS_NAME = CLASS_NAME;
 
 	this->hInstance = GetModuleHandle(NULL);
-	this->wc = CreateWindowClass(L"WindowClass");
+	this->wc = CreateWindowClass(L"WindowClass", WindowProc);
 
 	this->hWnd = Create();
 	ShowWindow(hWnd, 10);
-}
-
-LRESULT CALLBACK EditorWindow::WindowProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
-{
-	if (ImGui_ImplDX11_WndProcHandler(hWnd, message, wParam, lParam))
-		return true;
-	switch (message)
-	{
-	case WM_DESTROY:
-	{
-		PostQuitMessage(0);
-		return 0;
-	}
-	case WM_KEYDOWN:
-	{
-		if (wParam == VK_ESCAPE)
-		{
-			PostQuitMessage(0);
-			return 0;
-		}
-	}
-	}
-	return DefWindowProc(hWnd, message, wParam, lParam);
 }
 
 HWND& EditorWindow::Create()
@@ -77,7 +54,7 @@ HWND& EditorWindow::CreateBorderless()
 	return hwnd;
 }
 
-WNDCLASSEX& EditorWindow::CreateWindowClass(LPCWSTR CLASS_NAME)
+WNDCLASSEX& EditorWindow::CreateWindowClass(LPCWSTR CLASS_NAME, WNDPROC &WindowProc)
 {
 	ZeroMemory(&wc, sizeof(WNDCLASSEX));
 

@@ -4,21 +4,109 @@ EditorGraphics::EditorGraphics()
 {
 	backbufferWidth = options.resolutionX;
 	backbufferHeight = options.resolutionY;
+
+	// window
+	WINDOW_NAME = L"Pannon Editor";
+	CLASS_NAME = L"Pannon Window Class";
+	this->hInstance = GetModuleHandle(NULL);
+	this->wc = CreateWindowClass();
+	this->hWnd = Create();
+	ShowWindow(hWnd, 10);
 }
 
 void EditorGraphics::Init()
-{
-	window = GameWindow(options.resolutionX, options.resolutionY, L"PannonEngine", L"PannonClass");
-	hWnd = window.GetHWND();
-	InitD3D();
-}
-void EditorGraphics::InitD3D()
 {
 	if (!CreateDevice()) { exit(0); }
 	if (!CreateSwapChain(hWnd, backbufferWidth, backbufferHeight, 60, false)) { exit(0); }
 	if (!CreateDepthBuffer()) { exit(0); }
 
 	CreateRasterizerState();
+}
+
+LRESULT CALLBACK EditorGraphics::WindowProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
+{
+	if (ImGui_ImplDX11_WndProcHandler(hWnd, message, wParam, lParam))
+		return true;
+	switch (message)
+	{
+	case WM_SIZE: { // If our window is resizing
+		ImGui_ImplDX11_InvalidateDeviceObjects();
+
+		Resize((int)LOWORD(lParam), (int)HIWORD(lParam));
+
+		ImGuiIO &io = ImGui::GetIO();
+		io.DisplaySize.x = LOWORD(lParam);
+		io.DisplaySize.y = HIWORD(lParam);
+
+		ImGui_ImplDX11_CreateDeviceObjects();
+		break;
+	}
+	case WM_DESTROY:
+	{
+		PostQuitMessage(0);
+		return 0;
+	}
+	case WM_KEYDOWN:
+	{
+		if (wParam == VK_ESCAPE)
+		{
+			PostQuitMessage(0);
+			return 0;
+		}
+	}
+	}
+	return DefWindowProc(hWnd, message, wParam, lParam);
+}
+
+HWND& EditorGraphics::Create()
+{
+	HWND hwnd = CreateWindowEx(0,
+		wc.lpszClassName,
+		WINDOW_NAME,
+		WS_OVERLAPPEDWINDOW,
+		300,
+		300,
+		options.resolutionX,
+		options.resolutionY,
+		NULL,
+		NULL,
+		hInstance,
+		NULL);
+
+	return hwnd;
+}
+HWND& EditorGraphics::CreateBorderless()
+{
+	HWND hwnd = CreateWindowEx(
+		WS_EX_APPWINDOW,
+		wc.lpszClassName,
+		WINDOW_NAME,
+		WS_POPUP,
+		300,
+		300,
+		options.resolutionX,
+		options.resolutionY,
+		NULL,
+		NULL,
+		hInstance,
+		NULL);
+
+	return hwnd;
+}
+WNDCLASSEX& EditorGraphics::CreateWindowClass()
+{
+	ZeroMemory(&wc, sizeof(WNDCLASSEX));
+
+	wc.cbSize = sizeof(WNDCLASSEX);
+	wc.style = CS_HREDRAW | CS_VREDRAW;
+	wc.lpfnWndProc = WindowProc;
+	wc.hInstance = hInstance;
+	wc.hCursor = LoadCursor(NULL, IDC_ARROW);
+	wc.lpszClassName = CLASS_NAME;
+
+	RegisterClassEx(&wc);
+
+	return wc;
 }
 
 bool EditorGraphics::CreateDevice()
@@ -154,6 +242,10 @@ void EditorGraphics::CreateViewport()
 	viewport.MinDepth = 0;    // the closest an object can be on the depth buffer is 0.0
 	viewport.MaxDepth = 1;    // the farthest an object can be on the depth buffer is 1.0	
 	devcon->RSSetViewports(1, &viewport);
+}
+void EditorGraphics::Resize(int width, int height)
+{
+	// To be done
 }
 void EditorGraphics::Begin()
 {

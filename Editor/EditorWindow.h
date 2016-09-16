@@ -2,6 +2,7 @@
 #include <iostream>
 #include <windows.h>
 #include <windowsx.h>
+#include <d3d11.h>
 #include "imgui/imgui.h"
 #include "imgui/imgui_impl_dx11.h"
 
@@ -23,14 +24,12 @@ private:
 
 public:
 	EditorWindow();
-	EditorWindow(int SCREEN_WIDTH, int SCREEN_HEIGHT, LPCWSTR WINDOW_NAME, LPCWSTR CLASS_NAME);
-
-	static LRESULT CALLBACK WindowProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
+	EditorWindow(int SCREEN_WIDTH, int SCREEN_HEIGHT, LPCWSTR WINDOW_NAME, LPCWSTR CLASS_NAME, ID3D11Device *dev, WNDPROC &WindowProc);
 
 	HWND& Create();
 	HWND& CreateBorderless();
 
-	WNDCLASSEX& CreateWindowClass(LPCWSTR CLASS_NAME);
+	WNDCLASSEX& CreateWindowClass(LPCWSTR CLASS_NAME, WNDPROC &WindowProc);
 
 	// get
 	HWND& GetHWND();
