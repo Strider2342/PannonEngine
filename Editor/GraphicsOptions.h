@@ -3,6 +3,6 @@
 class GraphicsOptions
 {
 public:
-	int resolutionX = 1280;
-	int resolutionY = 720;
+	int resolutionX = 1700;
+	int resolutionY = 960;
 };

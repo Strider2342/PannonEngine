@@ -18,7 +18,6 @@ Scene* ContentManager::LoadScene(std::string filename)
 	Assimp::Importer importer;
 	const aiScene *scene = importer.ReadFile(resourceDir + filename, aiProcessPreset_TargetRealtime_Fast);
 
-	
 
 	return newscene;
 }

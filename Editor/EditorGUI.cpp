@@ -61,7 +61,7 @@ void EditorGUI::ViewMenu()
 	{
 		if (ImGui::MenuItem("Material editor"))
 		{
-			//
+			showMaterialEditor ^= 1;
 		}
 		if (ImGui::MenuItem("Inspector"))
 		{
@@ -69,7 +69,11 @@ void EditorGUI::ViewMenu()
 		}
 		if (ImGui::MenuItem("Hierarchy"))
 		{
-			//
+			showHierarchyView ^= 1;
+		}
+		if (ImGui::MenuItem("Debug console"))
+		{
+			showDebugConsole ^= 1;
 		}
 
 		ImGui::EndMenu();
@@ -130,6 +134,18 @@ void EditorGUI::Views()
 	{
 		InspectorView();
 	}
+	if (showHierarchyView)
+	{
+		HierarchyView();
+	}
+	if (showMaterialEditor)
+	{
+		MaterialEditor();
+	}
+	if (showDebugConsole)
+	{
+		DebugConsole();
+	}
 }
 void EditorGUI::InspectorView()
 {
@@ -138,8 +154,8 @@ void EditorGUI::InspectorView()
 	float rotation[3] = { 1.0f, 1.0f, 1.0f };
 	float scale[3] = { 1.0f, 1.0f, 1.0f };
 
-
-	ImGui::SetNextWindowSize(ImVec2(250, 600));
+	ImGui::SetNextWindowPos(ImVec2(1375, 20));
+	ImGui::SetNextWindowSize(ImVec2(300, 900));
 	if (ImGui::Begin("Inspector"))
 	{
 		if (ImGui::CollapsingHeader("Transform"))
@@ -164,6 +180,39 @@ void EditorGUI::InspectorView()
 		}
 		ImGui::End();
 	}
+}
+void EditorGUI::HierarchyView()
+{
+	ImGui::SetNextWindowPos(ImVec2(0, 20));
+	ImGui::SetNextWindowSize(ImVec2(300, 900));
+	if (ImGui::Begin("Hierarchy"))
+	{
+
+		ImGui::End();
+	}
+}
+void EditorGUI::MaterialEditor()
+{
+	ImGui::SetNextWindowSize(ImVec2(400, 600));
+	if (ImGui::Begin("Material editor"))
+	{
+
+		ImGui::End();
+	}
+}
+void EditorGUI::DebugConsole()
+{
+	ImGui::SetNextWindowPos(ImVec2(301, 560));
+	ImGui::SetNextWindowSize(ImVec2(1073, 360));
+	if (ImGui::Begin("Console"))
+	{
+
+		ImGui::End();
+	}
+}
+void EditorGUI::GameCanvas()
+{
+	
 }
 
 void EditorGUI::AssembleGUI()
