@@ -33,3 +33,20 @@ DirectX::XMMATRIX& Camera::GetProjectionMatrix()
 
 	return matProjection;
 }
+
+float Camera::GetFOV()
+{
+	return fov;
+}
+float Camera::GetAspectRatio()
+{
+	return aspectRatio;
+}
+float Camera::GetNearClippingPlane()
+{
+	return nearClippingPlane;
+}
+float Camera::GetFarClippingPlane()
+{
+	return farClippingPlane;
+}

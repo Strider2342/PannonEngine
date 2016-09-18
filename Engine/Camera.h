@@ -28,4 +28,9 @@ public:
 
 	DirectX::XMMATRIX& GetViewMatrix();
 	DirectX::XMMATRIX& GetProjectionMatrix();
+
+	float GetFOV();
+	float GetAspectRatio();
+	float GetNearClippingPlane();
+	float GetFarClippingPlane();
 };
