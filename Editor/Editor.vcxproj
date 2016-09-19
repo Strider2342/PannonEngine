@@ -165,18 +165,19 @@
     <ClCompile Include="imgui\imgui_impl_dx11.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Editor.cpp" />
+    <ClCompile Include="Scene1.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h" />
     <ClInclude Include="EditorGraphics.h" />
     <ClInclude Include="EditorGUI.h" />
     <ClInclude Include="EditorWindow.h" />
-    <ClInclude Include="GraphicsOptions.h" />
     <ClInclude Include="Editor.h" />
     <ClInclude Include="imgui\imconfig.h" />
     <ClInclude Include="imgui\imgui.h" />
     <ClInclude Include="imgui\imgui_impl_dx11.h" />
     <ClInclude Include="imgui\imgui_internal.h" />
+    <ClInclude Include="Scene1.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Engine\Engine.vcxproj">
