@@ -1,16 +1,20 @@
 #pragma once
 #include <iostream>
 
+class GameObject;
 class Script
 {
-private:
-	std::string filename;
-	std::string source;
+	friend class GameObject;
+protected:
+	GameObject *gameObject;
 
 public:
 	Script();
+	virtual ~Script();
 
-	bool Load(std::string filename);
-	
-	void SetFilename(std::string filename);
+	virtual void Start();
+	virtual void Update();
+	virtual void Render();
+
+	void SetGameObject(GameObject *gameObject);
 };

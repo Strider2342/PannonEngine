@@ -3,12 +3,19 @@
 Script::Script()
 { }
 
-bool Script::Load(std::string filename)
-{
-	return true;
-}
+Script::~Script()
+{ }
 
-void Script::SetFilename(std::string filename)
+void Script::Start()
+{ }
+
+void Script::Update()
+{ }
+
+void Script::Render()
+{ }
+
+void Script::SetGameObject(GameObject * gameObject)
 {
-	this->filename = filename;
+	this->gameObject = gameObject;
 }

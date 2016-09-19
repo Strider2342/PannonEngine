@@ -7,7 +7,7 @@ void Scene::Init(Graphics &graphics)
 {
 	this->graphics = graphics;
 
-	gameObjects = std::list<GameObject*>();
+	gameObjects = std::vector<GameObject*>();
 }
 
 void Scene::SetScene(Scene *scene)
@@ -19,7 +19,7 @@ void Scene::SetScene(Scene *scene)
 	this->mainCamera = *(cameras.begin());
 }
 
-std::list<GameObject*>& Scene::GetGameObjectList()
+std::vector<GameObject*>& Scene::GetGameObjectList()
 {
 	return gameObjects;
 }
@@ -30,21 +30,20 @@ void Scene::AddGameObject(GameObject *gameObject)
 }
 GameObject* Scene::FindGameObject(std::string name)
 {
-	std::list<GameObject*>::iterator iterator;
+	std::vector<GameObject*>::iterator iterator;
 
-	for (iterator = gameObjects.begin(); iterator != gameObjects.end(); ++iterator)
+	for (int i = 0; i < gameObjects.size(); i++)
 	{
-		GameObject *gameObject = *iterator;
-		if (gameObject->GetName() == name)
+		if (gameObjects[i]->GetName() == name)
 		{
-			return gameObject;
+			return gameObjects[i];
 		}
 	}
 
 	return nullptr;
 }
 
-std::list<Camera*>& Scene::GetCameraList()
+std::vector<Camera*>& Scene::GetCameraList()
 {
 	return cameras;
 }
@@ -64,7 +63,12 @@ void Scene::SetMainCamera(Camera *camera)
 	mainCamera = camera;
 }
 
-std::list<Light*>& Scene::GetLightList()
+std::vector<Light*>& Scene::GetLightList()
 {
 	return lights;
+}
+
+void Scene::AddLight(Light *light)
+{
+	lights.push_back(light);
 }

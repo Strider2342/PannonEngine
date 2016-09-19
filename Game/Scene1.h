@@ -4,17 +4,19 @@
 #include "ContentManager.h"
 #include "GameObject.h"
 
+#include "MyFirstScript.h"
+
 class Scene1 : public Scene
 {
 private:
 	Camera camera;
 	GameObject test;
 	GameObject teapot;
-	Material material;
 
 public:
 	Scene1();
 
+	void Start();
 	void Load();
 	void Update();
 	void Draw();

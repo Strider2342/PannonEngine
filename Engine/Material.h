@@ -26,6 +26,7 @@ private:
 	DirectX::XMFLOAT3 emissive;
 	float power;
 
+	bool hasTexture;
 	bool useTexture;
 
 	Texture *texture = nullptr;
@@ -47,6 +48,7 @@ public:
 	DirectX::XMFLOAT3 GetAmbient();
 	DirectX::XMFLOAT3 GetEmissive();
 	float GetPower();
+	bool HasTexture();
 	bool GetUseTexture();
 
 	ShaderInput& GetShaderInput();

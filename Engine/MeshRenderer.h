@@ -35,6 +35,7 @@ public:
 	~MeshRenderer();
 
 	void Init(ID3D11Device *dev, ID3D11DeviceContext *devcon);
+	void Start();
 	void InitPipeline();
 	void LoadShader();
 	void CreateVertexBuffer();

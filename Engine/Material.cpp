@@ -2,6 +2,7 @@
 
 Material::Material()
 { }
+
 Material::~Material()
 {
 	/*delete texture;
@@ -21,6 +22,7 @@ void Material::Init(ID3D11Device *dev, ID3D11DeviceContext *devcon)
 	ambient = DirectX::XMFLOAT3(0.2f, 0.2f, 0.2f);
 	emissive = DirectX::XMFLOAT3(0.8f, 0.8f, 0.8f);
 
+	hasTexture = false;
 	useTexture = false;
 
 	shader->CreateVertexShader(L"../Shaders/DefShader.hlsl", "VShader");
@@ -67,6 +69,11 @@ float Material::GetPower()
 	return power;
 }
 
+bool Material::HasTexture()
+{
+	return hasTexture;
+}
+
 bool Material::GetUseTexture()
 {
 	return useTexture;
@@ -89,6 +96,7 @@ Material::ShaderInput& Material::GetShaderInput()
 void Material::SetTexture(Texture *texture)
 {
 	this->texture = texture;
+	hasTexture = true;
 }
 
 void Material::SetShader(Shader *shader)
