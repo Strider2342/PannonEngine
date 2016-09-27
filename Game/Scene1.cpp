@@ -15,7 +15,10 @@ void Scene1::Start()
 	gameObjects.push_back(&test);
 	gameObjects.push_back(&teapot);
 
-	teapot.GetMeshRenderer()->SetCamera(mainCamera);
+	teapot.AddComponent<MeshRenderer>();
+	teapot.GetComponent<MeshRenderer>()->Init(graphics.GetDevice(), graphics.GetDeviceContext());
+	teapot.GetComponent<MeshRenderer>()->SetTransform(teapot.GetTransform());
+	teapot.GetComponent<MeshRenderer>()->SetCamera(mainCamera);
 
 	teapot.GetTransform()->GetRotation() = DirectX::XMFLOAT3(AI_MATH_PI / 2, 0.0f, 0.0f);
 	teapot.GetTransform()->MultiplyScale(0.025f);
@@ -34,7 +37,7 @@ void Scene1::Load()
 	content.Init(graphics.GetDevice(), graphics.GetDeviceContext());
 		
 	teapot.GetTransform()->SetParent(test.GetTransform());
-	teapot.SetMesh(content.LoadMesh("Meshes/miniteapot.DAE"));
+	teapot.GetComponent<MeshRenderer>()->SetMesh(content.LoadMesh("Meshes/miniteapot.DAE"));
 }
 
 void Scene1::Update()

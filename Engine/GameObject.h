@@ -3,15 +3,10 @@
 #include <vector>
 #include "Object.h"
 #include "Component.h"
-#include "Mesh.h"
-#include "MeshRenderer.h"
 
 class GameObject : public Object
 {
 private:
-	Mesh *mesh = nullptr;
-	MeshRenderer *renderer = nullptr;
-
 	bool isEmpty = true;
 
 	std::string name;
@@ -30,13 +25,10 @@ public:
 
 	// get
 	Transform *GetTransform();
-	Mesh *GetMesh();
-	MeshRenderer *GetMeshRenderer();
 	std::string GetName();
 	bool IsEmpty();
 
 	// set
-	void SetMesh(Mesh *mesh);
 	void SetName(std::string name);
 
 	template <class T>

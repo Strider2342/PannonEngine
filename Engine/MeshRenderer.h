@@ -1,4 +1,5 @@
 #pragma once
+#include "Component.h"
 #include "Mesh.h"
 #include "Transform.h"
 #include "Material.h"
@@ -13,7 +14,7 @@ struct CBUFFER
 	DirectX::XMVECTOR ambientcolor;
 };
 
-class MeshRenderer
+class MeshRenderer : public Component
 {
 private:
 	ID3D11Device *dev;

@@ -4,6 +4,7 @@
 #include "GameTime.h"
 #include "Object.h"
 #include "GameObject.h"
+#include "MeshRenderer.h"
 #include "Camera.h"
 #include "Light.h"
 #include "DebugHelper.h"

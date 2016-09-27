@@ -15,19 +15,20 @@ void MeshRenderer::Init(ID3D11Device *dev, ID3D11DeviceContext *devcon)
 	this->dev = dev;
 	this->devcon = devcon;
 
+	mesh = new Mesh();
+
 	material = new Material();
 	material->Init(dev, devcon);	
 }
 
 void MeshRenderer::Start()
 {
-	CreateVertexBuffer();
-	CreateIndexBuffer();
-	InitPipeline();
 }
 
 void MeshRenderer::InitPipeline()
 {
+	CreateVertexBuffer();
+	CreateIndexBuffer();
 	CreateConstantBuffer();
 		
 	LoadShader();
@@ -157,7 +158,7 @@ void MeshRenderer::SetMaterial(Material *material)
 void MeshRenderer::SetMesh(Mesh *mesh)
 {
 	this->mesh = mesh;
-	Start();
+	InitPipeline();
 }
 
 void MeshRenderer::SetTransform(Transform *transform)

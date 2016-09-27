@@ -2,7 +2,6 @@
 #include "Graphics.h"
 #include "Scene.h"
 #include "ContentManager.h"
-#include "GameObject.h"
 
 #include "MyFirstScript.h"
 #include "Beka.h"
