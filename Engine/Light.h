@@ -1,8 +1,10 @@
 #pragma once
 #include <DirectXMath.h>
-#include "Object.h"
+#include "GameObject.h"
+#include "Transform.h"
+#include "Component.h"
 
-class Light : public Object
+class Light : public Component
 {
 public:
 	static enum Type
@@ -30,6 +32,8 @@ private:
 	};
 
 private:
+	Transform *transform;
+
 	Type type;
 	
 	DirectX::XMFLOAT4 color;
@@ -44,5 +48,10 @@ private:
 public:
 	Light();
 
+	// get
 	ShaderInput& GetShaderInput();
+	Transform *GetTransform();
+
+	// set
+	void SetTransform(Transform *transform);
 };

@@ -1,5 +1,7 @@
 #pragma once
 #include <DirectXCollision.h>
+#include "GameObject.h"
+#include "Transform.h"
 #include "Component.h"
 
 struct SphereCollider

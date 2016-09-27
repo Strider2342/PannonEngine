@@ -25,3 +25,13 @@ Light::ShaderInput& Light::GetShaderInput()
 
 	return shaderInput;
 }
+
+Transform* Light::GetTransform()
+{
+	return transform;
+}
+
+void Light::SetTransform(Transform *transform)
+{
+	this->transform = transform;
+}
