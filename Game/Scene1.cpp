@@ -5,12 +5,11 @@ Scene1::Scene1()
 
 void Scene1::Start()
 {
-	camera.Init();
-	SetMainCamera(&camera);
+	camera.AddComponent<Camera>();
+	camera.GetComponent<Camera>()->Init();
+	camera.GetComponent<Camera>()->SetTransform(camera.GetTransform());
+	SetMainCamera(camera.GetComponent<Camera>());
 	mainCamera->GetTransform()->GetPosition() = DirectX::XMFLOAT3(0.0f, 0.0f, -3.0f);
-
-	test.Init(graphics.GetDevice(), graphics.GetDeviceContext());
-	teapot.Init(graphics.GetDevice(), graphics.GetDeviceContext());
 
 	gameObjects.push_back(&test);
 	gameObjects.push_back(&teapot);

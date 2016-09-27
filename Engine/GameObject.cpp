@@ -6,12 +6,6 @@ GameObject::GameObject()
 GameObject::~GameObject()
 { }
 
-void GameObject::Init(ID3D11Device *dev, ID3D11DeviceContext *devcon)
-{
-	this->dev = dev;
-	this->devcon = devcon;
-}
-
 void GameObject::Start()
 {
 	for (int i = 0; i < components.size(); i++)

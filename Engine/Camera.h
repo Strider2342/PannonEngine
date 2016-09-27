@@ -1,8 +1,8 @@
 #pragma once
 #include <d3d11.h>
 #include <DirectXMath.h>
-#include "Object.h"
-#include "Vector3.h"
+#include "GameObject.h"
+#include "Component.h"
 
 enum ProjectionType
 {
@@ -10,9 +10,11 @@ enum ProjectionType
 	Orthographic
 };
 
-class Camera : public Object
+class Camera : public Component
 {
 private:
+	Transform *transform;
+
 	DirectX::XMMATRIX matView;
 	DirectX::XMMATRIX matProjection;
 	
@@ -33,4 +35,8 @@ public:
 	float GetAspectRatio();
 	float GetNearClippingPlane();
 	float GetFarClippingPlane();
+
+	Transform *GetTransform();
+
+	void SetTransform(Transform *transform);
 };

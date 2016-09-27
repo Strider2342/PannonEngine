@@ -14,7 +14,7 @@ void Picker::SetObjects(std::list<GameObject*> gameObjects)
 
 void Picker::PickObject()
 {
-	float x = Input::GetMousePosition().x;
+	/*float x = Input::GetMousePosition().x;
 	float y = Input::GetMousePosition().y;
 
 	DirectX::XMFLOAT3 view;
@@ -57,5 +57,5 @@ void Picker::PickObject()
 	DirectXExt::XMFloat3Add(&pos, pos, vXy);
 
 	DirectX::XMFLOAT3 dir;
-	DirectXExt::XMFloat3Subtract(&dir, pos, camera->GetTransform()->GetPosition());
+	DirectXExt::XMFloat3Subtract(&dir, pos, camera->GetTransform()->GetPosition());*/
 }

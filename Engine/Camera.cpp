@@ -50,3 +50,13 @@ float Camera::GetFarClippingPlane()
 {
 	return farClippingPlane;
 }
+
+Transform * Camera::GetTransform()
+{
+	return transform;
+}
+
+void Camera::SetTransform(Transform *transform)
+{
+	this->transform = transform;
+}

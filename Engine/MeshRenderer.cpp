@@ -91,7 +91,7 @@ void MeshRenderer::CreateConstantBuffer()
 void MeshRenderer::SetConstantBuffer()
 {
 	DirectX::XMMATRIX matFinal = transform->GetWorldMatrix() * camera->GetViewMatrix() * camera->GetProjectionMatrix();
-
+	
 	cBuffer.final = matFinal;
 	cBuffer.rotation = transform->GetRotationMatrix();
 	cBuffer.lightvector = DirectX::XMVectorSet(1.0f, 1.0f, 1.0f, 0.0f);

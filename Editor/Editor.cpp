@@ -10,7 +10,6 @@ void Editor::Init(EditorGraphics *graphics)
 	ImGui_ImplDX11_Init(graphics->GetHWND(), graphics->GetDevice(), graphics->GetDeviceContext());
 
 	selected = new GameObject();
-	selected->Init(graphics->GetDevice(), graphics->GetDeviceContext());
 	selected->SetName("Probanev");
 
 	gui.SetSelected(selected);

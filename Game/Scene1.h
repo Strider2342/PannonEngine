@@ -9,7 +9,7 @@
 class Scene1 : public Scene
 {
 private:
-	Camera camera;
+	GameObject camera;
 	GameObject test;
 	GameObject teapot;
 
