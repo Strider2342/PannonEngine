@@ -1,28 +1,37 @@
 #pragma once
+#include "Transform.h"
 
 class Beka : public Script
 {
+private:
+	Transform *transform;
+
 public:
 	Beka() {}
+
+	void Start()
+	{
+		transform = gameObject->GetTransform();
+	}
 
 	void Update()
 	{
 		if (Input::GetKeyDown(KeyCode::LeftArrow))
 		{
-			gameObject->GetTransform()->GetPosition().x += 0.005f;
+			transform->GetPosition().x += 0.005f;
 		}
 		else if (Input::GetKeyDown(KeyCode::RightArrow))
 		{
-			gameObject->GetTransform()->GetPosition().x -= 0.005f;
+			transform->GetPosition().x -= 0.005f;
 		}
 
 		if (Input::GetKeyDown(KeyCode::UpArrow))
 		{
-			gameObject->GetTransform()->GetPosition().y -= 0.005f;
+			transform->GetPosition().y -= 0.005f;
 		}
 		else if (Input::GetKeyDown(KeyCode::DownArrow))
 		{
-			gameObject->GetTransform()->GetPosition().y += 0.005f;
+			transform->GetPosition().y += 0.005f;
 		}
 	}
 };
