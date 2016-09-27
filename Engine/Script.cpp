@@ -9,7 +9,7 @@ Script::~Script()
 void Script::Start()
 { }
 
-void Script::Update()
+void Script::Update(GameTime gameTime)
 { }
 
 void Script::Render()

@@ -25,7 +25,7 @@ public:
 	void Init(ID3D11Device *dev, ID3D11DeviceContext *devcon);
 
 	void Start();
-	void Update();
+	void Update(GameTime gameTime);
 	void Render();
 
 	// get

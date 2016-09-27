@@ -72,3 +72,16 @@ void Scene::AddLight(Light *light)
 {
 	lights.push_back(light);
 }
+
+void Scene::Start()
+{
+}
+
+void Scene::Update()
+{
+	gameTime.SetPrevTime();
+}
+
+void Scene::Render()
+{
+}

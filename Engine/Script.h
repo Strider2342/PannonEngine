@@ -1,5 +1,6 @@
 #pragma once
 #include <iostream>
+#include "GameTime.h"
 #include "Component.h"
 #include "Input.h"
 
@@ -10,6 +11,6 @@ public:
 	virtual ~Script();
 
 	virtual void Start();
-	virtual void Update();
+	virtual void Update(GameTime gameTime);
 	virtual void Render();
 };

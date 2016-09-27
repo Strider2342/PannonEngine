@@ -1,5 +1,6 @@
 #pragma once
 #include <iostream>
+#include "GameTime.h"
 #include "GameObject.h"
 #include "Script.h"
 
@@ -9,5 +10,5 @@ public:
 	MyFirstScript();
 
 	void Start();
-	void Update();
+	void Update(GameTime gameTime);
 };

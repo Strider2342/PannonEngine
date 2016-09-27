@@ -1,10 +1,13 @@
 #pragma once
+#include "GameTime.h"
 #include "Transform.h"
 
 class Beka : public Script
 {
 private:
 	Transform *transform;
+
+	float speed = 0.5f;
 
 public:
 	Beka() {}
@@ -14,24 +17,24 @@ public:
 		transform = gameObject->GetTransform();
 	}
 
-	void Update()
+	void Update(GameTime gameTime)
 	{
 		if (Input::GetKeyDown(KeyCode::LeftArrow))
 		{
-			transform->GetPosition().x += 0.005f;
+			transform->GetPosition().x += speed * gameTime.GetDeltaTime();
 		}
 		else if (Input::GetKeyDown(KeyCode::RightArrow))
 		{
-			transform->GetPosition().x -= 0.005f;
+			transform->GetPosition().x -= speed * gameTime.GetDeltaTime();
 		}
 
 		if (Input::GetKeyDown(KeyCode::UpArrow))
 		{
-			transform->GetPosition().y -= 0.005f;
+			transform->GetPosition().y -= speed * gameTime.GetDeltaTime();
 		}
 		else if (Input::GetKeyDown(KeyCode::DownArrow))
 		{
-			transform->GetPosition().y += 0.005f;
+			transform->GetPosition().y += speed * gameTime.GetDeltaTime();
 		}
 	}
 };

@@ -159,6 +159,7 @@
     <ClInclude Include="Shader.h" />
     <ClInclude Include="stb_image.h" />
     <ClInclude Include="Texture.h" />
+    <ClInclude Include="GameTime.h" />
     <ClInclude Include="Transform.h" />
   </ItemGroup>
   <ItemGroup>
@@ -169,6 +170,7 @@
     <ClCompile Include="DebugHelper.cpp" />
     <ClCompile Include="DirectXMathExtension.cpp" />
     <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="GameTime.cpp" />
     <ClCompile Include="GameWindow.cpp" />
     <ClCompile Include="Graphics.cpp" />
     <ClCompile Include="Input.cpp" />

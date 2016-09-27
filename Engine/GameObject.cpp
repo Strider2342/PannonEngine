@@ -35,11 +35,11 @@ void GameObject::Start()
 		components[i]->Start();
 	}
 }
-void GameObject::Update()
+void GameObject::Update(GameTime gameTime)
 {
 	for (int i = 0; i < components.size(); i++)
 	{
-		components[i]->Update();
+		components[i]->Update(gameTime);
 	}
 }
 void GameObject::Render()

@@ -1,6 +1,7 @@
 #pragma once
 #include <vector>
 #include "Graphics.h"
+#include "GameTime.h"
 #include "Object.h"
 #include "GameObject.h"
 #include "Camera.h"
@@ -11,6 +12,8 @@ class Scene
 {
 public:
 	Graphics graphics;
+
+	GameTime gameTime;
 
 	std::vector<GameObject*> gameObjects;
 	std::vector<Camera*> cameras;
@@ -41,4 +44,9 @@ public:
 	std::vector<Light*>& GetLightList();
 
 	void AddLight(Light *light);
+
+
+	void Start();
+	void Update();
+	void Render();
 };

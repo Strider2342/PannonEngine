@@ -9,7 +9,7 @@ Component::~Component()
 void Component::Start()
 { }
 
-void Component::Update()
+void Component::Update(GameTime gameTime)
 { }
 
 void Component::Render()

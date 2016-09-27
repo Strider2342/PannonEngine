@@ -41,8 +41,15 @@ void Scene1::Update()
 {
 	for (int i = 0; i < gameObjects.size(); i++)
 	{
-		gameObjects[i]->Update();
+		gameObjects[i]->Update(gameTime);
 	}
+
+	if (Input::GetKeyDown(KeyCode::G))
+	{
+		std::cout << (float)gameTime.GetDeltaTime() << std::endl;
+	}
+
+	Scene::Update();
 }
 
 void Scene1::Draw()

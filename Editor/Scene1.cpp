@@ -23,7 +23,7 @@ void Scene1::Update()
 {
 	for (int i = 0; i < gameObjects.size(); i++)
 	{
-		gameObjects[i]->Update();
+		gameObjects[i]->Update(gameTime);
 	}
 }
 
