@@ -82,6 +82,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h" />
+    <ClInclude Include="Beka.h" />
     <ClInclude Include="MyFirstScript.h" />
     <ClInclude Include="Scene1.h" />
   </ItemGroup>

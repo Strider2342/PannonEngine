@@ -20,7 +20,7 @@ void Scene1::Start()
 	teapot.GetTransform()->GetRotation() = DirectX::XMFLOAT3(AI_MATH_PI / 2, 0.0f, 0.0f);
 	teapot.GetTransform()->MultiplyScale(0.025f);
 
-	test.AddScript<MyFirstScript>();
+	test.AddComponent<Beka>();
 
 	for (int i = 0; i < gameObjects.size(); i++)
 	{

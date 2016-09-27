@@ -9,6 +9,8 @@ class Scene1 : public Scene
 private:
 	Camera camera;
 
+	GameObject proba;
+
 public:
 	Scene1();
 

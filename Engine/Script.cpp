@@ -14,8 +14,3 @@ void Script::Update()
 
 void Script::Render()
 { }
-
-void Script::SetGameObject(GameObject * gameObject)
-{
-	this->gameObject = gameObject;
-}

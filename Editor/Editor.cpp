@@ -7,11 +7,13 @@ void Editor::Init(EditorGraphics *graphics)
 {
 	this->graphics = graphics;
 
-	/*ImGuiIO& io = ImGui::GetIO();
-	io.DisplaySize.x = graphics->GetGraphicsOptions()->resolutionX;
-	io.DisplaySize.y = graphics->GetGraphicsOptions()->resolutionY;*/
-
 	ImGui_ImplDX11_Init(graphics->GetHWND(), graphics->GetDevice(), graphics->GetDeviceContext());
+
+	selected = new GameObject();
+	selected->Init(graphics->GetDevice(), graphics->GetDeviceContext());
+	selected->SetName("Probanev");
+
+	gui.SetSelected(selected);
 }
 
 void Editor::Load()

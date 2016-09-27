@@ -149,7 +149,8 @@ void EditorGUI::Views()
 }
 void EditorGUI::InspectorView()
 {
-	char *name = "Example"; // (char*)selected->GetName().c_str();
+	std::cout << "Name: " << selected->GetName() << std::endl;
+
 	float position[3] = { 1.0f, 1.0f, 1.0f };
 	float rotation[3] = { 1.0f, 1.0f, 1.0f };
 	float scale[3] = { 1.0f, 1.0f, 1.0f };
@@ -161,7 +162,7 @@ void EditorGUI::InspectorView()
 		if (ImGui::CollapsingHeader("Transform"))
 		{
 			ImGui::Text("Name");
-			ImGui::InputText("", name, IM_ARRAYSIZE(name));
+			//ImGui::InputText("", (char*)selected->GetName().c_str(), IM_ARRAYSIZE((char*)selected->GetName().c_str()));
 			ImGui::Separator();
 			ImGui::Text("Position");
 			ImGui::InputFloat3("Position", position);
@@ -221,4 +222,9 @@ void EditorGUI::AssembleGUI()
 
 	MenuBar();
 	Views();
+}
+
+void EditorGUI::SetSelected(GameObject * selected)
+{
+	this->selected = selected;
 }

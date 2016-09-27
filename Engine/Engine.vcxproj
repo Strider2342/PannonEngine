@@ -138,6 +138,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="Collider.h" />
+    <ClInclude Include="Component.h" />
     <ClInclude Include="ContentManager.h" />
     <ClInclude Include="DebugHelper.h" />
     <ClInclude Include="DirectXMathExtension.h" />
@@ -161,6 +163,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="Collider.cpp" />
+    <ClCompile Include="Component.cpp" />
     <ClCompile Include="ContentManager.cpp" />
     <ClCompile Include="DebugHelper.cpp" />
     <ClCompile Include="DirectXMathExtension.cpp" />

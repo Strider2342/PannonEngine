@@ -1,13 +1,10 @@
 #pragma once
 #include <iostream>
+#include "Component.h"
+#include "Input.h"
 
-class GameObject;
-class Script
+class Script :public Component
 {
-	friend class GameObject;
-protected:
-	GameObject *gameObject;
-
 public:
 	Script();
 	virtual ~Script();
@@ -15,6 +12,4 @@ public:
 	virtual void Start();
 	virtual void Update();
 	virtual void Render();
-
-	void SetGameObject(GameObject *gameObject);
 };

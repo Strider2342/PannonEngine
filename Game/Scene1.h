@@ -5,6 +5,7 @@
 #include "GameObject.h"
 
 #include "MyFirstScript.h"
+#include "Beka.h"
 
 class Scene1 : public Scene
 {

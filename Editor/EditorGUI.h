@@ -1,4 +1,6 @@
 #pragma once
+#include <iostream>
+#include <string>
 #include "imgui/imgui.h"
 #include "imgui/imgui_impl_dx11.h"
 #include "GameObject.h"
@@ -32,4 +34,6 @@ public:
 	void GameCanvas();
 
 	void AssembleGUI();
+
+	void SetSelected(GameObject *selected);
 };

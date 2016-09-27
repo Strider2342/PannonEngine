@@ -2,7 +2,7 @@
 #include <d3d11.h>
 #include <vector>
 #include "Object.h"
-#include "Script.h"
+#include "Component.h"
 #include "Mesh.h"
 #include "MeshRenderer.h"
 
@@ -16,7 +16,7 @@ private:
 
 	std::string name;
 
-	std::vector<Script *> scripts;
+	std::vector<Component *> components;
 
 public:
 	GameObject();
@@ -28,37 +28,38 @@ public:
 	void Update();
 	void Render();
 
+	// get
 	Transform *GetTransform();
 	Mesh *GetMesh();
 	MeshRenderer *GetMeshRenderer();
 	std::string GetName();
-
 	bool IsEmpty();
 
+	// set
 	void SetMesh(Mesh *mesh);
 	void SetName(std::string name);
 
 	template <class T>
-	void AddScript();
+	void AddComponent();
 
 	template <class T>
-	T* GetScript();
+	T* GetComponent();
 };
 
 template<class T>
-inline void GameObject::AddScript()
+inline void GameObject::AddComponent()
 {
-	T *script = new T();
-	scripts.push_back(script);
-	script->SetGameObject(this);
+	T *component = new T();
+	components.push_back(component);
+	component->SetGameObject(this);
 }
 
 template<class T>
-inline T * GameObject::GetScript()
+inline T * GameObject::GetComponent()
 {
-	for (int i = 0; i < scripts.size(); i++)
+	for (int i = 0; i < components.size(); i++)
 	{
-		T *temp = dynamic_cast<T*>(scripts[i]);
+		T *temp = dynamic_cast<T*>(components[i]);
 
 		if (temp != NULL)
 			return temp;
