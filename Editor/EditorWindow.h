@@ -24,7 +24,7 @@ private:
 
 public:
 	EditorWindow();
-	EditorWindow(int SCREEN_WIDTH, int SCREEN_HEIGHT, LPCWSTR WINDOW_NAME, LPCWSTR CLASS_NAME, ID3D11Device *dev, WNDPROC &WindowProc);
+	EditorWindow(int SCREEN_WIDTH, int SCREEN_HEIGHT, LPCWSTR WINDOW_NAME, LPCWSTR CLASS_NAME, WNDPROC WindowProc);
 
 	HWND& Create();
 	HWND& CreateBorderless();

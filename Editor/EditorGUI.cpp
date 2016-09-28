@@ -149,8 +149,6 @@ void EditorGUI::Views()
 }
 void EditorGUI::InspectorView()
 {
-	std::cout << "Name: " << selected->GetName() << std::endl;
-
 	float position[3] = { 1.0f, 1.0f, 1.0f };
 	float rotation[3] = { 1.0f, 1.0f, 1.0f };
 	float scale[3] = { 1.0f, 1.0f, 1.0f };
@@ -188,7 +186,12 @@ void EditorGUI::HierarchyView()
 	ImGui::SetNextWindowSize(ImVec2(300, 900));
 	if (ImGui::Begin("Hierarchy"))
 	{
-
+		int selected = 1;
+		int unselected = 0;
+		ImGui::Selectable("GameObject", &selected);
+		ImGui::Selectable("GameObject", &unselected);
+		ImGui::Selectable("MainCamera", &unselected);
+		ImGui::Selectable("Player", &unselected);
 		ImGui::End();
 	}
 }
@@ -197,6 +200,20 @@ void EditorGUI::MaterialEditor()
 	ImGui::SetNextWindowSize(ImVec2(400, 600));
 	if (ImGui::Begin("Material editor"))
 	{
+		static int item = 1;
+		float ambient[3] = { 255.0f, 255.0f, 255.0f };
+		float diffuse[3] = { 255.0f, 255.0f, 255.0f };
+		float specular[3] = { 255.0f, 255.0f, 255.0f };
+		float emissive[3] = { 255.0f, 255.0f, 255.0f };
+		float power = 1.0f;
+
+		ImGui::Combo("Shader", &item, "Phong\0Blinn-Phong\0Toon\0\0");
+
+		ImGui::InputFloat3("Ambient", ambient);
+		ImGui::InputFloat3("Diffuse", diffuse);
+		ImGui::InputFloat3("Specular", specular);
+		ImGui::InputFloat3("Emissive", emissive);
+		ImGui::InputFloat("Power", &power);
 
 		ImGui::End();
 	}

@@ -8,7 +8,7 @@ void Editor::Init(EditorGraphics *graphics)
 	this->graphics = graphics;
 
 	ImGui_ImplDX11_Init(graphics->GetHWND(), graphics->GetDevice(), graphics->GetDeviceContext());
-
+	
 	selected = new GameObject();
 	selected->SetName("Probanev");
 
@@ -27,5 +27,6 @@ void Editor::Draw()
 
 	graphics->Begin();
 	ImGui::Render();
+
 	graphics->End();
 }

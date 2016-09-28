@@ -7,6 +7,7 @@
 class Application
 {
 private:
+	HWND hWnd;
 	EditorGraphics graphics;
 
 	Editor editor;
@@ -15,6 +16,7 @@ private:
 
 public:
 	Application();
+	Application(HWND &hWnd);
 
 	void Run();
 };

@@ -1,13 +1,17 @@
 #include "Application.h"
 
 Application::Application()
+{ }
+
+Application::Application(HWND &hWnd)
 {
+	this->hWnd = hWnd;
 	graphics = EditorGraphics();
 }
 
 void Application::Run()
 {
-	graphics.Init();
+	graphics.Init(hWnd);
 	MSG msg;
 
 	editor.Init(&graphics);

@@ -3,7 +3,7 @@
 EditorWindow::EditorWindow()
 { }
 
-EditorWindow::EditorWindow(int SCREEN_WIDTH, int SCREEN_HEIGHT, LPCWSTR WINDOW_NAME, LPCWSTR CLASS_NAME, ID3D11Device *dev, WNDPROC &WindowProc)
+EditorWindow::EditorWindow(int SCREEN_WIDTH, int SCREEN_HEIGHT, LPCWSTR WINDOW_NAME, LPCWSTR CLASS_NAME, WNDPROC WindowProc)
 {
 	this->SCREEN_WIDTH = SCREEN_WIDTH;
 	this->SCREEN_HEIGHT = SCREEN_HEIGHT;
@@ -23,8 +23,8 @@ HWND& EditorWindow::Create()
 		wc.lpszClassName,
 		WINDOW_NAME,
 		WS_OVERLAPPEDWINDOW,
-		300,
-		300,
+		20,
+		20,
 		SCREEN_WIDTH,
 		SCREEN_HEIGHT,
 		NULL,

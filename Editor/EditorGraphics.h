@@ -18,9 +18,7 @@ private:
 	LPCWSTR WINDOW_NAME;
 	LPCWSTR CLASS_NAME;
 
-	HINSTANCE hInstance;
 	HWND hWnd;
-	WNDCLASSEX wc;
 
 	// D3D
 	IDXGISwapChain *swapchain = nullptr;             // the pointer to the swap chain interface
@@ -40,15 +38,7 @@ private:
 public:
 	EditorGraphics();
 
-	void Init();
-
-	static LRESULT CALLBACK WindowProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
-
-	// window
-	HWND& CreateWnd();
-	HWND& CreateBorderless();
-
-	WNDCLASSEX& CreateWindowClass();
+	void Init(HWND &hWnd);
 
 	// D3D
 	bool CreateDevice();
