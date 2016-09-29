@@ -11,6 +11,17 @@ void Scene1::Start()
 	SetMainCamera(camera.GetComponent<Camera>());
 	mainCamera->GetTransform()->GetPosition() = DirectX::XMFLOAT3(0.0f, 0.0f, -3.0f);
 
+	light1.AddComponent<Light>();
+	light1.GetComponent<Light>()->SetTransform(light1.GetTransform());
+	light1.GetTransform()->GetPosition() = DirectX::XMFLOAT3(2.0f, 0.0f, -0.3f);
+
+	/*light2.AddComponent<Light>();
+	light2.GetComponent<Light>()->SetTransform(light2.GetTransform());
+	light2.GetTransform()->GetPosition() = DirectX::XMFLOAT3(-2.0f, 0.0f, -1.0f);*/
+
+	gameObjects.push_back(&camera);
+	gameObjects.push_back(&light1);
+	gameObjects.push_back(&light2);
 	gameObjects.push_back(&test);
 	gameObjects.push_back(&teapot);
 
@@ -22,7 +33,7 @@ void Scene1::Start()
 	teapot.GetTransform()->GetRotation() = DirectX::XMFLOAT3(AI_MATH_PI / 2, 0.0f, 0.0f);
 	teapot.GetTransform()->MultiplyScale(0.025f);
 
-	test.AddComponent<Beka>();
+	light1.AddComponent<Beka>();
 
 	for (int i = 0; i < gameObjects.size(); i++)
 	{
@@ -50,8 +61,6 @@ void Scene1::Update()
 	{
 		std::cout << (float)gameTime.GetDeltaTime() << std::endl;
 	}
-
-	Scene::Update();
 }
 
 void Scene1::Draw()

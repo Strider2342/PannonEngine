@@ -29,15 +29,16 @@ void MeshRenderer::InitPipeline()
 {
 	CreateVertexBuffer();
 	CreateIndexBuffer();
-	CreateConstantBuffer();
+	CreateSampler();
+	CreateConstantBuffers();
 		
 	LoadShader();
 }
 
 void MeshRenderer::LoadShader()
 {
-	material->GetShader().CreateVertexShader(L"../Shaders/DefShader.hlsl", "VShader");
-	material->GetShader().CreatePixelShader(L"../Shaders/DefShader.hlsl", "PShader");
+	material->GetShader().CreateVertexShader(L"../Shaders/Phong.hlsl", "VShader");
+	material->GetShader().CreatePixelShader(L"../Shaders/Phong.hlsl", "PShader");
 }
 
 void MeshRenderer::CreateVertexBuffer()
@@ -76,32 +77,79 @@ void MeshRenderer::CreateIndexBuffer()
 	devcon->Unmap(pIBuffer, NULL);
 }
 
-void MeshRenderer::CreateConstantBuffer()
+void MeshRenderer::CreateSampler()
+{
+	D3D11_SAMPLER_DESC samplerDesc;
+	ZeroMemory(&samplerDesc, sizeof(D3D11_SAMPLER_DESC));
+
+	samplerDesc.Filter = D3D11_FILTER_MIN_MAG_MIP_LINEAR;
+	samplerDesc.AddressU = D3D11_TEXTURE_ADDRESS_WRAP;
+	samplerDesc.AddressV = D3D11_TEXTURE_ADDRESS_WRAP;
+	samplerDesc.AddressW = D3D11_TEXTURE_ADDRESS_CLAMP;
+	samplerDesc.MipLODBias = 0.0f;
+	samplerDesc.MaxAnisotropy = 1;
+	samplerDesc.ComparisonFunc = D3D11_COMPARISON_NEVER;
+	samplerDesc.BorderColor[0] = 1.0f;
+	samplerDesc.BorderColor[1] = 1.0f;
+	samplerDesc.BorderColor[2] = 1.0f;
+	samplerDesc.BorderColor[3] = 1.0f;
+	samplerDesc.MinLOD = -FLT_MAX;
+	samplerDesc.MaxLOD = FLT_MAX;
+
+	dev->CreateSamplerState(&samplerDesc, &sampler);
+}
+
+void MeshRenderer::CreateConstantBuffers()
 {
 	D3D11_BUFFER_DESC bd;
 	ZeroMemory(&bd, sizeof(bd));
 
+	// per object
 	bd.Usage = D3D11_USAGE_DEFAULT;
-	bd.ByteWidth = sizeof(cBuffer);
+	bd.ByteWidth = sizeof(perObjectCB);
 	bd.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
 
-	dev->CreateBuffer(&bd, NULL, &pCBuffer);
+	dev->CreateBuffer(&bd, NULL, &pCBufferPerObject);
+
+	// material
+	bd.Usage = D3D11_USAGE_DEFAULT;
+	bd.ByteWidth = sizeof(materialCB);
+	bd.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
+
+	dev->CreateBuffer(&bd, NULL, &pCBufferMaterial);
+
+	// light
+	bd.Usage = D3D11_USAGE_DEFAULT;
+	bd.ByteWidth = sizeof(lightCB);
+	bd.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
+
+	dev->CreateBuffer(&bd, NULL, &pCBufferLights);
 }
 
-void MeshRenderer::SetConstantBuffer()
+void MeshRenderer::SetConstantBuffers()
 {
-	DirectX::XMMATRIX matFinal = transform->GetWorldMatrix() * camera->GetViewMatrix() * camera->GetProjectionMatrix();
-	
-	cBuffer.final = matFinal;
-	cBuffer.rotation = transform->GetRotationMatrix();
-	cBuffer.lightvector = DirectX::XMVectorSet(1.0f, 1.0f, 1.0f, 0.0f);
-	cBuffer.lightcolor = DirectX::XMVectorSet(0.9f, 0.9f, 0.9f, 1.0f);
-	cBuffer.ambientcolor = DirectX::XMLoadFloat3(&material->GetAmbient());
+	DirectX::XMMATRIX inverseTransposeWorldMatrix = DirectX::XMMatrixTranspose(DirectX::XMMatrixInverse(NULL, transform->GetWorldMatrix()));
+	DirectX::XMMATRIX WVP = transform->GetWorldMatrix() * camera->GetViewMatrix() * camera->GetProjectionMatrix();
+
+	perObjectCB.worldMatrix = transform->GetWorldMatrix();
+	perObjectCB.inverseTransposeWorldMatrix = inverseTransposeWorldMatrix;
+	perObjectCB.WVP = WVP;
+
+	lightCB.eyePosition = camera->GetTransform()->GetPosition();
+	lightCB.globalAmbient = DirectX::XMFLOAT3(0.0f, 0.0f, 0.0f);
+	for (int i = 0; i < lights->size(); i++)
+	{
+		Light::ShaderInput lightInput = lights->at(i);
+		lightCB.lights[i] = lightInput;
+	}
+
+	Material::ShaderInput materialInput = material->GetShaderInput();
+	materialCB.input = materialInput;
 }
 
 void MeshRenderer::Render()
 {
-	SetConstantBuffer();
+	SetConstantBuffers();
 
 	UINT stride = sizeof(Vertex);
 	UINT offset = 0;
@@ -117,11 +165,23 @@ void MeshRenderer::Render()
 	devcon->IASetVertexBuffers(0, 1, &pVBuffer, &stride, &offset);
 	devcon->IASetIndexBuffer(pIBuffer, DXGI_FORMAT_R32_UINT, 0);
 
-	devcon->VSSetConstantBuffers(0, 1, &pCBuffer);
-	devcon->UpdateSubresource(pCBuffer, 0, 0, &cBuffer, 0, 0);
+	// per object
+	devcon->VSSetConstantBuffers(0, 1, &pCBufferPerObject);
+	devcon->UpdateSubresource(pCBufferPerObject, 0, 0, &perObjectCB, 0, 0);
+
+	// material
+	devcon->PSSetConstantBuffers(1, 1, &pCBufferMaterial);
+	devcon->UpdateSubresource(pCBufferMaterial, 0, 0, &materialCB, 0, 0);
+
+	// light
+	devcon->PSSetConstantBuffers(2, 1, &pCBufferLights);
+	devcon->UpdateSubresource(pCBufferLights, 0, 0, &lightCB, 0, 0);
+
+	devcon->PSSetSamplers(0, 1, &sampler);
 
 	if (material->HasTexture())
 	{
+
 		pTexture = material->GetTextureResource();
 		devcon->PSSetShaderResources(0, 1, &pTexture);
 	}
@@ -169,4 +229,9 @@ void MeshRenderer::SetTransform(Transform *transform)
 void MeshRenderer::SetCamera(Camera *camera)
 {
 	this->camera = camera;
+}
+
+void MeshRenderer::SetLights(std::vector<Light::ShaderInput> *lights)
+{
+	this->lights = lights;
 }

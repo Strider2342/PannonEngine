@@ -27,7 +27,10 @@ void Application::Run()
 				break;
 		}
 
+		scene.PreUpdate();
 		scene.Update();
+		scene.PostUpdate();
+
 		scene.Draw();
 	}
 

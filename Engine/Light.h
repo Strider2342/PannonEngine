@@ -1,7 +1,6 @@
 #pragma once
 #include <DirectXMath.h>
 #include "GameObject.h"
-#include "Transform.h"
 #include "Component.h"
 
 class Light : public Component
@@ -14,7 +13,6 @@ public:
 		Spot = 2
 	};
 
-private:
 	struct ShaderInput
 	{
 		DirectX::XMFLOAT4 position;
@@ -51,6 +49,7 @@ public:
 	// get
 	ShaderInput& GetShaderInput();
 	Transform *GetTransform();
+	float &GetIntensity();
 
 	// set
 	void SetTransform(Transform *transform);

@@ -14,7 +14,6 @@ void Scene::SetScene(Scene *scene)
 {
 	this->gameObjects = scene->GetGameObjectList();
 	this->cameras = scene->GetCameraList();
-	this->lights = scene->GetLightList();
 
 	this->mainCamera = *(cameras.begin());
 }
@@ -63,21 +62,44 @@ void Scene::SetMainCamera(Camera *camera)
 	mainCamera = camera;
 }
 
-std::vector<Light*>& Scene::GetLightList()
+void Scene::RefreshLights()
 {
-	return lights;
-}
+	lights.clear();
 
-void Scene::AddLight(Light *light)
-{
-	lights.push_back(light);
+	for (int i = 0; i < gameObjects.size(); i++)
+	{
+		Light *light = gameObjects[i]->GetComponent<Light>();
+		if (light)
+		{
+			Light::ShaderInput input = light->GetShaderInput();
+			lights.push_back(input);
+		}
+	}
+
+	for (int i = 0; i < gameObjects.size(); i++)
+	{
+		MeshRenderer *renderer = gameObjects[i]->GetComponent<MeshRenderer>();
+		if (renderer)
+		{
+			renderer->SetLights(&lights);
+		}
+	}
 }
 
 void Scene::Start()
 {
 }
 
+void Scene::PreUpdate()
+{
+	RefreshLights();
+}
+
 void Scene::Update()
+{
+}
+
+void Scene::PostUpdate()
 {
 	gameTime.SetPrevTime();
 }

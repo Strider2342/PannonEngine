@@ -17,16 +17,18 @@ void Material::Init(ID3D11Device *dev, ID3D11DeviceContext *devcon)
 	shader = new Shader();
 	shader->Init(dev, devcon);
 
-	diffuse = DirectX::XMFLOAT3(0.2f, 0.2f, 0.2f);
-	specular = DirectX::XMFLOAT3(0.8f, 0.8f, 0.8f);
-	ambient = DirectX::XMFLOAT3(0.2f, 0.2f, 0.2f);
-	emissive = DirectX::XMFLOAT3(0.8f, 0.8f, 0.8f);
+	diffuse = DirectX::XMFLOAT3(0.4f, 0.4f, 0.4f);
+	specular = DirectX::XMFLOAT3(0.774597f, 0.774597f, 0.774597f);
+	ambient = DirectX::XMFLOAT3(0.25f, 0.25f, 0.25f);
+	emissive = DirectX::XMFLOAT3(0.0f, 0.0f, 0.0f);
+
+	power = 78.6f;
 
 	hasTexture = false;
 	useTexture = false;
 
-	shader->CreateVertexShader(L"../Shaders/DefShader.hlsl", "VShader");
-	shader->CreatePixelShader(L"../Shaders/DefShader.hlsl", "PShader");
+	shader->CreateVertexShader(L"../Shaders/Phong.hlsl", "VShader");
+	shader->CreatePixelShader(L"../Shaders/Phong.hlsl", "PShader");
 }
 
 ID3D11ShaderResourceView* Material::GetTextureResource()

@@ -12,6 +12,7 @@ EditorWindow::EditorWindow(int SCREEN_WIDTH, int SCREEN_HEIGHT, LPCWSTR WINDOW_N
 
 	this->hInstance = GetModuleHandle(NULL);
 	this->wc = CreateWindowClass(L"WindowClass", WindowProc);
+	std::cout << "Faszom" << std::endl;
 
 	this->hWnd = Create();
 	ShowWindow(hWnd, 10);

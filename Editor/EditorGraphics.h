@@ -14,10 +14,6 @@ class EditorGraphics
 private:
 	GraphicsOptions options;
 	
-	// window
-	LPCWSTR WINDOW_NAME;
-	LPCWSTR CLASS_NAME;
-
 	HWND hWnd;
 
 	// D3D

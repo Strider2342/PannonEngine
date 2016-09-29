@@ -1,13 +1,16 @@
 #pragma once
 #include "GameTime.h"
 #include "Transform.h"
+#include "Light.h"
 
 class Beka : public Script
 {
 private:
 	Transform *transform;
 
-	float speed = 0.5f;
+	Light *light;
+
+	float speed = 0.9f;
 
 public:
 	Beka() {}
@@ -15,6 +18,7 @@ public:
 	void Start()
 	{
 		transform = gameObject->GetTransform();
+		light = gameObject->GetComponent<Light>();
 	}
 
 	void Update(GameTime gameTime)
@@ -35,6 +39,15 @@ public:
 		else if (Input::GetKeyDown(KeyCode::DownArrow))
 		{
 			transform->GetPosition().y += speed * gameTime.GetDeltaTime();
+		}
+
+		if (Input::GetKeyDown(KeyCode::Plus))
+		{
+			transform->GetPosition().z += speed * gameTime.GetDeltaTime();
+		}
+		else if (Input::GetKeyDown(KeyCode::Minus))
+		{
+			transform->GetPosition().z -= speed * gameTime.GetDeltaTime();
 		}
 	}
 };

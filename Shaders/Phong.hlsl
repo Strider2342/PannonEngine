@@ -95,7 +95,7 @@ float4 DoSpecular(Light light, float3 V, float3 L, float3 N)
 }
 float DoAttenuation(Light light, float d)
 {
-	return 1.0 / (light.constantAttenuation + light.linearAttenuation * d + light.quadraticAttenuation * d *d);
+	return 1.0 / (light.constantAttenuation + light.linearAttenuation * d + light.quadraticAttenuation * d * d);
 }
 float DoSpotCone(Light light, float3 L)
 {
@@ -162,7 +162,7 @@ LightingResult ComputeLighting(float4 P, float3 N)
 		LightingResult result = { { 0, 0, 0, 0 },{ 0, 0, 0, 0 } };
 
 		if (!lights[i].enabled) continue;
-
+		
 		if (lights[i].type == DIRECTIONAL_LIGHT)
 		{
 			result = DoDirectionalLight(lights[i], V, P, N);
@@ -198,7 +198,7 @@ VSOutput VShader(VSInput input)
 
 	return output;
 }
-float4 PShader(PSInput input)
+float4 PShader(PSInput input) : SV_TARGET
 {
 	LightingResult lit = ComputeLighting(input.positionWS, normalize(input.normalWS));
 

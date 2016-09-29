@@ -11,7 +11,7 @@ void EditorGUI::MenuBar()
 		ViewMenu();
 		CreateMenu();
 		HelpMenu();
-
+		
 		ImGui::SameLine(ImGui::GetWindowWidth() / 2);
 		ImGui::Text("%.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
 

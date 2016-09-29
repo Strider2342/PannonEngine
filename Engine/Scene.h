@@ -18,7 +18,8 @@ public:
 
 	std::vector<GameObject*> gameObjects;
 	std::vector<Camera*> cameras;
-	std::vector<Light*> lights;
+	
+	std::vector<Light::ShaderInput> lights;
 
 	Camera *mainCamera = nullptr;
 
@@ -30,24 +31,20 @@ public:
 
 	// gameObjects
 	std::vector<GameObject*>& GetGameObjectList();
-
 	void AddGameObject(GameObject *gameObject);
 	GameObject* FindGameObject(std::string name);
 
 	// cameras
 	std::vector<Camera*>& GetCameraList();
-
 	void AddCamera(Camera *camera);
 	Camera* GetMainCamera();
 	void SetMainCamera(Camera *camera);
-
-	// lights
-	std::vector<Light*>& GetLightList();
-
-	void AddLight(Light *light);
-
+	
+	void RefreshLights();
 
 	void Start();
+	void PreUpdate();
 	void Update();
+	void PostUpdate();
 	void Render();
 };

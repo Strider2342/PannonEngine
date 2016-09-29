@@ -5,7 +5,7 @@
 
 class Material
 {
-private:
+public:
 	struct ShaderInput
 	{
 		DirectX::XMFLOAT4 diffuse;

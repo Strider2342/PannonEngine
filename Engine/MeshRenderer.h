@@ -1,18 +1,32 @@
 #pragma once
+#include <vector>
 #include "GameObject.h"
 #include "Component.h"
 #include "Mesh.h"
 #include "Transform.h"
+#include "Light.h"
 #include "Material.h"
 #include "Camera.h"
 
-struct CBUFFER
+struct PerObjectCB
 {
-	DirectX::XMMATRIX final;
-	DirectX::XMMATRIX rotation;
-	DirectX::XMVECTOR lightvector;
-	DirectX::XMVECTOR lightcolor;
-	DirectX::XMVECTOR ambientcolor;
+	DirectX::XMMATRIX worldMatrix;
+	DirectX::XMMATRIX inverseTransposeWorldMatrix;
+	DirectX::XMMATRIX WVP;
+};
+
+struct MaterialCB
+{
+	Material::ShaderInput input;
+};
+
+struct LightCB
+{
+	DirectX::XMFLOAT3 eyePosition;
+	float padding1 = 1.0f;
+	DirectX::XMFLOAT3 globalAmbient;
+	float padding2 = 1.0f;
+	Light::ShaderInput lights[8];
 };
 
 class MeshRenderer : public Component
@@ -23,10 +37,17 @@ private:
 
 	ID3D11Buffer *pVBuffer = nullptr;
 	ID3D11Buffer *pIBuffer = nullptr;
-	ID3D11Buffer *pCBuffer = nullptr;
+	ID3D11Buffer *pCBufferPerObject = nullptr;
+	ID3D11Buffer *pCBufferMaterial = nullptr;
+	ID3D11Buffer *pCBufferLights = nullptr;
 
+	std::vector<Light::ShaderInput> *lights;
 	Material *material;
-	CBUFFER cBuffer;
+	ID3D11SamplerState *sampler;
+
+	PerObjectCB perObjectCB;
+	MaterialCB materialCB;
+	LightCB lightCB;
 
 	Mesh *mesh;
 	Transform *transform;
@@ -42,8 +63,9 @@ public:
 	void LoadShader();
 	void CreateVertexBuffer();
 	void CreateIndexBuffer();
-	void CreateConstantBuffer();
-	void SetConstantBuffer();
+	void CreateSampler();
+	void CreateConstantBuffers();
+	void SetConstantBuffers();
 
 	void Render();
 
@@ -56,4 +78,5 @@ public:
 	void SetMesh(Mesh *mesh);
 	void SetTransform(Transform *transform);
 	void SetCamera(Camera *camera);
+	void SetLights(std::vector<Light::ShaderInput> *lights);
 };

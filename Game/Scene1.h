@@ -12,6 +12,7 @@ private:
 	GameObject camera;
 	GameObject test;
 	GameObject teapot;
+	GameObject light1, light2;
 
 public:
 	Scene1();
