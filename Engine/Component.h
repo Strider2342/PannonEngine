@@ -17,5 +17,10 @@ public:
 	virtual void Update(GameTime gameTime);
 	virtual void Render();
 
+	virtual void OnCollision();
+	virtual void OnCollisionEnter();
+	virtual void OnCollisionStay();
+	virtual void OnCollisionExit();
+
 	void SetGameObject(GameObject *gameObject);
 };
