@@ -21,7 +21,7 @@ public:
 
 class SphereCollider : public Collider
 {
-	DirectX::BoundingSphere sphere;
+	DirectX::BoundingSphere collider;
 	DirectX::ContainmentType collision;
 
 	float radius;
@@ -34,11 +34,14 @@ public:
 
 	// set
 	void SetRadius(float radius);
+
+	bool Colliding(DirectX::BoundingSphere &collider2);
+	bool Colliding(DirectX::BoundingOrientedBox &collider2);
 };
 
 class BoxCollider : public Collider
 {
-	DirectX::BoundingOrientedBox box;
+	DirectX::BoundingOrientedBox collider;
 	DirectX::ContainmentType collision;
 
 	DirectX::XMFLOAT3 size;
@@ -51,4 +54,7 @@ public:
 
 	// set
 	void SetSize(DirectX::XMFLOAT3 size);
+
+	bool Colliding(DirectX::BoundingSphere &collider2);
+	bool Colliding(DirectX::BoundingOrientedBox &collider2);
 };

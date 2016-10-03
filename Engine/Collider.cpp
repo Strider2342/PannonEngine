@@ -27,6 +27,14 @@ void SphereCollider::SetRadius(float radius)
 {
 	this->radius = radius;
 }
+bool SphereCollider::Colliding(DirectX::BoundingSphere &collider2)
+{
+	return collider.Intersects(collider2);
+}
+bool SphereCollider::Colliding(DirectX::BoundingOrientedBox &collider2)
+{
+	return collider.Intersects(collider2);
+}
 
 // box collider
 BoxCollider::BoxCollider()
@@ -40,4 +48,12 @@ DirectX::XMFLOAT3& BoxCollider::GetSize()
 void BoxCollider::SetSize(DirectX::XMFLOAT3 size)
 {
 	this->size = size;
+}
+bool BoxCollider::Colliding(DirectX::BoundingSphere &collider2)
+{
+	return collider.Intersects(collider2);
+}
+bool BoxCollider::Colliding(DirectX::BoundingOrientedBox &collider2)
+{
+	return collider.Intersects(collider2);
 }
