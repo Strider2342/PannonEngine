@@ -13,6 +13,22 @@ void Collider::SetCenter(DirectX::XMFLOAT3 center)
 {
 	this->center = center;
 }
+void Collider::Start()
+{
+
+}
+void Collider::Update()
+{
+
+}
+bool Collider::Colliding(DirectX::BoundingSphere *collider2)
+{
+	return false;
+}
+bool Collider::Colliding(DirectX::BoundingOrientedBox *collider2)
+{
+	return false;
+}
 
 // sphere collider
 SphereCollider::SphereCollider()
@@ -23,17 +39,31 @@ float& SphereCollider::GetRadius()
 {
 	return radius;
 }
+DirectX::BoundingSphere* SphereCollider::GetCollider()
+{
+	return &collider;
+}
 void SphereCollider::SetRadius(float radius)
 {
 	this->radius = radius;
 }
-bool SphereCollider::Colliding(DirectX::BoundingSphere &collider2)
+void SphereCollider::Start()
 {
-	return collider.Intersects(collider2);
+	collider.Center = DirectX::XMFLOAT3(gameObject->GetTransform()->GetPosition().x + center.x, gameObject->GetTransform()->GetPosition().y + center.y, gameObject->GetTransform()->GetPosition().z + center.z);
+	collider.Radius = radius;
 }
-bool SphereCollider::Colliding(DirectX::BoundingOrientedBox &collider2)
+void SphereCollider::Update()
 {
-	return collider.Intersects(collider2);
+	collider.Center = DirectX::XMFLOAT3(gameObject->GetTransform()->GetPosition().x + center.x, gameObject->GetTransform()->GetPosition().y + center.y, gameObject->GetTransform()->GetPosition().z + center.z);
+	collider.Radius = radius;
+}
+bool SphereCollider::Colliding(DirectX::BoundingSphere *collider2)
+{
+	return collider.Intersects(*collider2);
+}
+bool SphereCollider::Colliding(DirectX::BoundingOrientedBox *collider2)
+{
+	return collider.Intersects(*collider2);
 }
 
 // box collider
@@ -45,15 +75,31 @@ DirectX::XMFLOAT3& BoxCollider::GetSize()
 {
 	return size;
 }
+DirectX::BoundingOrientedBox* BoxCollider::GetCollider()
+{
+	return &collider;
+}
 void BoxCollider::SetSize(DirectX::XMFLOAT3 size)
 {
 	this->size = size;
 }
-bool BoxCollider::Colliding(DirectX::BoundingSphere &collider2)
+void BoxCollider::Start()
 {
-	return collider.Intersects(collider2);
+	collider.Center = DirectX::XMFLOAT3(gameObject->GetTransform()->GetPosition().x + center.x, gameObject->GetTransform()->GetPosition().y + center.y, gameObject->GetTransform()->GetPosition().z + center.z);
+	collider.Extents = DirectX::XMFLOAT3(gameObject->GetTransform()->GetScale().x * size.x, gameObject->GetTransform()->GetScale().y * size.y, gameObject->GetTransform()->GetScale().z * size.z);
+	collider.Orientation = DirectX::XMFLOAT4(gameObject->GetTransform()->GetForward().x, gameObject->GetTransform()->GetForward().y, gameObject->GetTransform()->GetForward().z, 1.0f);
 }
-bool BoxCollider::Colliding(DirectX::BoundingOrientedBox &collider2)
+void BoxCollider::Update()
 {
-	return collider.Intersects(collider2);
+	collider.Center = DirectX::XMFLOAT3(gameObject->GetTransform()->GetPosition().x + center.x, gameObject->GetTransform()->GetPosition().y + center.y, gameObject->GetTransform()->GetPosition().z + center.z);
+	collider.Extents = DirectX::XMFLOAT3(gameObject->GetTransform()->GetScale().x * size.x, gameObject->GetTransform()->GetScale().y * size.y, gameObject->GetTransform()->GetScale().z * size.z);
+	collider.Orientation = DirectX::XMFLOAT4(gameObject->GetTransform()->GetForward().x, gameObject->GetTransform()->GetForward().y, gameObject->GetTransform()->GetForward().z, 1.0f);
+}
+bool BoxCollider::Colliding(DirectX::BoundingSphere *collider2)
+{
+	return collider.Intersects(*collider2);
+}
+bool BoxCollider::Colliding(DirectX::BoundingOrientedBox *collider2)
+{
+	return collider.Intersects(*collider2);
 }

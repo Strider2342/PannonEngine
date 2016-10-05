@@ -5,6 +5,7 @@
 #include "Object.h"
 #include "GameObject.h"
 #include "MeshRenderer.h"
+#include "Collider.h"
 #include "Camera.h"
 #include "Light.h"
 #include "DebugHelper.h"

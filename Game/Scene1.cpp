@@ -29,6 +29,8 @@ void Scene1::Start()
 	teapot.GetComponent<MeshRenderer>()->Init(graphics.GetDevice(), graphics.GetDeviceContext());
 	teapot.GetComponent<MeshRenderer>()->SetTransform(teapot.GetTransform());
 	teapot.GetComponent<MeshRenderer>()->SetCamera(mainCamera);
+	
+	teapot.AddComponent<BoxCollider>();
 
 	teapot.GetTransform()->GetRotation() = DirectX::XMFLOAT3(AI_MATH_PI / 2, 0.0f, 0.0f);
 	teapot.GetTransform()->MultiplyScale(0.025f);
@@ -38,6 +40,24 @@ void Scene1::Start()
 	for (int i = 0; i < gameObjects.size(); i++)
 	{
 		gameObjects[i]->Start();
+	}
+	
+	BoxCollider *coll = new BoxCollider();
+	coll->SetCenter(DirectX::XMFLOAT3(20000.0f, 20000.0f, 20000.0f));
+
+	if (teapot.GetComponent<Collider>() != NULL)
+	{
+		if (dynamic_cast<BoxCollider *>(teapot.GetComponent<Collider>()))
+		{
+			if (dynamic_cast<BoxCollider *>(teapot.GetComponent<Collider>())->Colliding(coll->GetCollider()))
+			{
+				std::cout << dynamic_cast<BoxCollider *>(teapot.GetComponent<Collider>())->GetSize().x << std::endl;
+			}
+		}
+		else if (dynamic_cast<SphereCollider *>(teapot.GetComponent<Collider>()))
+		{
+
+		}
 	}
 }
 

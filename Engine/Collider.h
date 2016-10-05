@@ -1,4 +1,6 @@
 #pragma once
+#include <iostream>
+#include <algorithm>
 #include <DirectXMath.h>
 #include <DirectXCollision.h>
 #include "GameObject.h"
@@ -7,6 +9,7 @@
 
 class Collider : public Component
 {
+protected:
 	DirectX::XMFLOAT3 center;
 	
 public:
@@ -17,6 +20,12 @@ public:
 
 	// set
 	void SetCenter(DirectX::XMFLOAT3 center);
+
+	virtual void Start();
+	virtual void Update();
+
+	virtual bool Colliding(DirectX::BoundingSphere *collider2);
+	virtual bool Colliding(DirectX::BoundingOrientedBox *collider2);
 };
 
 class SphereCollider : public Collider
@@ -31,12 +40,16 @@ public:
 
 	// get
 	float& GetRadius();
+	DirectX::BoundingSphere* GetCollider();
 
 	// set
 	void SetRadius(float radius);
 
-	bool Colliding(DirectX::BoundingSphere &collider2);
-	bool Colliding(DirectX::BoundingOrientedBox &collider2);
+	void Start();
+	void Update();
+
+	bool Colliding(DirectX::BoundingSphere *collider2);
+	bool Colliding(DirectX::BoundingOrientedBox *collider2);
 };
 
 class BoxCollider : public Collider
@@ -51,10 +64,14 @@ public:
 
 	// get
 	DirectX::XMFLOAT3& GetSize();
+	DirectX::BoundingOrientedBox* GetCollider();
 
 	// set
 	void SetSize(DirectX::XMFLOAT3 size);
 
-	bool Colliding(DirectX::BoundingSphere &collider2);
-	bool Colliding(DirectX::BoundingOrientedBox &collider2);
+	void Start();
+	void Update();
+
+	bool Colliding(DirectX::BoundingSphere *collider2);
+	bool Colliding(DirectX::BoundingOrientedBox *collider2);
 };

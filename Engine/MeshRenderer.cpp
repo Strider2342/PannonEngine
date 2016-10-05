@@ -129,7 +129,11 @@ void MeshRenderer::CreateConstantBuffers()
 void MeshRenderer::SetConstantBuffers()
 {
 	DirectX::XMMATRIX inverseTransposeWorldMatrix = DirectX::XMMatrixTranspose(DirectX::XMMatrixInverse(NULL, transform->GetWorldMatrix()));
-	DirectX::XMMATRIX WVP = transform->GetWorldMatrix() * camera->GetViewMatrix() * camera->GetProjectionMatrix();
+	
+	DirectX::XMMATRIX matWorld = transform->GetWorldMatrix();
+	DirectX::XMMATRIX matView = camera->GetViewMatrix();
+	DirectX::XMMATRIX matProjection = camera->GetProjectionMatrix();
+	DirectX::XMMATRIX WVP = matWorld * matView * matProjection;
 
 	perObjectCB.worldMatrix = transform->GetWorldMatrix();
 	perObjectCB.inverseTransposeWorldMatrix = inverseTransposeWorldMatrix;
