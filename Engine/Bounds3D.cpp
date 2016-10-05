@@ -1,5 +1,10 @@
 #include "Bounds3D.h"
 
+Bounds3D::Bounds3D()
+{
+
+}
+
 DirectX::XMFLOAT2& Bounds3D::GetXBounds()
 {
 	return xBounds;

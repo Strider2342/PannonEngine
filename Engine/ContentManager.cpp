@@ -174,5 +174,7 @@ Mesh* ContentManager::LoadMesh(std::string filename)
 	newmesh->SetVertices(vertices);
 	newmesh->SetIndices(indices);
 
+	newmesh->SetBounds();
+
 	return newmesh;
 }
