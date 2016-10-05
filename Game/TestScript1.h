@@ -3,7 +3,7 @@
 #include "Transform.h"
 #include "Light.h"
 
-class Beka : public Script
+class TestScript1 : public Script
 {
 private:
 	Transform *transform;
@@ -13,7 +13,7 @@ private:
 	float speed = 0.9f;
 
 public:
-	Beka() {}
+	TestScript1() {}
 
 	void Start()
 	{

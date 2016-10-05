@@ -16,13 +16,13 @@ public:
 	Collider();
 
 	// get
-	DirectX::XMFLOAT3& GetCenter();
+	virtual DirectX::XMFLOAT3& GetCenter();
 
 	// set
-	void SetCenter(DirectX::XMFLOAT3 center);
+	virtual void SetCenter(DirectX::XMFLOAT3 center);
 
 	virtual void Start();
-	virtual void Update();
+	virtual void Update(GameTime gameTime);
 
 	virtual bool Colliding(DirectX::BoundingSphere *collider2);
 	virtual bool Colliding(DirectX::BoundingOrientedBox *collider2);
@@ -39,14 +39,16 @@ public:
 	SphereCollider();
 
 	// get
+	DirectX::XMFLOAT3& GetCenter();
 	float& GetRadius();
 	DirectX::BoundingSphere* GetCollider();
 
 	// set
+	void SetCenter(DirectX::XMFLOAT3 center);
 	void SetRadius(float radius);
 
 	void Start();
-	void Update();
+	void Update(GameTime gameTime);
 
 	bool Colliding(DirectX::BoundingSphere *collider2);
 	bool Colliding(DirectX::BoundingOrientedBox *collider2);
@@ -63,14 +65,16 @@ public:
 	BoxCollider();
 
 	// get
+	DirectX::XMFLOAT3& GetCenter();
 	DirectX::XMFLOAT3& GetSize();
 	DirectX::BoundingOrientedBox* GetCollider();
 
 	// set
+	void SetCenter(DirectX::XMFLOAT3 center);
 	void SetSize(DirectX::XMFLOAT3 size);
 
 	void Start();
-	void Update();
+	void Update(GameTime gameTime);
 
 	bool Colliding(DirectX::BoundingSphere *collider2);
 	bool Colliding(DirectX::BoundingOrientedBox *collider2);

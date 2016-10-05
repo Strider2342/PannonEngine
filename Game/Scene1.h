@@ -4,14 +4,15 @@
 #include "ContentManager.h"
 
 #include "MyFirstScript.h"
-#include "Beka.h"
+#include "TestScript1.h"
+#include "TestScript2.h"
 
 class Scene1 : public Scene
 {
 private:
 	GameObject camera;
 	GameObject test;
-	GameObject teapot;
+	GameObject teapot, teapot2;
 	GameObject light1, light2;
 
 public:

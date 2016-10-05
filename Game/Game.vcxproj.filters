@@ -38,7 +38,10 @@
     <ClInclude Include="MyFirstScript.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Beka.h">
+    <ClInclude Include="TestScript1.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TestScript2.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
