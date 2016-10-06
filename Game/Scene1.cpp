@@ -33,6 +33,7 @@ void Scene1::Start()
 	teapot.GetComponent<MeshRenderer>()->SetCamera(mainCamera);
 	
 	teapot.AddComponent<SphereCollider>();
+	teapot.GetComponent<SphereCollider>()->SetRadius(8.0f);
 
 	teapot.GetTransform()->GetPosition() = DirectX::XMFLOAT3(1.25f, 0.23f, 0.0f);
 	teapot.GetTransform()->GetRotation() = DirectX::XMFLOAT3(AI_MATH_PI / 2, 0.0f, 0.0f);
@@ -45,8 +46,10 @@ void Scene1::Start()
 	teapot2.GetComponent<MeshRenderer>()->Init(graphics.GetDevice(), graphics.GetDeviceContext());
 	teapot2.GetComponent<MeshRenderer>()->SetTransform(teapot2.GetTransform());
 	teapot2.GetComponent<MeshRenderer>()->SetCamera(mainCamera);
+	teapot2.GetComponent<MeshRenderer>()->GetMaterial()->SetDiffuse(0.0f, 1.0f, 0.0f);
 
 	teapot2.AddComponent<SphereCollider>();
+	teapot2.GetComponent<SphereCollider>()->SetRadius(8.0f);
 
 	teapot2.GetTransform()->GetPosition() = DirectX::XMFLOAT3(-1.0f, 0.0f, 0.0f);
 	teapot2.GetTransform()->GetRotation() = DirectX::XMFLOAT3(AI_MATH_PI / 2, 0.0f, 0.0f);
@@ -66,7 +69,7 @@ void Scene1::Load()
 	ContentManager content = ContentManager();
 	content.Init(graphics.GetDevice(), graphics.GetDeviceContext());
 
-	Mesh *mesh = content.LoadMesh("Meshes/lowpolysphere.DAE");
+	Mesh *mesh = content.LoadMesh("Meshes/miniteapot.DAE");
 		
 	teapot.GetTransform()->SetParent(test.GetTransform());
 	teapot.GetComponent<MeshRenderer>()->SetMesh(mesh);
@@ -80,25 +83,6 @@ void Scene1::Update()
 	for (int i = 0; i < gameObjects.size(); i++)
 	{
 		gameObjects[i]->Update(gameTime);
-	}
-
-	if (teapot.GetComponent<Collider>() != NULL)
-	{
-		if (dynamic_cast<BoxCollider *>(teapot.GetComponent<Collider>()))
-		{
-			
-		}
-		else if (dynamic_cast<SphereCollider *>(teapot.GetComponent<Collider>()))
-		{
-			if (dynamic_cast<SphereCollider *>(teapot.GetComponent<Collider>())->Colliding(teapot2.GetComponent<SphereCollider>()->GetCollider()))
-			{
-				std::cout << "Colliding" << std::endl;
-			}
-			else
-			{
-				std::cout << "Not colliding" << std::endl;
-			}
-		}
 	}
 }
 

@@ -12,6 +12,8 @@ private:
 
 	float speed = 0.9f;
 
+	bool colliding = false;
+
 public:
 	TestScript1() {}
 
@@ -23,31 +25,45 @@ public:
 
 	void Update(GameTime gameTime)
 	{
-		if (Input::GetKeyDown(KeyCode::LeftArrow))
+		std::cout << colliding << std::endl;
+		if (!colliding)
 		{
-			transform->GetPosition().x += speed * gameTime.GetDeltaTime();
-		}
-		else if (Input::GetKeyDown(KeyCode::RightArrow))
-		{
-			transform->GetPosition().x -= speed * gameTime.GetDeltaTime();
+			if (Input::GetKeyDown(KeyCode::LeftArrow))
+			{
+				transform->GetPosition().x += speed * gameTime.GetDeltaTime();
+			}
+			else if (Input::GetKeyDown(KeyCode::RightArrow))
+			{
+				transform->GetPosition().x -= speed * gameTime.GetDeltaTime();
+			}
+
+			if (Input::GetKeyDown(KeyCode::UpArrow))
+			{
+				transform->GetPosition().y -= speed * gameTime.GetDeltaTime();
+			}
+			else if (Input::GetKeyDown(KeyCode::DownArrow))
+			{
+				transform->GetPosition().y += speed * gameTime.GetDeltaTime();
+			}
+
+			if (Input::GetKeyDown(KeyCode::Plus))
+			{
+				transform->GetPosition().z += speed * gameTime.GetDeltaTime();
+			}
+			else if (Input::GetKeyDown(KeyCode::Minus))
+			{
+				transform->GetPosition().z -= speed * gameTime.GetDeltaTime();
+			}
 		}
 
-		if (Input::GetKeyDown(KeyCode::UpArrow))
-		{
-			transform->GetPosition().y -= speed * gameTime.GetDeltaTime();
-		}
-		else if (Input::GetKeyDown(KeyCode::DownArrow))
-		{
-			transform->GetPosition().y += speed * gameTime.GetDeltaTime();
-		}
+		colliding = false;
 
-		if (Input::GetKeyDown(KeyCode::Plus))
-		{
-			transform->GetPosition().z += speed * gameTime.GetDeltaTime();
-		}
-		else if (Input::GetKeyDown(KeyCode::Minus))
-		{
-			transform->GetPosition().z -= speed * gameTime.GetDeltaTime();
-		}
+		/*transform->GetPosition().x = cos(gameTime.GetElapsedTime()) / 2.0f;
+		transform->GetPosition().y = sin(gameTime.GetElapsedTime()) / 2.0f;*/
+	}
+
+	void OnCollision()
+	{
+		colliding = true;
 	}
 };

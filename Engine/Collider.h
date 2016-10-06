@@ -10,6 +10,7 @@
 class Collider : public Component
 {
 protected:
+	DirectX::ContainmentType collision;
 	DirectX::XMFLOAT3 center;
 	
 public:
@@ -31,7 +32,6 @@ public:
 class SphereCollider : public Collider
 {
 	DirectX::BoundingSphere collider;
-	DirectX::ContainmentType collision;
 
 	float radius;
 
@@ -57,7 +57,6 @@ public:
 class BoxCollider : public Collider
 {
 	DirectX::BoundingOrientedBox collider;
-	DirectX::ContainmentType collision;
 
 	DirectX::XMFLOAT3 size;
 

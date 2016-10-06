@@ -18,8 +18,15 @@ public:
 	~GameObject();
 
 	void Start();
+	void PreUpdate();
 	void Update(GameTime gameTime);
+	void PostUpdate();
 	void Render();
+
+	virtual void OnCollision();
+	virtual void OnCollisionEnter();
+	virtual void OnCollisionStay();
+	virtual void OnCollisionExit();
 
 	// get
 	Transform *GetTransform();

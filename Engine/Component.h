@@ -14,7 +14,9 @@ public:
 	virtual ~Component();
 
 	virtual void Start();
+	virtual void PreUpdate();
 	virtual void Update(GameTime gameTime);
+	virtual void PostUpdate();
 	virtual void Render();
 
 	virtual void OnCollision();

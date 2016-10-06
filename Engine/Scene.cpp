@@ -86,6 +86,64 @@ void Scene::RefreshLights()
 	}
 }
 
+void Scene::CheckCollision()
+{
+	for (int i = 0; i < gameObjects.size() - 1; i++)
+	{
+		Collider *collider1 = gameObjects[i]->GetComponent<Collider>();
+
+		if (collider1 != NULL)
+		{
+			for (int j = i + 1; j < gameObjects.size(); j++)
+			{
+				Collider *collider2 = gameObjects[j]->GetComponent<Collider>();
+
+				if (collider2 != NULL)
+				{
+					if (dynamic_cast<BoxCollider *>(collider1))
+					{
+						if (dynamic_cast<BoxCollider *>(collider2))
+						{
+							if (dynamic_cast<BoxCollider *>(collider1)->Colliding(dynamic_cast<BoxCollider *>(collider2)->GetCollider()))
+							{
+								gameObjects[i]->OnCollision();
+								gameObjects[j]->OnCollision();
+							}
+						}
+						else if (dynamic_cast<SphereCollider *>(collider2))
+						{
+							if (dynamic_cast<BoxCollider *>(collider1)->Colliding(dynamic_cast<SphereCollider *>(collider2)->GetCollider()))
+							{
+								gameObjects[i]->OnCollision();
+								gameObjects[j]->OnCollision();
+							}
+						}
+					}
+					else if (dynamic_cast<SphereCollider *>(collider1))
+					{
+						if (dynamic_cast<BoxCollider *>(collider2))
+						{
+							if (dynamic_cast<SphereCollider *>(collider1)->Colliding(dynamic_cast<BoxCollider *>(collider2)->GetCollider()))
+							{
+								gameObjects[i]->OnCollision();
+								gameObjects[j]->OnCollision();
+							}
+						}
+						else if (dynamic_cast<SphereCollider *>(collider2))
+						{
+							if (dynamic_cast<SphereCollider *>(collider1)->Colliding(dynamic_cast<SphereCollider *>(collider2)->GetCollider()))
+							{
+								gameObjects[i]->OnCollision();
+								gameObjects[j]->OnCollision();
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
 void Scene::Start()
 {
 }
@@ -93,6 +151,7 @@ void Scene::Start()
 void Scene::PreUpdate()
 {
 	RefreshLights();
+	CheckCollision();
 }
 
 void Scene::Update()

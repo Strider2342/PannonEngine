@@ -42,6 +42,7 @@ public:
 	void SetMainCamera(Camera *camera);
 	
 	void RefreshLights();
+	void CheckCollision();
 
 	void Start();
 	void PreUpdate();
