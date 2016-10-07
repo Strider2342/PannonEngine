@@ -25,9 +25,9 @@ public:
 
 	void Update(GameTime gameTime)
 	{
-		std::cout << colliding << std::endl;
-		if (!colliding)
-		{
+		//std::cout << colliding << std::endl;
+		//if (!colliding)
+		//{
 			if (Input::GetKeyDown(KeyCode::LeftArrow))
 			{
 				transform->GetPosition().x += speed * gameTime.GetDeltaTime();
@@ -54,7 +54,7 @@ public:
 			{
 				transform->GetPosition().z -= speed * gameTime.GetDeltaTime();
 			}
-		}
+		//}
 
 		colliding = false;
 
@@ -62,8 +62,15 @@ public:
 		transform->GetPosition().y = sin(gameTime.GetElapsedTime()) / 2.0f;*/
 	}
 
+	void PostRender()
+	{
+		std::cout << "postrender" << std::endl;
+		gameObject->GetComponent<MeshRenderer>()->GetMaterial()->SetDiffuse(0.4f, 0.4f, 0.4f);
+	}
+
 	void OnCollision()
 	{
 		colliding = true;
+		gameObject->GetComponent<MeshRenderer>()->GetMaterial()->SetDiffuse(0.0f, 1.0f, 0.0f);
 	}
 };

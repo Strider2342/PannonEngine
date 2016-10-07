@@ -17,6 +17,9 @@ void Component::PostUpdate()
 }
 void Component::Render()
 { }
+void Component::PostRender()
+{
+}
 
 void Component::OnCollision()
 { }

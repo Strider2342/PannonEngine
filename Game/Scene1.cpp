@@ -32,12 +32,12 @@ void Scene1::Start()
 	teapot.GetComponent<MeshRenderer>()->SetTransform(teapot.GetTransform());
 	teapot.GetComponent<MeshRenderer>()->SetCamera(mainCamera);
 	
-	teapot.AddComponent<SphereCollider>();
-	teapot.GetComponent<SphereCollider>()->SetRadius(8.0f);
-
-	teapot.GetTransform()->GetPosition() = DirectX::XMFLOAT3(1.25f, 0.23f, 0.0f);
-	teapot.GetTransform()->GetRotation() = DirectX::XMFLOAT3(AI_MATH_PI / 2, 0.0f, 0.0f);
 	teapot.GetTransform()->MultiplyScale(0.025f);
+	teapot.GetTransform()->GetPosition() = DirectX::XMFLOAT3(1.25f, 0.23f, 0.0f);
+	//teapot.GetTransform()->GetRotation() = DirectX::XMFLOAT3(AI_MATH_PI / 2, 0.0f, 0.0f);
+
+	teapot.AddComponent<SphereCollider>();
+	teapot.GetComponent<SphereCollider>()->SetRadius(12.0f);
 
 	teapot.AddComponent<TestScript1>();
 
@@ -46,17 +46,16 @@ void Scene1::Start()
 	teapot2.GetComponent<MeshRenderer>()->Init(graphics.GetDevice(), graphics.GetDeviceContext());
 	teapot2.GetComponent<MeshRenderer>()->SetTransform(teapot2.GetTransform());
 	teapot2.GetComponent<MeshRenderer>()->SetCamera(mainCamera);
-	teapot2.GetComponent<MeshRenderer>()->GetMaterial()->SetDiffuse(0.0f, 1.0f, 0.0f);
-
-	teapot2.AddComponent<SphereCollider>();
-	teapot2.GetComponent<SphereCollider>()->SetRadius(8.0f);
+	//teapot2.GetComponent<MeshRenderer>()->GetMaterial()->SetDiffuse(0.0f, 1.0f, 0.0f);
 
 	teapot2.GetTransform()->GetPosition() = DirectX::XMFLOAT3(-1.0f, 0.0f, 0.0f);
-	teapot2.GetTransform()->GetRotation() = DirectX::XMFLOAT3(AI_MATH_PI / 2, 0.0f, 0.0f);
+	//teapot2.GetTransform()->GetRotation() = DirectX::XMFLOAT3(AI_MATH_PI / 2, 0.0f, 0.0f);
 	teapot2.GetTransform()->MultiplyScale(0.025f);
 
+	teapot2.AddComponent<SphereCollider>();
+	teapot2.GetComponent<SphereCollider>()->SetRadius(12.0f);	
+
 	teapot2.AddComponent<TestScript2>();
-	
 
 	for (int i = 0; i < gameObjects.size(); i++)
 	{
@@ -69,12 +68,12 @@ void Scene1::Load()
 	ContentManager content = ContentManager();
 	content.Init(graphics.GetDevice(), graphics.GetDeviceContext());
 
-	Mesh *mesh = content.LoadMesh("Meshes/miniteapot.DAE");
+	Mesh *mesh = content.LoadMesh("Meshes/microteapot.DAE");
 		
-	teapot.GetTransform()->SetParent(test.GetTransform());
+	//teapot.GetTransform()->SetParent(test.GetTransform());
 	teapot.GetComponent<MeshRenderer>()->SetMesh(mesh);
 
-	teapot2.GetTransform()->SetParent(test.GetTransform());
+	//teapot2.GetTransform()->SetParent(test.GetTransform());
 	teapot2.GetComponent<MeshRenderer>()->SetMesh(mesh);
 }
 

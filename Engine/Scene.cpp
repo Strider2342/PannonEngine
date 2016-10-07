@@ -166,3 +166,11 @@ void Scene::PostUpdate()
 void Scene::Render()
 {
 }
+
+void Scene::PostRender()
+{
+	for (int i = 0; i < gameObjects.size(); i++)
+	{
+		gameObjects[i]->PostRender();
+	}
+}

@@ -59,8 +59,12 @@ void SphereCollider::SetRadius(float radius)
 }
 void SphereCollider::Start()
 {
+	float max = gameObject->GetTransform()->GetScale().x;
+	if (gameObject->GetTransform()->GetScale().y > max) { max = gameObject->GetTransform()->GetScale().y; }
+	if (gameObject->GetTransform()->GetScale().z > max) { max = gameObject->GetTransform()->GetScale().z; }
+
 	collider.Center = DirectX::XMFLOAT3(gameObject->GetTransform()->GetPosition().x + center.x, gameObject->GetTransform()->GetPosition().y + center.y, gameObject->GetTransform()->GetPosition().z + center.z);
-	collider.Radius = radius;
+	collider.Radius = radius * max;
 }
 void SphereCollider::Update(GameTime gameTime)
 {

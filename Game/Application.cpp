@@ -32,6 +32,7 @@ void Application::Run()
 		scene.PostUpdate();
 
 		scene.Draw();
+		scene.PostRender();
 	}
 
 	graphics.CleanD3D();

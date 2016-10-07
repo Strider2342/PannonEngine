@@ -49,4 +49,5 @@ public:
 	void Update();
 	void PostUpdate();
 	void Render();
+	void PostRender();
 };

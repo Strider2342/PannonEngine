@@ -41,6 +41,13 @@ void GameObject::Render()
 		components[i]->Render();
 	}
 }
+void GameObject::PostRender()
+{
+	for (int i = 0; i < components.size(); i++)
+	{
+		components[i]->PostRender();
+	}
+}
 
 void GameObject::OnCollision()
 {

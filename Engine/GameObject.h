@@ -22,6 +22,7 @@ public:
 	void Update(GameTime gameTime);
 	void PostUpdate();
 	void Render();
+	void PostRender();
 
 	virtual void OnCollision();
 	virtual void OnCollisionEnter();
