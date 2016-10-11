@@ -2,7 +2,7 @@
 #include <vector>
 #include "Graphics.h"
 #include "GameTime.h"
-#include "Object.h"
+#include "Physics.h"
 #include "GameObject.h"
 #include "MeshRenderer.h"
 #include "Collider.h"
@@ -12,10 +12,10 @@
 
 class Scene
 {
-public:
+protected:
 	Graphics graphics;
-
 	GameTime gameTime;
+	Physics physics;
 
 	std::vector<GameObject*> gameObjects;
 	std::vector<Camera*> cameras;

@@ -41,6 +41,9 @@ public:
 	void AddComponent();
 
 	template <class T>
+	void AddComponent(T *component);
+
+	template <class T>
 	T* GetComponent();
 };
 
@@ -48,6 +51,13 @@ template<class T>
 inline void GameObject::AddComponent()
 {
 	T *component = new T();
+	components.push_back(component);
+	component->SetGameObject(this);
+}
+
+template<class T>
+inline void GameObject::AddComponent(T *component)
+{
 	components.push_back(component);
 	component->SetGameObject(this);
 }

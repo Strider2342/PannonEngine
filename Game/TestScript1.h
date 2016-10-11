@@ -25,46 +25,54 @@ public:
 
 	void Update(GameTime gameTime)
 	{
-		//std::cout << colliding << std::endl;
-		//if (!colliding)
-		//{
-			if (Input::GetKeyDown(KeyCode::LeftArrow))
-			{
-				transform->GetPosition().x += speed * gameTime.GetDeltaTime();
-			}
-			else if (Input::GetKeyDown(KeyCode::RightArrow))
-			{
-				transform->GetPosition().x -= speed * gameTime.GetDeltaTime();
-			}
+		if (Input::GetKeyDown(KeyCode::LeftArrow))
+		{
+			transform->GetPosition().x += speed * gameTime.GetDeltaTime();
+		}
+		else if (Input::GetKeyDown(KeyCode::RightArrow))
+		{
+			transform->GetPosition().x -= speed * gameTime.GetDeltaTime();
+		}
 
-			if (Input::GetKeyDown(KeyCode::UpArrow))
-			{
-				transform->GetPosition().y -= speed * gameTime.GetDeltaTime();
-			}
-			else if (Input::GetKeyDown(KeyCode::DownArrow))
-			{
-				transform->GetPosition().y += speed * gameTime.GetDeltaTime();
-			}
+		if (Input::GetKeyDown(KeyCode::UpArrow))
+		{
+			transform->GetPosition().y -= speed * gameTime.GetDeltaTime();
+		}
+		else if (Input::GetKeyDown(KeyCode::DownArrow))
+		{
+			transform->GetPosition().y += speed * gameTime.GetDeltaTime();
+		}
 
-			if (Input::GetKeyDown(KeyCode::Plus))
-			{
-				transform->GetPosition().z += speed * gameTime.GetDeltaTime();
-			}
-			else if (Input::GetKeyDown(KeyCode::Minus))
-			{
-				transform->GetPosition().z -= speed * gameTime.GetDeltaTime();
-			}
-		//}
+		if (Input::GetKeyDown(KeyCode::Plus))
+		{
+			transform->GetPosition().z += speed * gameTime.GetDeltaTime();
+		}
+		else if (Input::GetKeyDown(KeyCode::Minus))
+		{
+			transform->GetPosition().z -= speed * gameTime.GetDeltaTime();
+		}
+
+		if (Input::GetKeyDown(KeyCode::U))
+		{
+			transform->GetRotation().y += speed * gameTime.GetDeltaTime();
+		}
+		else if (Input::GetKeyDown(KeyCode::I))
+		{
+			transform->GetRotation().y -= speed * gameTime.GetDeltaTime();
+		}
 
 		colliding = false;
 
-		/*transform->GetPosition().x = cos(gameTime.GetElapsedTime()) / 2.0f;
-		transform->GetPosition().y = sin(gameTime.GetElapsedTime()) / 2.0f;*/
+		Hit hit = gameObject->GetComponent<Physics>()->RayCast(gameObject->GetTransform()->GetPosition(), gameObject->GetTransform()->GetRight(), 2.0f);
+
+		if (hit.hitOccured)
+		{
+			std::cout << "RayCast hit occured!" << std::endl;
+		}
 	}
 
 	void PostRender()
 	{
-		std::cout << "postrender" << std::endl;
 		gameObject->GetComponent<MeshRenderer>()->GetMaterial()->SetDiffuse(0.4f, 0.4f, 0.4f);
 	}
 

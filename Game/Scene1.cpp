@@ -27,6 +27,8 @@ void Scene1::Start()
 	gameObjects.push_back(&teapot2);
 
 	teapot.SetName("Object 1");
+	teapot.AddComponent<Physics>(&physics);
+
 	teapot.AddComponent<MeshRenderer>();
 	teapot.GetComponent<MeshRenderer>()->Init(graphics.GetDevice(), graphics.GetDeviceContext());
 	teapot.GetComponent<MeshRenderer>()->SetTransform(teapot.GetTransform());
@@ -34,7 +36,7 @@ void Scene1::Start()
 	
 	teapot.GetTransform()->MultiplyScale(0.025f);
 	teapot.GetTransform()->GetPosition() = DirectX::XMFLOAT3(1.25f, 0.23f, 0.0f);
-	//teapot.GetTransform()->GetRotation() = DirectX::XMFLOAT3(AI_MATH_PI / 2, 0.0f, 0.0f);
+	teapot.GetTransform()->GetRotation() = DirectX::XMFLOAT3(AI_MATH_PI / 2, 0.0f, 0.0f);
 
 	teapot.AddComponent<SphereCollider>();
 	teapot.GetComponent<SphereCollider>()->SetRadius(12.0f);
@@ -49,7 +51,7 @@ void Scene1::Start()
 	//teapot2.GetComponent<MeshRenderer>()->GetMaterial()->SetDiffuse(0.0f, 1.0f, 0.0f);
 
 	teapot2.GetTransform()->GetPosition() = DirectX::XMFLOAT3(-1.0f, 0.0f, 0.0f);
-	//teapot2.GetTransform()->GetRotation() = DirectX::XMFLOAT3(AI_MATH_PI / 2, 0.0f, 0.0f);
+	teapot2.GetTransform()->GetRotation() = DirectX::XMFLOAT3(AI_MATH_PI / 2, 0.0f, 0.0f);
 	teapot2.GetTransform()->MultiplyScale(0.025f);
 
 	teapot2.AddComponent<SphereCollider>();
