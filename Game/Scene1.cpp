@@ -87,7 +87,7 @@ void Scene1::Update()
 	}
 }
 
-void Scene1::Draw()
+void Scene1::Render()
 {
 	graphics.Begin();
 

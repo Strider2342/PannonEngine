@@ -10,9 +10,9 @@ void Application::Run()
 	graphics.Init();
 	MSG msg;
 
-	scene.Init(graphics);
-	scene.Start();
-	scene.Load();
+	scenes[currentScene]->Init(graphics);
+	scenes[currentScene]->Start();
+	scenes[currentScene]->Load();
 
 	std::cout << "Application started";
 
@@ -27,12 +27,12 @@ void Application::Run()
 				break;
 		}
 
-		scene.PreUpdate();
-		scene.Update();
-		scene.PostUpdate();
+		scenes[currentScene]->PreUpdate();
+		scenes[currentScene]->Update();
+		scenes[currentScene]->PostUpdate();
 
-		scene.Draw();
-		scene.PostRender();
+		scenes[currentScene]->Render();
+		scenes[currentScene]->PostRender();
 	}
 
 	graphics.CleanD3D();

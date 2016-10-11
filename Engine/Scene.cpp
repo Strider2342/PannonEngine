@@ -147,6 +147,10 @@ void Scene::CheckCollision()
 	}
 }
 
+void Scene::Load()
+{
+}
+
 void Scene::Start()
 {
 }

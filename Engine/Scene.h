@@ -44,10 +44,11 @@ public:
 	void RefreshLights();
 	void CheckCollision();
 
-	void Start();
-	void PreUpdate();
-	void Update();
-	void PostUpdate();
-	void Render();
-	void PostRender();
+	virtual void Load();
+	virtual void Start();
+	virtual void PreUpdate();
+	virtual void Update();
+	virtual void PostUpdate();
+	virtual void Render();
+	virtual void PostRender();
 };
