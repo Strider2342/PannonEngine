@@ -27,8 +27,10 @@ public:
 	void Init(ID3D11Device *dev, ID3D11DeviceContext *devcon);
 	void SetInputLayout();
 	void SetInputLayoutQuad();
-	void CreateVertexShader(LPCWSTR filename, std::string entrypoint);
-	void CreatePixelShader(LPCWSTR filename, std::string entrypoint);
+	void LoadVertexShaderFromFile(LPCWSTR filename, std::string entrypoint);
+	void LoadPixelShaderFromFile(LPCWSTR filename, std::string entrypoint);
+	void LoadVertexShaderPrecompiled(LPCWSTR filename);
+	void LoadPixelShaderPrecompiled(LPCWSTR filename);
 
 	ID3D11InputLayout* GetLayout();
 	ID3D11VertexShader* GetVertexShader();

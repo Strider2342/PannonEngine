@@ -26,9 +26,6 @@ void Material::Init(ID3D11Device *dev, ID3D11DeviceContext *devcon)
 
 	hasTexture = false;
 	useTexture = false;
-
-	shader->CreateVertexShader(L"../Shaders/Phong.hlsl", "VShader");
-	shader->CreatePixelShader(L"../Shaders/Phong.hlsl", "PShader");
 }
 
 ID3D11ShaderResourceView* Material::GetTextureResource()

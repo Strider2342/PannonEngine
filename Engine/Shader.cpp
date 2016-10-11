@@ -59,7 +59,7 @@ void Shader::SetInputLayoutQuad()
 	}
 }
 
-void Shader::CreateVertexShader(LPCWSTR filename, std::string entrypoint)
+void Shader::LoadVertexShaderFromFile(LPCWSTR filename, std::string entrypoint)
 {
 	ID3DBlob *errorBlob = nullptr;
 	
@@ -84,7 +84,7 @@ void Shader::CreateVertexShader(LPCWSTR filename, std::string entrypoint)
 	SetInputLayout();
 }
 
-void Shader::CreatePixelShader(LPCWSTR filename, std::string entrypoint)
+void Shader::LoadPixelShaderFromFile(LPCWSTR filename, std::string entrypoint)
 {
 	ID3DBlob *PS = nullptr;
 	ID3DBlob *errorBlob = nullptr;

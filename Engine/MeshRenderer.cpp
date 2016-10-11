@@ -37,8 +37,8 @@ void MeshRenderer::InitPipeline()
 
 void MeshRenderer::LoadShader()
 {
-	material->GetShader().CreateVertexShader(L"../Shaders/Phong.hlsl", "VShader");
-	material->GetShader().CreatePixelShader(L"../Shaders/Phong.hlsl", "PShader");
+	material->GetShader().LoadVertexShaderFromFile(L"../Shaders/Phong.hlsl", "VShader");
+	material->GetShader().LoadPixelShaderFromFile(L"../Shaders/Phong.hlsl", "PShader");
 }
 
 void MeshRenderer::CreateVertexBuffer()
