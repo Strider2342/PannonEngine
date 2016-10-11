@@ -2,7 +2,6 @@
 
 Shader::Shader()
 { }
-
 Shader::~Shader()
 {
 	pLayout->Release();
@@ -15,7 +14,6 @@ void Shader::Init(ID3D11Device *dev, ID3D11DeviceContext *devcon)
 	this->dev = dev;
 	this->devcon = devcon;
 }
-
 void Shader::SetInputLayout()
 {
 	D3D11_INPUT_ELEMENT_DESC ied[] =
@@ -37,7 +35,6 @@ void Shader::SetInputLayout()
 		devcon->IASetInputLayout(pLayout);
 	}
 }
-
 void Shader::SetInputLayoutQuad()
 {
 	D3D11_INPUT_ELEMENT_DESC ied[] =
@@ -58,7 +55,6 @@ void Shader::SetInputLayoutQuad()
 		devcon->IASetInputLayout(pLayout);
 	}
 }
-
 void Shader::LoadVertexShaderFromFile(LPCWSTR filename, std::string entrypoint)
 {
 	ID3DBlob *errorBlob = nullptr;
@@ -83,7 +79,6 @@ void Shader::LoadVertexShaderFromFile(LPCWSTR filename, std::string entrypoint)
 
 	SetInputLayout();
 }
-
 void Shader::LoadPixelShaderFromFile(LPCWSTR filename, std::string entrypoint)
 {
 	ID3DBlob *PS = nullptr;
@@ -112,13 +107,11 @@ ID3D11InputLayout* Shader::GetLayout()
 {
 	return pLayout;
 }
-
 ID3D11VertexShader* Shader::GetVertexShader()
 {
 	return pVS;
 }
-
-ID3D11PixelShader * Shader::GetPixelShader()
+ID3D11PixelShader* Shader::GetPixelShader()
 {
 	return pPS;
 }
