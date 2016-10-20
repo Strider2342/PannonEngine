@@ -18,6 +18,11 @@ DirectX::XMFLOAT2& Bounds3D::GetZBounds()
 	return zBounds;
 }
 
+DirectX::XMFLOAT3& Bounds3D::GetCenter()
+{
+	return DirectX::XMFLOAT3(xBounds.y - xBounds.x, yBounds.y - yBounds.x, zBounds.y - zBounds.x);
+}
+
 void Bounds3D::SetXBounds(float min, float max)
 {
 	xBounds = DirectX::XMFLOAT2(min, max);

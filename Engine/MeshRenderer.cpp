@@ -31,7 +31,7 @@ void MeshRenderer::InitPipeline()
 	CreateIndexBuffer();
 	CreateSampler();
 	CreateConstantBuffers();
-		
+
 	LoadShader();
 }
 

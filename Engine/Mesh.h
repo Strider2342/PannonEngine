@@ -25,6 +25,8 @@ public:
 	~Mesh();
 
 	// get
+	Bounds3D& GetBounds();
+
 	std::vector<Vertex>& GetVertices();
 	std::vector<DWORD>& GetIndices();
 

@@ -8,9 +8,6 @@ void Scene::Init(Graphics &graphics)
 	this->graphics = graphics;
 
 	gameObjects = std::vector<GameObject*>();
-
-	physics = Physics();
-	physics.SetGameObjectArray(&gameObjects);
 }
 
 void Scene::SetScene(Scene *scene)

@@ -15,7 +15,6 @@ class Scene
 protected:
 	Graphics graphics;
 	GameTime gameTime;
-	Physics physics;
 
 	std::vector<GameObject*> gameObjects;
 	std::vector<Camera*> cameras;

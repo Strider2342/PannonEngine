@@ -113,6 +113,21 @@ Hit Physics::RayCast(DirectX::XMFLOAT3 origin, DirectX::XMFLOAT3 direction, floa
 
 	return hit;
 }
+Hit Physics::RayCast(Ray ray)
+{
+	/*std::cout << "Origin: " << ray.GetOrigin().x << ":" << ray.GetOrigin().y << ":" << ray.GetOrigin().z << std::endl;
+	std::cout << "Direction: " << ray.GetDirection().x << ":" << ray.GetDirection().y << ":" << ray.GetDirection().z << std::endl;*/
+	return RayCast(ray.GetOrigin(), ray.GetDirection());
+}
+Hit Physics::RayCast(Ray ray, float distance)
+{
+	return RayCast(ray.GetOrigin(), ray.GetDirection(), distance);
+}
+
+std::vector<GameObject*>* Physics::GetGameObjectArray()
+{
+	return gameObjects;
+}
 
 void Physics::SetGameObjectArray(std::vector<GameObject*> *gameObjects)
 {

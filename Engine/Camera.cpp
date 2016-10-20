@@ -14,7 +14,7 @@ void Camera::Init()
 DirectX::XMMATRIX& Camera::GetViewMatrix()
 {
 	DirectX::XMFLOAT3 position = transform->GetPosition();
-	DirectX::XMFLOAT3 look = transform->GetForward();
+	DirectX::XMFLOAT3 look = DirectX::XMFLOAT3(transform->GetPosition().x + transform->GetForward().x, transform->GetPosition().y + transform->GetForward().y, transform->GetPosition().z + transform->GetForward().z);
 	DirectX::XMFLOAT3 up = transform->GetUp();
 
 	DirectX::XMVECTOR eyePos	= DirectX::XMLoadFloat3(&position);

@@ -15,6 +15,8 @@ public:
 	DirectX::XMFLOAT2& GetYBounds();
 	DirectX::XMFLOAT2& GetZBounds();
 
+	DirectX::XMFLOAT3& GetCenter();
+
 	// set
 	void SetXBounds(float min, float max);
 	void SetYBounds(float min, float max);

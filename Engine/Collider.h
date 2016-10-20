@@ -6,6 +6,7 @@
 #include "GameObject.h"
 #include "Transform.h"
 #include "Component.h"
+#include "MeshRenderer.h"
 
 class Collider : public Component
 {

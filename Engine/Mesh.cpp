@@ -6,6 +6,11 @@ Mesh::Mesh()
 Mesh::~Mesh()
 { }
 
+Bounds3D& Mesh::GetBounds()
+{
+	return bounds;
+}
+
 std::vector<Vertex>& Mesh::GetVertices()
 {
 	return vertices;

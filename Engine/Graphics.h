@@ -3,6 +3,7 @@
 #include <dxgi.h>
 #include "GraphicsOptions.h"
 #include "GameWindow.h"
+#include "Input.h"
 
 class Graphics
 {
@@ -44,4 +45,6 @@ public:
 
 	ID3D11Device* GetDevice();
 	ID3D11DeviceContext* GetDeviceContext();
+
+	bool IsWindowActive();
 };

@@ -5,7 +5,6 @@
 #include "GraphicsOptions.h"
 #include "GameObject.h"
 #include "Camera.h"
-#include "Input.h"
 
 class Picker
 {
