@@ -2,6 +2,8 @@
 #include "GameTime.h"
 #include "Transform.h"
 #include "Light.h"
+#include "Physics.h"
+#include "Collider.h"
 
 class TestScript2 : public Script
 {
@@ -23,31 +25,101 @@ public:
 
 	void Update(GameTime gameTime)
 	{
+		//Move(gameTime);
+	}
+
+	void Move(GameTime gameTime)
+	{
+		DirectX::XMFLOAT3 velocity = DirectX::XMFLOAT3(0.0f, 0.0f, 0.0f);
+
 		if (Input::GetKeyDown(KeyCode::A))
 		{
-			transform->GetPosition().x += speed * gameTime.GetDeltaTime();
+			velocity.x += speed * gameTime.GetDeltaTime();
 		}
 		else if (Input::GetKeyDown(KeyCode::D))
 		{
-			transform->GetPosition().x -= speed * gameTime.GetDeltaTime();
+			velocity.x -= speed * gameTime.GetDeltaTime();
 		}
 
 		if (Input::GetKeyDown(KeyCode::W))
 		{
-			transform->GetPosition().y -= speed * gameTime.GetDeltaTime();
+			velocity.y -= speed * gameTime.GetDeltaTime();
 		}
 		else if (Input::GetKeyDown(KeyCode::S))
 		{
-			transform->GetPosition().y += speed * gameTime.GetDeltaTime();
+			velocity.y += speed * gameTime.GetDeltaTime();
 		}
 
 		if (Input::GetKeyDown(KeyCode::Plus))
 		{
-			transform->GetPosition().z += speed * gameTime.GetDeltaTime();
+			velocity.z += speed * gameTime.GetDeltaTime();
 		}
 		else if (Input::GetKeyDown(KeyCode::Minus))
 		{
-			transform->GetPosition().z -= speed * gameTime.GetDeltaTime();
+			velocity.z -= speed * gameTime.GetDeltaTime();
+		}
+
+		gameObject->GetTransform()->GetPosition().x += velocity.x;
+		gameObject->GetTransform()->GetPosition().y += velocity.y;
+		gameObject->GetTransform()->GetPosition().z += velocity.z;
+
+		Collider *collider1 = gameObject->GetComponent<Collider>();
+		bool colliding = false;
+		for (int i = 0; i < gameObject->GetComponent<Physics>()->GetGameObjectArray()->size(); i++)
+		{
+			if ((*gameObject->GetComponent<Physics>()->GetGameObjectArray())[i] != gameObject)
+			{
+				if (collider1 != NULL)
+				{
+
+					Collider *collider2 = (*gameObject->GetComponent<Physics>()->GetGameObjectArray())[i]->GetComponent<Collider>();
+
+					if (collider2 != NULL)
+					{
+						if (dynamic_cast<BoxCollider *>(collider1))
+						{
+							if (dynamic_cast<BoxCollider *>(collider2))
+							{
+								if (dynamic_cast<BoxCollider *>(collider1)->Colliding(dynamic_cast<BoxCollider *>(collider2)->GetCollider()))
+								{
+									colliding = true;
+								}
+							}
+							else if (dynamic_cast<SphereCollider *>(collider2))
+							{
+								if (dynamic_cast<BoxCollider *>(collider1)->Colliding(dynamic_cast<SphereCollider *>(collider2)->GetCollider()))
+								{
+									colliding = true;
+								}
+							}
+						}
+						else if (dynamic_cast<SphereCollider *>(collider1))
+						{
+							if (dynamic_cast<BoxCollider *>(collider2))
+							{
+								if (dynamic_cast<SphereCollider *>(collider1)->Colliding(dynamic_cast<BoxCollider *>(collider2)->GetCollider()))
+								{
+									colliding = true;
+								}
+							}
+							else if (dynamic_cast<SphereCollider *>(collider2))
+							{
+								if (dynamic_cast<SphereCollider *>(collider1)->Colliding(dynamic_cast<SphereCollider *>(collider2)->GetCollider()))
+								{
+									colliding = true;
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+
+		if (colliding)
+		{
+			gameObject->GetTransform()->GetPosition().x -= velocity.x;
+			gameObject->GetTransform()->GetPosition().y -= velocity.y;
+			gameObject->GetTransform()->GetPosition().z -= velocity.z;
 		}
 	}
 };

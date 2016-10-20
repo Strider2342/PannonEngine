@@ -63,12 +63,12 @@ public:
 
 		colliding = false;
 
-		Hit hit = gameObject->GetComponent<Physics>()->RayCast(gameObject->GetTransform()->GetPosition(), gameObject->GetTransform()->GetRight(), 2.0f);
+		/*Hit hit = gameObject->GetComponent<Physics>()->RayCast(gameObject->GetTransform()->GetPosition(), gameObject->GetTransform()->GetRight());
 
 		if (hit.hitOccured)
 		{
 			std::cout << "RayCast hit occured!" << std::endl;
-		}
+		}*/
 	}
 
 	void PostRender()
@@ -80,5 +80,7 @@ public:
 	{
 		colliding = true;
 		gameObject->GetComponent<MeshRenderer>()->GetMaterial()->SetDiffuse(0.0f, 1.0f, 0.0f);
+
+		std::cout << "I'm hit!" << std::endl;
 	}
 };

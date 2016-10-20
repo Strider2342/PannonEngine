@@ -81,6 +81,9 @@
     <ClCompile Include="Scene2.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="CameraScript.h" />
+    <ClInclude Include="CharacterController.h" />
+    <ClInclude Include="MainScript.h" />
     <ClInclude Include="Scene2.h" />
     <ClInclude Include="TestScript1.h" />
     <ClInclude Include="MyFirstScript.h" />

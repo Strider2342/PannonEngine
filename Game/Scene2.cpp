@@ -15,8 +15,6 @@ void Scene2::Start()
 	gameObjects.push_back(&test);
 
 	test.SetName("Object 1");
-	test.AddComponent<Physics>(&physics);
-
 	test.AddComponent<MeshRenderer>();
 	test.GetComponent<MeshRenderer>()->Init(graphics.GetDevice(), graphics.GetDeviceContext());
 	test.GetComponent<MeshRenderer>()->SetTransform(test.GetTransform());
