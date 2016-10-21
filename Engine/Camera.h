@@ -28,6 +28,7 @@ public:
 	
 	void Init();
 
+	// get
 	DirectX::XMMATRIX& GetViewMatrix();
 	DirectX::XMMATRIX& GetProjectionMatrix();
 
@@ -38,5 +39,11 @@ public:
 
 	Transform *GetTransform();
 
+	// set
 	void SetTransform(Transform *transform);
+
+	void SetFOV(float fov);
+	void SetAspectRatio(float aspectRatio);
+	void SetNearClippingPlane(float nearClippingPlane);
+	void SetFarClippingPlane(float farClippingPlane);
 };

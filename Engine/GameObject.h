@@ -33,6 +33,8 @@ public:
 	Transform *GetTransform();
 	std::string GetName();
 	bool IsEmpty();
+	int GetNumberOfComponents();
+	Component* GetComponentById(int id);
 
 	// set
 	void SetName(std::string name);

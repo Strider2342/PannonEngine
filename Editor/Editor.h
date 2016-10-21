@@ -6,6 +6,7 @@
 #include "EditorGraphics.h"
 #include "EditorGUI.h"
 #include "GameObject.h"
+#include "Input.h"
 
 class Editor
 {

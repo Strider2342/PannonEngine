@@ -92,6 +92,16 @@ bool GameObject::IsEmpty()
 	return isEmpty;
 }
 
+int GameObject::GetNumberOfComponents()
+{
+	return components.size();
+}
+
+Component* GameObject::GetComponentById(int id)
+{
+	return components[id];
+}
+
 void GameObject::SetName(std::string name)
 {
 	this->name = name;

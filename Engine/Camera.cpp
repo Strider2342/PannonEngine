@@ -60,3 +60,46 @@ void Camera::SetTransform(Transform *transform)
 {
 	this->transform = transform;
 }
+
+void Camera::SetFOV(float fov)
+{
+	this->fov = fov;
+
+	if (this->fov < 40.0f)
+	{
+		this->fov = 40.0f;
+	}
+	else if (this->fov > 110.0f)
+	{
+		this->fov = 110.0f;
+	}
+}
+
+void Camera::SetAspectRatio(float aspectRatio)
+{
+	this->aspectRatio = aspectRatio;
+}
+
+void Camera::SetNearClippingPlane(float nearClippingPlane)
+{
+	this->nearClippingPlane = nearClippingPlane;
+
+	if (this->nearClippingPlane < 0.01f)
+	{
+		this->nearClippingPlane = 0.01f;
+	}
+	else if (this->nearClippingPlane > farClippingPlane)
+	{
+		this->nearClippingPlane = farClippingPlane - 0.1f;
+	}
+}
+
+void Camera::SetFarClippingPlane(float farClippingPlane)
+{
+	this->farClippingPlane = farClippingPlane;
+
+	if (this->farClippingPlane < nearClippingPlane)
+	{
+		this->farClippingPlane = nearClippingPlane + 0.1f;
+	}
+}
