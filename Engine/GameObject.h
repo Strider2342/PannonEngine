@@ -1,10 +1,10 @@
 #pragma once
 #include <d3d11.h>
 #include <vector>
-#include "Object.h"
+#include "Transform.h"
 #include "Component.h"
 
-class GameObject : public Object
+class GameObject
 {
 private:
 	bool isEmpty = true;

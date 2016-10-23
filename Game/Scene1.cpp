@@ -82,7 +82,7 @@ void Scene1::Start()
 	teapot2.AddComponent<SphereCollider>();
 	teapot2.GetComponent<SphereCollider>()->SetRadius(16.0f);	
 
-	teapot2.AddComponent<TestScript1>();
+	//teapot2.AddComponent<TestScript1>();
 
 	for (int i = 0; i < gameObjects.size(); i++)
 	{

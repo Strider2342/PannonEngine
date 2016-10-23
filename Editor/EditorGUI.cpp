@@ -196,12 +196,15 @@ void EditorGUI::HierarchyView()
 	ImGui::SetNextWindowSize(ImVec2(300, 900));
 	if (ImGui::Begin("Hierarchy"))
 	{
-		int selected = 1;
-		int unselected = 0;
-		ImGui::Selectable("GameObject", &selected);
-		ImGui::Selectable("GameObject", &unselected);
-		ImGui::Selectable("MainCamera", &unselected);
-		ImGui::Selectable("Player", &unselected);
+		if (ImGui::TreeNode("GameObjects"))
+		{
+			static bool selected[4] = { true, false, false, false };
+			ImGui::Selectable("GameObject", &selected[0]);
+			ImGui::Selectable("GameObject", &selected[1]);
+			ImGui::Selectable("MainCamera", &selected[2]);
+			ImGui::Selectable("Player", &selected[3]);
+			ImGui::TreePop();
+		}
 		ImGui::End();
 	}
 }
@@ -253,6 +256,7 @@ void EditorGUI::TransformComponent()
 	float position[3] = { selected->GetTransform()->GetPosition().x, selected->GetTransform()->GetPosition().y, selected->GetTransform()->GetPosition().z };
 	float rotation[3] = { selected->GetTransform()->GetRotation().x, selected->GetTransform()->GetRotation().y, selected->GetTransform()->GetRotation().z };
 	float scale[3] = { selected->GetTransform()->GetScale().x, selected->GetTransform()->GetScale().y, selected->GetTransform()->GetScale().z };
+	static int parent = 0;
 
 	ImGui::SetNextWindowPos(ImVec2(1375, 20));
 	ImGui::SetNextWindowSize(ImVec2(300, 900));
@@ -263,6 +267,7 @@ void EditorGUI::TransformComponent()
 		ImGui::InputFloat3("Position", position, 2);
 		ImGui::InputFloat3("Rotation", rotation, 2);
 		ImGui::InputFloat3("Scale", scale, 2);
+		ImGui::Combo("Parent", &parent, "GameObject1\0GameObject2\0GameObject3\0\0");
 	}
 
 	selected->SetName(name);

@@ -74,7 +74,8 @@ Ray Screen::ScreenPointToRay(DirectX::XMFLOAT2 position)
 	DirectX::XMFLOAT3 v_origin = DirectX::XMFLOAT3(normalized.x * camera->GetNearClippingPlane(), normalized.y * camera->GetNearClippingPlane(), camera->GetNearClippingPlane());
 	DirectX::XMFLOAT3 v_endpoint = DirectX::XMFLOAT3(normalized.x * camera->GetFarClippingPlane(), normalized.y * camera->GetFarClippingPlane(), camera->GetFarClippingPlane());
 
-	DirectX::XMMATRIX inverseViewMat = DirectX::XMMatrixInverse(NULL, camera->GetViewMatrix());
+	DirectX::XMMATRIX viewMatrix = camera->GetViewMatrix();
+	DirectX::XMMATRIX inverseViewMat = DirectX::XMMatrixInverse(NULL, viewMatrix);
 
 	DirectX::XMFLOAT3 origin;
 	DirectX::XMFLOAT3 endpoint;

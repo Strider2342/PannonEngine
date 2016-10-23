@@ -1,10 +1,11 @@
 #pragma once
 #include <DirectXMath.h>
+#include "Component.h"
 #include "Vector3.h"
 
 using namespace DirectX;
 
-class Transform
+class Transform : public Component
 {
 private:
 	XMFLOAT3 position;

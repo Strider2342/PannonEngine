@@ -1,7 +1,9 @@
 #include "GameObject.h"
 
 GameObject::GameObject()
-{ }
+{
+	AddComponent<Transform>();
+}
 
 GameObject::~GameObject()
 { }
@@ -80,7 +82,7 @@ void GameObject::OnCollisionExit()
 
 Transform* GameObject::GetTransform()
 {
-	return transform;
+	return GetComponent<Transform>();
 }
 std::string GameObject::GetName()
 {
