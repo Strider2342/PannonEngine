@@ -16,6 +16,7 @@ void Application::Run()
 
 	editor.Init(&graphics);
 	editor.Load();
+	editor.Start();
 
 	std::cout << "Application started";
 

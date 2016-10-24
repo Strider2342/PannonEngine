@@ -62,6 +62,7 @@ inline void GameObject::AddComponent(T *component)
 {
 	components.push_back(component);
 	component->SetGameObject(this);
+	//component->Set
 }
 
 template<class T>

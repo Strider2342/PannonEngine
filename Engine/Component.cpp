@@ -8,8 +8,7 @@ Component::~Component()
 void Component::Start()
 { }
 void Component::PreUpdate()
-{
-}
+{ }
 void Component::Update(GameTime gameTime)
 { }
 void Component::PostUpdate()

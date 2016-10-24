@@ -1,13 +1,19 @@
 #include "MeshRenderer.h"
 
 MeshRenderer::MeshRenderer()
-{ }
+{ 
+}
 
 MeshRenderer::~MeshRenderer()
 {
 	/*delete material;
 
 	material = nullptr;*/
+}
+
+void MeshRenderer::InitComponent()
+{
+	transform = gameObject->GetTransform();
 }
 
 void MeshRenderer::Init(ID3D11Device *dev, ID3D11DeviceContext *devcon)
@@ -22,7 +28,8 @@ void MeshRenderer::Init(ID3D11Device *dev, ID3D11DeviceContext *devcon)
 }
 
 void MeshRenderer::Start()
-{
+{ 
+	transform = gameObject->GetTransform();
 }
 
 void MeshRenderer::InitPipeline()
@@ -185,7 +192,6 @@ void MeshRenderer::Render()
 
 	if (material->HasTexture())
 	{
-
 		pTexture = material->GetTextureResource();
 		devcon->PSSetShaderResources(0, 1, &pTexture);
 	}
@@ -223,11 +229,6 @@ void MeshRenderer::SetMesh(Mesh *mesh)
 {
 	this->mesh = mesh;
 	InitPipeline();
-}
-
-void MeshRenderer::SetTransform(Transform *transform)
-{
-	this->transform = transform;
 }
 
 void MeshRenderer::SetCamera(Camera *camera)

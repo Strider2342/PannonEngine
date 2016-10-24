@@ -1,6 +1,7 @@
 #pragma once
 #include <iostream>
 #include <string>
+#include <vector>
 #include "imgui/imgui.h"
 #include "imgui/imgui_impl_dx11.h"
 #include "GameObject.h"
@@ -17,6 +18,7 @@ class EditorGUI
 {
 private:
 	GameObject *selected;
+	std::vector<GameObject *> *gameObjects;
 
 	bool showInspectorView = true;
 	bool showHierarchyView = true;
@@ -53,5 +55,6 @@ public:
 
 	void AssembleGUI();
 
-	void SetSelected(GameObject *selected);
+	void SetSelected(GameObject *&selected);
+	void SetGameObjectList(std::vector<GameObject *> *gameObjects);
 };

@@ -5,7 +5,7 @@ Scene1::Scene1()
 
 void Scene1::Start()
 {
-	HWND hWnd = GetActiveWindow();
+	HWND hWnd = graphics.GetHWND();
 	RECT rect;
 	GetClientRect(hWnd, &rect);
 	DirectX::XMFLOAT2 windowClientSize = DirectX::XMFLOAT2(rect.right - rect.left, rect.bottom - rect.top);
@@ -38,11 +38,9 @@ void Scene1::Start()
 	screen.SetCamera(camera.GetComponent<Camera>());
 
 	light1.AddComponent<Light>();
-	light1.GetComponent<Light>()->SetTransform(light1.GetTransform());
 	light1.GetTransform()->GetPosition() = DirectX::XMFLOAT3(0.0f, 0.0f, -1.3f);
 
 	/*light2.AddComponent<Light>();
-	light2.GetComponent<Light>()->SetTransform(light2.GetTransform());
 	light2.GetTransform()->GetPosition() = DirectX::XMFLOAT3(-2.0f, 0.0f, -1.0f);*/
 
 	camera.AddComponent<CameraScript>();
@@ -53,7 +51,6 @@ void Scene1::Start()
 
 	teapot.AddComponent<MeshRenderer>();
 	teapot.GetComponent<MeshRenderer>()->Init(graphics.GetDevice(), graphics.GetDeviceContext());
-	teapot.GetComponent<MeshRenderer>()->SetTransform(teapot.GetTransform());
 	teapot.GetComponent<MeshRenderer>()->SetCamera(mainCamera);
 	
 	teapot.GetTransform()->MultiplyScale(0.025f);
@@ -71,7 +68,6 @@ void Scene1::Start()
 
 	teapot2.AddComponent<MeshRenderer>();
 	teapot2.GetComponent<MeshRenderer>()->Init(graphics.GetDevice(), graphics.GetDeviceContext());
-	teapot2.GetComponent<MeshRenderer>()->SetTransform(teapot2.GetTransform());
 	teapot2.GetComponent<MeshRenderer>()->SetCamera(mainCamera);
 	//teapot2.GetComponent<MeshRenderer>()->GetMaterial()->SetDiffuse(0.0f, 1.0f, 0.0f);
 

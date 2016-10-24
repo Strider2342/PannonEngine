@@ -151,13 +151,22 @@ void EditorGUI::InspectorView()
 {
 	ImGui::SetNextWindowPos(ImVec2(1375, 20));
 	ImGui::SetNextWindowSize(ImVec2(300, 900));
+
+	char name[128];
+	strcpy(name, selected->GetName().c_str());
+
 	if (ImGui::Begin("Inspector"))
 	{
-		TransformComponent();
+		ImGui::InputText("", name, IM_ARRAYSIZE(name));
 
 		for (int i = 0; i < selected->GetNumberOfComponents(); i++)
 		{
-			if (dynamic_cast<Physics *>(selected->GetComponentById(i)) != NULL)
+			if (dynamic_cast<Transform *>(selected->GetComponentById(i)) != NULL)
+			{
+				ImGui::SetNextTreeNodeOpen(true);
+				TransformComponent();
+			}
+			else if (dynamic_cast<Physics *>(selected->GetComponentById(i)) != NULL)
 			{
 				PhysicsComponent();
 			}
@@ -188,23 +197,49 @@ void EditorGUI::InspectorView()
 		}
 
 		ImGui::End();
+
+		selected->SetName(name);
 	}
 }
 void EditorGUI::HierarchyView()
 {
 	ImGui::SetNextWindowPos(ImVec2(0, 20));
 	ImGui::SetNextWindowSize(ImVec2(300, 900));
+
 	if (ImGui::Begin("Hierarchy"))
 	{
-		if (ImGui::TreeNode("GameObjects"))
+		static int selection_mask = 0x02;
+		static int selected_node = 0;
+
+		for (int i = 0; i < gameObjects->size(); i++)
 		{
-			static bool selected[4] = { true, false, false, false };
-			ImGui::Selectable("GameObject", &selected[0]);
-			ImGui::Selectable("GameObject", &selected[1]);
-			ImGui::Selectable("MainCamera", &selected[2]);
-			ImGui::Selectable("Player", &selected[3]);
-			ImGui::TreePop();
+			ImGuiTreeNodeFlags node_flags = 0;
+
+			bool hasChildren = gameObjects->at(i)->GetTransform()->HasChildren();
+
+			if (!hasChildren)
+			{
+				node_flags = (selected_node == i) ? ImGuiTreeNodeFlags_Selected : 0;
+			}
+			else
+			{
+				node_flags = ((selected_node == i) ? ImGuiTreeNodeFlags_Selected : 0) | ImGuiTreeNodeFlags_OpenOnArrow;
+			}
+
+			if (ImGui::TreeNodeEx(&i, node_flags, gameObjects->at(i)->GetName().c_str()))
+			{
+				ImGui::TreePop();
+			}
+
+			if (ImGui::IsItemClicked())
+			{
+				selected_node = i;
+				selected = gameObjects->at(i);
+			}
 		}
+
+		std::cout << "Selected: " << selected->GetName() << std::endl;
+
 		ImGui::End();
 	}
 }
@@ -251,8 +286,6 @@ void EditorGUI::GameCanvas()
 
 void EditorGUI::TransformComponent()
 {
-	char name[128];
-	strcpy(name, selected->GetName().c_str());
 	float position[3] = { selected->GetTransform()->GetPosition().x, selected->GetTransform()->GetPosition().y, selected->GetTransform()->GetPosition().z };
 	float rotation[3] = { selected->GetTransform()->GetRotation().x, selected->GetTransform()->GetRotation().y, selected->GetTransform()->GetRotation().z };
 	float scale[3] = { selected->GetTransform()->GetScale().x, selected->GetTransform()->GetScale().y, selected->GetTransform()->GetScale().z };
@@ -262,15 +295,12 @@ void EditorGUI::TransformComponent()
 	ImGui::SetNextWindowSize(ImVec2(300, 900));
 	if (ImGui::CollapsingHeader("Transform"))
 	{
-		ImGui::InputText("", name, IM_ARRAYSIZE(name));
-		ImGui::Separator();
-		ImGui::InputFloat3("Position", position, 2);
-		ImGui::InputFloat3("Rotation", rotation, 2);
-		ImGui::InputFloat3("Scale", scale, 2);
+		ImGui::DragFloat3("Position", position, 0.025f);
+		ImGui::DragFloat3("Rotation", rotation, 0.025f);
+		ImGui::DragFloat3("Scale", scale, 0.0025f);
 		ImGui::Combo("Parent", &parent, "GameObject1\0GameObject2\0GameObject3\0\0");
 	}
 
-	selected->SetName(name);
 	selected->GetTransform()->SetPosition(DirectX::XMFLOAT3(position[0], position[1], position[2]));
 	selected->GetTransform()->SetRotation(DirectX::XMFLOAT3(rotation[0], rotation[1], rotation[2]));
 	selected->GetTransform()->SetScale(DirectX::XMFLOAT3(scale[0], scale[1], scale[2]));
@@ -300,9 +330,9 @@ void EditorGUI::CameraComponent()
 
 	if (ImGui::CollapsingHeader("Camera"))
 	{
-		ImGui::InputFloat("FOV", &fov, 1.0f, 0.2f, 1);
-		ImGui::InputFloat("Near clipping plane", &nearClippingPlane, 0.5f, 1.0f, 1);
-		ImGui::InputFloat("Far clipping plane", &farClippingPlane, 0.5f, 1.0f, 1);
+		ImGui::DragFloat("FOV", &fov, 0.1f);
+		ImGui::DragFloat("Near clipping plane", &nearClippingPlane, 0.1f);
+		ImGui::DragFloat("Far clipping plane", &farClippingPlane, 0.1f);
 	}
 
 	selected->GetComponent<Camera>()->SetFOV(fov);
@@ -312,17 +342,42 @@ void EditorGUI::CameraComponent()
 
 void EditorGUI::LightComponent()
 {
+	static int light_type;
+	static bool enabled = selected->GetComponent<Light>()->GetEnabled();
+	DirectX::XMFLOAT4 color = selected->GetComponent<Light>()->GetColor();
+	static float light_color[3] = { color.x, color.y, color.z };
+	//static float intensity = selected->GetComponent<Light>()->GetIntensity();
+	static float constantAttenuation = selected->GetComponent<Light>()->GetConstantAttenuation();
+	static float linearAttenuation = selected->GetComponent<Light>()->GetLinearAttenuation();
+	static float quadraticAttenuation = selected->GetComponent<Light>()->GetQuadraticAttenuation();
+	static float spotAngle = selected->GetComponent<Light>()->GetSpotAngle();
+
 	if (ImGui::CollapsingHeader("Light"))
 	{
+		ImGui::Combo("Type", &light_type, "Directional\0Point\0Spot\0\0");
+		ImGui::Checkbox("Enabled", &enabled);
+		ImGui::ColorEdit3("Color", light_color);
+		//ImGui::InputFloat("Intensity", &intensity);
+		ImGui::InputFloat("Constant attenuation", &constantAttenuation, 0.05f, 0.01f, 2);
+		ImGui::InputFloat("Linear attenuation", &linearAttenuation, 0.05f, 0.01f, 2);
+		ImGui::InputFloat("Quadratic attenuation", &quadraticAttenuation, 0.05f, 0.01f, 2);
 
+		if (light_type == 2)
+		{
+			ImGui::InputFloat("Spot angle", &spotAngle, 1.0f, 0.5f, 2);
+		}
 	}
+
+	selected->GetComponent<Light>()->SetType(light_type);
+	selected->GetComponent<Light>()->SetEnabled(enabled);
+	selected->GetComponent<Light>()->SetColor(DirectX::XMFLOAT4(light_color[0], light_color[1], light_color[2], 1.0f));
 }
 
 void EditorGUI::ScriptComponent()
 {
 	if (ImGui::CollapsingHeader("Script"))
 	{
-
+		
 	}
 }
 
@@ -366,7 +421,12 @@ void EditorGUI::AssembleGUI()
 	Views();
 }
 
-void EditorGUI::SetSelected(GameObject * selected)
+void EditorGUI::SetSelected(GameObject *&selected)
 {
 	this->selected = selected;
+}
+
+void EditorGUI::SetGameObjectList(std::vector<GameObject*> *gameObjects)
+{
+	this->gameObjects = gameObjects;
 }

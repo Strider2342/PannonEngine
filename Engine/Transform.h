@@ -43,4 +43,5 @@ public:
 	DirectX::XMMATRIX GetRotationMatrix();
 
 	bool HasParent();
+	bool HasChildren();
 };

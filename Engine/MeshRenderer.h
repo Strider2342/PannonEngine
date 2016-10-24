@@ -57,6 +57,8 @@ public:
 	MeshRenderer();
 	~MeshRenderer();
 
+	void InitComponent();
+
 	void Init(ID3D11Device *dev, ID3D11DeviceContext *devcon);
 	void Start();
 	void InitPipeline();
@@ -76,7 +78,6 @@ public:
 
 	void SetMaterial(Material *material);
 	void SetMesh(Mesh *mesh);
-	void SetTransform(Transform *transform);
 	void SetCamera(Camera *camera);
 	void SetLights(std::vector<Light::ShaderInput> *lights);
 };

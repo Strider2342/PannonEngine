@@ -35,10 +35,10 @@ private:
 	Type type;
 	
 	DirectX::XMFLOAT4 color;
-	float spotAngle;
 	float constantAttenuation;
 	float linearAttenuation;
 	float quadraticAttenuation;
+	float spotAngle;
 	float intensity;
 
 	bool enabled;
@@ -48,9 +48,32 @@ public:
 
 	// get
 	ShaderInput& GetShaderInput();
-	Transform *GetTransform();
-	float &GetIntensity();
+	Transform* GetTransform();
+
+	bool GetEnabled();
+
+	int GetType();
+
+	float GetIntensity();
+	float GetConstantAttenuation();
+	float GetLinearAttenuation();
+	float GetQuadraticAttenuation();
+	float GetSpotAngle();
+
+	DirectX::XMFLOAT4& GetColor();
 
 	// set
-	void SetTransform(Transform *transform);
+	void SetEnabled(bool enadbled);
+
+	void SetType(int type);
+
+	void SetIntensity(float intensity);
+	void SetConstantAttenuation(float constantAttenuation);
+	void SetLinearAttenuation(float linearAttenuation);
+	void SetQuadraticAttenuation(float quadraticAttenuation);
+	void SetSpotAngle(float spotAngle);
+
+	void SetColor(DirectX::XMFLOAT4 color);
+
+	void Start();
 };

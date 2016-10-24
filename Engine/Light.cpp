@@ -36,12 +36,75 @@ Transform* Light::GetTransform()
 	return transform;
 }
 
-float& Light::GetIntensity()
+bool Light::GetEnabled()
+{
+	return enabled;
+}
+int Light::GetType()
+{
+	return type;
+}
+float Light::GetIntensity()
 {
 	return intensity;
 }
-
-void Light::SetTransform(Transform *transform)
+float Light::GetConstantAttenuation()
 {
-	this->transform = transform;
+	return constantAttenuation;
+}
+float Light::GetLinearAttenuation()
+{
+	return linearAttenuation;
+}
+float Light::GetQuadraticAttenuation()
+{
+	return quadraticAttenuation;
+}
+float Light::GetSpotAngle()
+{
+	return spotAngle;
+}
+
+DirectX::XMFLOAT4& Light::GetColor()
+{
+	return color;
+}
+
+void Light::SetEnabled(bool enabled)
+{
+	this->enabled = enabled;
+}
+void Light::SetType(int type)
+{
+	this->type = static_cast<Type>(type);
+}
+void Light::SetIntensity(float intensity)
+{
+	this->intensity = intensity;
+}
+void Light::SetConstantAttenuation(float constantAttenuation)
+{
+	this->constantAttenuation = constantAttenuation;
+}
+void Light::SetLinearAttenuation(float linearAttenuation)
+{
+	this->linearAttenuation = linearAttenuation;
+}
+void Light::SetQuadraticAttenuation(float quadraticAttenuation)
+{
+	this->quadraticAttenuation = quadraticAttenuation;
+}
+void Light::SetSpotAngle(float spotAngle)
+{
+	this->spotAngle = spotAngle;
+}
+
+void Light::SetColor(DirectX::XMFLOAT4 color)
+{
+	this->color = color;
+}
+
+void Light::Start()
+{
+	transform = gameObject->GetTransform();
 }

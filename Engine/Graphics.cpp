@@ -187,6 +187,11 @@ ID3D11DeviceContext* Graphics::GetDeviceContext()
 	return devcon;
 }
 
+HWND& Graphics::GetHWND()
+{
+	return hWnd;
+}
+
 bool Graphics::IsWindowActive()
 {
 	if (GetActiveWindow() == hWnd)

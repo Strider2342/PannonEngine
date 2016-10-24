@@ -17,7 +17,6 @@ void Scene2::Start()
 	test.SetName("Object 1");
 	test.AddComponent<MeshRenderer>();
 	test.GetComponent<MeshRenderer>()->Init(graphics.GetDevice(), graphics.GetDeviceContext());
-	test.GetComponent<MeshRenderer>()->SetTransform(test.GetTransform());
 	test.GetComponent<MeshRenderer>()->SetCamera(mainCamera);
 
 	test.GetTransform()->MultiplyScale(0.0025f);

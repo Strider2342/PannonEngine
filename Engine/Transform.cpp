@@ -86,11 +86,11 @@ DirectX::XMMATRIX Transform::GetWorldMatrix()
 
 	if (HasParent())
 	{
-		return matRotateX * matRotateY * matRotateZ * matScale * matTranslate * parent->GetWorldMatrix();
+		return matScale * matRotateX * matRotateY * matRotateZ * matTranslate * parent->GetWorldMatrix();
 	}
 	else
 	{
-		return matRotateX * matRotateY * matRotateZ * matScale * matTranslate;
+		return matScale * matRotateX * matRotateY * matRotateZ * matTranslate;
 	}
 }
 
@@ -111,4 +111,9 @@ bool Transform::HasParent()
 		return false;
 	else
 		return true;
+}
+
+bool Transform::HasChildren()
+{
+	return false;
 }
