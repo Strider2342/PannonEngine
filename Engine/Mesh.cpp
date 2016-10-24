@@ -35,6 +35,10 @@ void Mesh::SetBounds()
 		if (vertices[i].position.y > maxy) { maxy = vertices[i].position.y; }
 		if (vertices[i].position.z > maxz) { maxz = vertices[i].position.z; }
 	}
+
+	bounds.SetXBounds(minx, maxx);
+	bounds.SetYBounds(miny, maxy);
+	bounds.SetZBounds(minz, maxz);
 }
 
 void Mesh::SetVertices(std::vector<Vertex>& vertices)
