@@ -3,6 +3,7 @@
 #include <Windows.h>
 #include <vector>
 #include <DirectXMath.h>
+#include "Triangle.h"
 #include "Bounds3D.h"
 
 struct Vertex
@@ -17,6 +18,7 @@ class Mesh
 private:
 	std::vector<Vertex> vertices;
 	std::vector<DWORD> indices;
+	std::vector<Triangle> triangles;
 
 	Bounds3D bounds;
 
@@ -29,9 +31,11 @@ public:
 
 	std::vector<Vertex>& GetVertices();
 	std::vector<DWORD>& GetIndices();
+	std::vector<Triangle>& GetTriangles();
 
 	// set
 	void SetBounds();
+	void SetTriangles();
 
 	void SetVertices(std::vector<Vertex> &vertices);
 	void SetIndices(std::vector<DWORD> &indices);

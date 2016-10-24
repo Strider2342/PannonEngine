@@ -20,6 +20,11 @@ std::vector<DWORD>& Mesh::GetIndices()
 	return indices;
 }
 
+std::vector<Triangle>& Mesh::GetTriangles()
+{
+	return triangles;
+}
+
 void Mesh::SetBounds()
 {
 	float minx = vertices[0].position.x, miny = vertices[0].position.y, minz = vertices[0].position.x;
@@ -39,6 +44,20 @@ void Mesh::SetBounds()
 	bounds.SetXBounds(minx, maxx);
 	bounds.SetYBounds(miny, maxy);
 	bounds.SetZBounds(minz, maxz);
+}
+
+void Mesh::SetTriangles()
+{
+	for (int i = 0; i < indices.size(); i += 3)
+	{
+		DirectX::XMFLOAT3 pointA = DirectX::XMFLOAT3(vertices[indices[i]].position.x, vertices[indices[i]].position.y, vertices[indices[i]].position.z);
+		DirectX::XMFLOAT3 pointB = DirectX::XMFLOAT3(vertices[indices[i + 1]].position.x, vertices[indices[i + 1]].position.y, vertices[indices[i + 1]].position.z);
+		DirectX::XMFLOAT3 pointC = DirectX::XMFLOAT3(vertices[indices[i + 2]].position.x, vertices[indices[i + 2]].position.y, vertices[indices[i + 2]].position.z);
+
+		Triangle triangle = Triangle(pointA, pointB, pointC);
+
+		triangles.push_back(triangle);
+	}
 }
 
 void Mesh::SetVertices(std::vector<Vertex>& vertices)

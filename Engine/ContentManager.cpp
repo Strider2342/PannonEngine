@@ -175,6 +175,7 @@ Mesh* ContentManager::LoadMesh(std::string filename)
 	newmesh->SetIndices(indices);
 
 	newmesh->SetBounds();
+	newmesh->SetTriangles();
 
 	return newmesh;
 }

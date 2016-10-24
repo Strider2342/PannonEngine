@@ -1,5 +1,6 @@
 #pragma once
 #include <iostream>
+#include <vector>
 #include <algorithm>
 #include <DirectXMath.h>
 #include <DirectXCollision.h>
@@ -78,4 +79,13 @@ public:
 
 	bool Colliding(DirectX::BoundingSphere *collider2);
 	bool Colliding(DirectX::BoundingOrientedBox *collider2);
+};
+
+class MeshCollider : public Collider
+{
+private:
+	//std::vector<DirectX::B
+
+public:
+	MeshCollider();
 };

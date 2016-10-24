@@ -166,6 +166,7 @@
     <ClInclude Include="Texture.h" />
     <ClInclude Include="GameTime.h" />
     <ClInclude Include="Transform.h" />
+    <ClInclude Include="Triangle.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Application.cpp" />
@@ -194,6 +195,7 @@
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="Transform.cpp" />
+    <ClCompile Include="Triangle.cpp" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="..\Shaders\DefShader.hlsl">
