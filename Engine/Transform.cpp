@@ -51,6 +51,16 @@ Transform* Transform::GetParent()
 	return parent;
 }
 
+Transform* Transform::GetChild(int id)
+{
+	return children.at(id);
+}
+
+std::vector<Transform*>& Transform::GetChildren()
+{
+	return children;
+}
+
 void Transform::SetPosition(XMFLOAT3 value)
 {
 	position = XMFLOAT3(value.x, value.y, value.z);
@@ -72,6 +82,11 @@ void Transform::MultiplyScale(float value)
 void Transform::SetParent(Transform* parent)
 {
 	this->parent = parent;
+}
+
+void Transform::AddChild(Transform *child)
+{
+	children.push_back(child);
 }
 
 DirectX::XMMATRIX Transform::GetWorldMatrix()
@@ -116,4 +131,69 @@ bool Transform::HasParent()
 bool Transform::HasChildren()
 {
 	return false;
+}
+
+std::string Transform::Export()
+{
+	StringBuffer s;
+	Writer<StringBuffer> writer(s);
+
+	writer.StartObject();
+	writer.Key("transform");
+	writer.StartObject();
+	writer.Key("parent");
+	writer.String("parentid");
+	writer.Key("position");
+	writer.StartObject();
+	writer.Key("x");
+	writer.Double(position.x);
+	writer.Key("y");
+	writer.Double(position.y);
+	writer.Key("z");
+	writer.Double(position.z);
+	writer.EndObject();
+	writer.Key("rotation");
+	writer.StartObject();
+	writer.Key("x");
+	writer.Double(rotation.x);
+	writer.Key("y");
+	writer.Double(rotation.y);
+	writer.Key("z");
+	writer.Double(rotation.z);
+	writer.EndObject();
+	writer.Key("scale");
+	writer.StartObject();
+	writer.Key("x");
+	writer.Double(scale.x);
+	writer.Key("y");
+	writer.Double(scale.y);
+	writer.Key("z");
+	writer.Double(scale.z);
+	writer.EndObject();
+	writer.EndObject();
+	writer.EndObject();
+
+	return s.GetString();
+}
+
+void Transform::Import(std::string json)
+{
+	Document d;
+	d.Parse(json.c_str());
+
+	float position_x = d["transform"]["position"]["x"].GetFloat();
+	float position_y = d["transform"]["position"]["y"].GetFloat();
+	float position_z = d["transform"]["position"]["x"].GetFloat();
+
+	float rotation_x = d["transform"]["position"]["x"].GetFloat();
+	float rotation_y = d["transform"]["position"]["y"].GetFloat();
+	float rotation_z = d["transform"]["position"]["z"].GetFloat();
+
+	float scale_x = d["transform"]["position"]["x"].GetFloat();
+	float scale_y = d["transform"]["position"]["y"].GetFloat();
+	float scale_z = d["transform"]["position"]["z"].GetFloat();
+
+	position = DirectX::XMFLOAT3(position_x, position_y, position_z);
+	rotation = DirectX::XMFLOAT3(rotation_x, rotation_y, rotation_z);
+	scale = DirectX::XMFLOAT3(scale_x, scale_y, scale_z);
 }

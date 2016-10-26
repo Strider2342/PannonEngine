@@ -108,3 +108,58 @@ void Light::Start()
 {
 	transform = gameObject->GetTransform();
 }
+
+std::string Light::Export()
+{
+	StringBuffer s;
+	Writer<StringBuffer> writer(s);
+
+	writer.StartObject();
+	writer.Key("light");
+	writer.StartObject();
+	writer.Key("type");
+	writer.Int(type);
+	writer.Key("color");
+	writer.StartObject();
+	writer.Key("x");
+	writer.Double(color.x);
+	writer.Key("y");
+	writer.Double(color.y);
+	writer.Key("z");
+	writer.Double(color.z);
+	writer.EndObject();
+	writer.Key("spotAngle");
+	writer.Double(spotAngle);
+	writer.Key("constantAttenuation");
+	writer.Double(constantAttenuation);
+	writer.Key("linearAttenuation");
+	writer.Double(linearAttenuation);
+	writer.Key("quadraticAttenuation");
+	writer.Double(quadraticAttenuation);
+	writer.Key("intensity");
+	writer.Double(intensity);
+	writer.Key("enabled");
+	writer.Bool(enabled);
+	writer.EndObject();
+	writer.EndObject();
+
+	return s.GetString();
+}
+
+void Light::Import(std::string json)
+{
+	Document d;
+	d.Parse(json.c_str());
+
+	float color_x = d["color"]["x"].GetFloat();
+	float color_y = d["color"]["y"].GetFloat();
+	float color_z = d["color"]["z"].GetFloat();
+	color = DirectX::XMFLOAT4(color_x, color_y, color_z, 1.0f);
+
+	spotAngle				= d["light"]["spotAngle"].GetFloat();
+	constantAttenuation		= d["light"]["constantAttenuation"].GetFloat();
+	linearAttenuation		= d["light"]["linearAttenuation"].GetFloat();
+	quadraticAttenuation	= d["light"]["quadraticAttenuation"].GetFloat();
+	intensity				= d["light"]["intensity"].GetFloat();
+	enabled					= d["light"]["enabled"].GetBool();
+}

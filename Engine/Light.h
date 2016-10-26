@@ -76,4 +76,8 @@ public:
 	void SetColor(DirectX::XMFLOAT4 color);
 
 	void Start();
+
+	// object
+	std::string Export();
+	void Import(std::string json);
 };

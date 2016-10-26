@@ -1,10 +1,11 @@
 #pragma once
 #include <iostream>
 #include <string>
+#include "Object.h"
 #include "GameTime.h"
 
 class GameObject;
-class Component
+class Component : public Object
 {
 	friend class GameObject;
 

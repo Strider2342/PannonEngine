@@ -1,9 +1,10 @@
 #pragma once
 #include <DirectXMath.h>
+#include "Object.h"
 #include "Texture.h"
 #include "Shader.h"
 
-class Material
+class Material : public Object
 {
 public:
 	struct ShaderInput

@@ -46,4 +46,8 @@ public:
 	void SetAspectRatio(float aspectRatio);
 	void SetNearClippingPlane(float nearClippingPlane);
 	void SetFarClippingPlane(float farClippingPlane);
+
+	// object
+	std::string Export();
+	void Import(std::string json);
 };

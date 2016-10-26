@@ -1,5 +1,6 @@
 #pragma once
 #include <vector>
+#include <string>
 #include "Graphics.h"
 #include "GameTime.h"
 #include "Physics.h"

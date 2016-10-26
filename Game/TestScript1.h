@@ -81,6 +81,6 @@ public:
 		colliding = true;
 		gameObject->GetComponent<MeshRenderer>()->GetMaterial()->SetDiffuse(0.0f, 1.0f, 0.0f);
 
-		std::cout << "I'm hit!" << std::endl;
+		//std::cout << "I'm hit!" << std::endl;
 	}
 };

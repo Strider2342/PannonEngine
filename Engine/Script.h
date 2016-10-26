@@ -6,6 +6,9 @@
 
 class Script :public Component
 {
+protected:
+	std::string classname;
+
 public:
 	Script();
 	virtual ~Script();
@@ -18,4 +21,8 @@ public:
 	virtual void OnCollisionEnter();
 	virtual void OnCollisionStay();
 	virtual void OnCollisionExit();
+
+	// object
+	std::string Export();
+	void Import(std::string json);
 };

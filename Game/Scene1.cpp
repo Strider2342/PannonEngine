@@ -84,6 +84,12 @@ void Scene1::Start()
 	{
 		gameObjects[i]->Start();
 	}
+	
+	std::string json;
+	std::cout << "kujhuki: ";
+	std::cin >> json;
+	teapot.GetTransform()->Import(json);
+	std::cout << teapot.GetTransform()->Export() << std::endl;
 }
 
 void Scene1::Load()
