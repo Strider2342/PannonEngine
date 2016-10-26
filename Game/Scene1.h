@@ -1,6 +1,6 @@
 #pragma once
 #include "Graphics.h"
-#include "Scene.h"
+#include "GameScene.h"
 #include "ContentManager.h"
 #include "Screen.h"
 
@@ -10,7 +10,7 @@
 #include "CameraScript.h"
 #include "MainScript.h"
 
-class Scene1 : public Scene
+class Scene1 : public GameScene
 {
 private:
 	Screen screen;
@@ -25,7 +25,4 @@ public:
 	Scene1();
 
 	void Start();
-	void Load();
-	void Update();
-	void Render();
 };

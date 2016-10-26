@@ -2,13 +2,13 @@
 #include <iostream>
 #include <vector>
 #include "Graphics.h"
-#include "Scene.h"
+#include "GameScene.h"
 
 class Application
 {
 private:
 	Graphics graphics;
-	std::vector<Scene *> scenes;
+	std::vector<GameScene *> scenes;
 	int currentScene = 0;
 
 public:

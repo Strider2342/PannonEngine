@@ -25,3 +25,13 @@ void Texture::Destroy()
 		texture_resource->Release();
 	}
 }
+
+std::string Texture::GetName()
+{
+	return name;
+}
+
+void Texture::SetName(std::string name)
+{
+	this->name = name;
+}

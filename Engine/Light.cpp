@@ -3,7 +3,7 @@
 Light::Light()
 {
 	color = DirectX::XMFLOAT4(0.8f, 0.8f, 0.8f, 1.0f);
-	spotAngle = 45.0f;
+	spotAngle = 5.0f;
 	constantAttenuation = 0.25f;
 	linearAttenuation = 0.25f;
 	quadraticAttenuation = 0.25f;
@@ -25,7 +25,7 @@ Light::ShaderInput& Light::GetShaderInput()
 	shaderInput.linearAttenuation = linearAttenuation;
 	shaderInput.quadraticAttenuation = quadraticAttenuation;
 	shaderInput.intensity = intensity;
-	shaderInput.type = 1;//(int)type;
+	shaderInput.type = type;
 	shaderInput.enabled = enabled;
 
 	return shaderInput;

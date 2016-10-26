@@ -1,26 +1,28 @@
 #pragma once
+#include <iostream>
 #include <vector>
-#include <string>
 #include "Graphics.h"
-#include "GameTime.h"
-#include "Physics.h"
+#include "Object.h"
 #include "GameObject.h"
 #include "MeshRenderer.h"
-#include "Collider.h"
 #include "Camera.h"
 #include "Light.h"
-#include "DebugHelper.h"
 
-class Scene
+#include "Mesh.h"
+#include "Texture.h"
+
+class Scene : public Object
 {
 protected:
 	Graphics graphics;
 	GameTime gameTime;
 
 	std::vector<GameObject*> gameObjects;
-	std::vector<Camera*> cameras;
-	
 	std::vector<Light::ShaderInput> lights;
+	std::vector<Camera*> cameras;
+
+	std::vector<Mesh*> meshes;
+	std::vector<Texture*> textures;
 
 	Camera *mainCamera = nullptr;
 
@@ -28,27 +30,15 @@ public:
 	Scene();
 
 	void Init(Graphics &graphics);
-	void SetScene(Scene *scene);
 
-	// gameObjects
 	std::vector<GameObject*>& GetGameObjectList();
 	void AddGameObject(GameObject *gameObject);
 	GameObject* FindGameObject(std::string name);
 
-	// cameras
 	std::vector<Camera*>& GetCameraList();
 	void AddCamera(Camera *camera);
 	Camera* GetMainCamera();
 	void SetMainCamera(Camera *camera);
-	
-	void RefreshLights();
-	void CheckCollision();
 
-	virtual void Load();
-	virtual void Start();
-	virtual void PreUpdate();
-	virtual void Update();
-	virtual void PostUpdate();
-	virtual void Render();
-	virtual void PostRender();
+	void RefreshLights();
 };

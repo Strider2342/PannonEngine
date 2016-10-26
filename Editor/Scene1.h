@@ -1,10 +1,10 @@
 #pragma once
 #include "Graphics.h"
-#include "Scene.h"
+#include "GameScene.h"
 #include "ContentManager.h"
 #include "GameObject.h"
 
-class Scene1 : public Scene
+class Scene1 : public GameScene
 {
 private:
 	Camera camera;

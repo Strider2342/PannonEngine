@@ -25,6 +25,11 @@ std::vector<Triangle>& Mesh::GetTriangles()
 	return triangles;
 }
 
+std::string Mesh::GetName()
+{
+	return name;
+}
+
 void Mesh::SetBounds()
 {
 	float minx = vertices[0].position.x, miny = vertices[0].position.y, minz = vertices[0].position.x;
@@ -67,4 +72,9 @@ void Mesh::SetVertices(std::vector<Vertex>& vertices)
 void Mesh::SetIndices(std::vector<DWORD>& indices)
 {
 	this->indices = indices;
+}
+
+void Mesh::SetName(std::string name)
+{
+	this->name = name;
 }

@@ -1,21 +1,19 @@
 #include "Scene.h"
 
 Scene::Scene()
-{ }
+{
+}
 
 void Scene::Init(Graphics &graphics)
 {
 	this->graphics = graphics;
 
 	gameObjects = std::vector<GameObject*>();
-}
+	lights = std::vector<Light::ShaderInput>();
+	cameras = std::vector<Camera*>();
 
-void Scene::SetScene(Scene *scene)
-{
-	this->gameObjects = scene->GetGameObjectList();
-	this->cameras = scene->GetCameraList();
-
-	this->mainCamera = *(cameras.begin());
+	meshes = std::vector<Mesh*>();
+	textures = std::vector<Texture*>();
 }
 
 std::vector<GameObject*>& Scene::GetGameObjectList()
@@ -83,98 +81,5 @@ void Scene::RefreshLights()
 		{
 			renderer->SetLights(&lights);
 		}
-	}
-}
-
-void Scene::CheckCollision()
-{
-	for (int i = 0; i < gameObjects.size() - 1; i++)
-	{
-		Collider *collider1 = gameObjects[i]->GetComponent<Collider>();
-
-		if (collider1 != NULL)
-		{
-			for (int j = i + 1; j < gameObjects.size(); j++)
-			{
-				Collider *collider2 = gameObjects[j]->GetComponent<Collider>();
-
-				if (collider2 != NULL)
-				{
-					if (dynamic_cast<BoxCollider *>(collider1))
-					{
-						if (dynamic_cast<BoxCollider *>(collider2))
-						{
-							if (dynamic_cast<BoxCollider *>(collider1)->Colliding(dynamic_cast<BoxCollider *>(collider2)->GetCollider()))
-							{
-								gameObjects[i]->OnCollision();
-								gameObjects[j]->OnCollision();
-							}
-						}
-						else if (dynamic_cast<SphereCollider *>(collider2))
-						{
-							if (dynamic_cast<BoxCollider *>(collider1)->Colliding(dynamic_cast<SphereCollider *>(collider2)->GetCollider()))
-							{
-								gameObjects[i]->OnCollision();
-								gameObjects[j]->OnCollision();
-							}
-						}
-					}
-					else if (dynamic_cast<SphereCollider *>(collider1))
-					{
-						if (dynamic_cast<BoxCollider *>(collider2))
-						{
-							if (dynamic_cast<SphereCollider *>(collider1)->Colliding(dynamic_cast<BoxCollider *>(collider2)->GetCollider()))
-							{
-								gameObjects[i]->OnCollision();
-								gameObjects[j]->OnCollision();
-							}
-						}
-						else if (dynamic_cast<SphereCollider *>(collider2))
-						{
-							if (dynamic_cast<SphereCollider *>(collider1)->Colliding(dynamic_cast<SphereCollider *>(collider2)->GetCollider()))
-							{
-								gameObjects[i]->OnCollision();
-								gameObjects[j]->OnCollision();
-							}
-						}
-					}
-				}
-			}
-		}
-	}
-}
-
-void Scene::Load()
-{
-}
-
-void Scene::Start()
-{
-}
-
-void Scene::PreUpdate()
-{
-	RefreshLights();
-	CheckCollision();
-}
-
-void Scene::Update()
-{
-}
-
-void Scene::PostUpdate()
-{
-	gameTime.SetPrevTime();
-}
-
-void Scene::Render()
-{
-}
-
-void Scene::PostRender()
-{
-	for (int i = 0; i < gameObjects.size(); i++)
-	{
-		gameObjects[i]->PostRender();
 	}
 }

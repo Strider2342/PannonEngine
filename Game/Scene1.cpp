@@ -38,6 +38,7 @@ void Scene1::Start()
 	screen.SetCamera(camera.GetComponent<Camera>());
 
 	light1.AddComponent<Light>();
+	light1.GetComponent<Light>()->SetType(0);
 	light1.GetTransform()->GetPosition() = DirectX::XMFLOAT3(0.0f, 0.0f, -1.3f);
 
 	/*light2.AddComponent<Light>();
@@ -80,48 +81,18 @@ void Scene1::Start()
 
 	//teapot2.AddComponent<TestScript1>();
 
-	for (int i = 0; i < gameObjects.size(); i++)
-	{
-		gameObjects[i]->Start();
-	}
-	
-	std::string json;
-	std::cout << "kujhuki: ";
-	std::cin >> json;
-	teapot.GetTransform()->Import(json);
-	std::cout << teapot.GetTransform()->Export() << std::endl;
-}
 
-void Scene1::Load()
-{
 	ContentManager content = ContentManager();
 	content.Init(graphics.GetDevice(), graphics.GetDeviceContext());
 
 	Mesh *mesh = content.LoadMesh("Meshes/microteapot.DAE");
-		
+
 	//teapot.GetTransform()->SetParent(test.GetTransform());
 	teapot.GetComponent<MeshRenderer>()->SetMesh(mesh);
 
 	//teapot2.GetTransform()->SetParent(test.GetTransform());
 	teapot2.GetComponent<MeshRenderer>()->SetMesh(mesh);
-}
 
-void Scene1::Update()
-{
-	for (int i = 0; i < gameObjects.size(); i++)
-	{
-		gameObjects[i]->Update(gameTime);
-	}
-}
 
-void Scene1::Render()
-{
-	graphics.Begin();
-
-	for (int i = 0; i < gameObjects.size(); i++)
-	{
-		gameObjects[i]->Render();
-	}
-
-	graphics.End();
+	GameScene::Start();
 }

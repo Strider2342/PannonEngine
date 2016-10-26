@@ -11,9 +11,9 @@ void ContentManager::Init(ID3D11Device* dev, ID3D11DeviceContext* devcon)
 	resourceDir = "../";
 }
 
-Scene* ContentManager::LoadScene(std::string filename)
+GameScene* ContentManager::LoadScene(std::string filename)
 {
-	Scene *newscene;
+	GameScene *newscene;
 
 	Assimp::Importer importer;
 	const aiScene *scene = importer.ReadFile(resourceDir + filename, aiProcessPreset_TargetRealtime_Fast);

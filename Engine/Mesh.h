@@ -22,6 +22,8 @@ private:
 
 	Bounds3D bounds;
 
+	std::string name;
+
 public:
 	Mesh();
 	~Mesh();
@@ -33,10 +35,14 @@ public:
 	std::vector<DWORD>& GetIndices();
 	std::vector<Triangle>& GetTriangles();
 
+	std::string GetName();
+
 	// set
 	void SetBounds();
 	void SetTriangles();
 
 	void SetVertices(std::vector<Vertex> &vertices);
 	void SetIndices(std::vector<DWORD> &indices);
+
+	void SetName(std::string name);
 };

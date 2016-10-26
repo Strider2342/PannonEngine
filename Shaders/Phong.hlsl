@@ -154,12 +154,12 @@ LightingResult ComputeLighting(float4 P, float3 N)
 {
 	float3 V = normalize(eyePosition - P).xyz;
 
-	LightingResult totalResult = { { 0, 0, 0, 0 },{ 0, 0, 0, 0 } };
+	LightingResult totalResult = { { 0, 0, 0, 0 }, { 0, 0, 0, 0 } };
 
 	[unroll]
 	for (int i = 0; i < MAX_LIGHTS; ++i)
 	{
-		LightingResult result = { { 0, 0, 0, 0 },{ 0, 0, 0, 0 } };
+		LightingResult result = { { 0, 0, 0, 0 }, { 0, 0, 0, 0 } };
 
 		if (!lights[i].enabled) continue;
 		

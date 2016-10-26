@@ -4,14 +4,14 @@
 #include <DirectXMath.h>
 #include "imgui/imgui.h"
 #include "imgui/imgui_impl_dx11.h"
-#include "Scene.h"
+#include "GameScene.h"
 #include "EditorGraphics.h"
 #include "EditorGUI.h"
 #include "ContentManager.h"
 #include "GameObject.h"
 #include "Input.h"
 
-class Editor : public Scene
+class Editor : public GameScene
 {
 private:
 	EditorGraphics *graphics;

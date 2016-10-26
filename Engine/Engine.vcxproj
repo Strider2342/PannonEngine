@@ -159,6 +159,7 @@
     <ClInclude Include="Picker.h" />
     <ClInclude Include="Hit.h" />
     <ClInclude Include="Ray.h" />
+    <ClInclude Include="GameScene.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="Screen.h" />
     <ClInclude Include="Script.h" />
@@ -191,6 +192,7 @@
     <ClCompile Include="Physics.cpp" />
     <ClCompile Include="Picker.cpp" />
     <ClCompile Include="Ray.cpp" />
+    <ClCompile Include="GameScene.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="Screen.cpp" />
     <ClCompile Include="Script.cpp" />
