@@ -76,6 +76,10 @@ public:
 	Transform *GetTransform();
 	Camera *GetCamera();
 
+	// mesh
+	Bounds3D& GetBounds();
+	std::vector<Triangle>& GetTriangles();
+
 	void SetMaterial(Material *material);
 	void SetMesh(Mesh *mesh);
 	void SetCamera(Camera *camera);

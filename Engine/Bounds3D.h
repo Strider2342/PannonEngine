@@ -7,6 +7,10 @@ class Bounds3D
 	DirectX::XMFLOAT2 yBounds;
 	DirectX::XMFLOAT2 zBounds;
 
+	float xLength;
+	float yLength;
+	float zLength;
+
 public:
 	Bounds3D();
 
@@ -16,6 +20,10 @@ public:
 	DirectX::XMFLOAT2& GetZBounds();
 
 	DirectX::XMFLOAT3& GetCenter();
+
+	float GetXLength();
+	float GetYLength();
+	float GetZLength();
 
 	// set
 	void SetXBounds(float min, float max);

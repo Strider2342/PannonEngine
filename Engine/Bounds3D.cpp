@@ -20,7 +20,23 @@ DirectX::XMFLOAT2& Bounds3D::GetZBounds()
 
 DirectX::XMFLOAT3& Bounds3D::GetCenter()
 {
-	return DirectX::XMFLOAT3(xBounds.y - xBounds.x, yBounds.y - yBounds.x, zBounds.y - zBounds.x);
+	DirectX::XMFLOAT3 center = DirectX::XMFLOAT3(xBounds.x + (GetXLength() * 0.5f), yBounds.x + (GetYLength() * 0.5f), zBounds.x + (GetZLength() * 0.5f));
+	return center;
+}
+
+float Bounds3D::GetXLength()
+{
+	return xBounds.y - xBounds.x;
+}
+
+float Bounds3D::GetYLength()
+{
+	return yBounds.y - yBounds.x;
+}
+
+float Bounds3D::GetZLength()
+{
+	return zBounds.y - zBounds.x;
 }
 
 void Bounds3D::SetXBounds(float min, float max)

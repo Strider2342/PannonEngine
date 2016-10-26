@@ -23,9 +23,12 @@ public:
 	Hit RayCast(DirectX::XMFLOAT3 origin, DirectX::XMFLOAT3 direction, float distance);
 	Hit RayCast(Ray ray);
 	Hit RayCast(Ray ray, float distance);
+	Hit RayPicking(Ray ray);
 
 	// get
 	std::vector<GameObject*>* GetGameObjectArray();
+
+	DirectX::BoundingOrientedBox* GetColliderByBoundingBox();
 
 	// set
 	void SetGameObjectArray(std::vector<GameObject*> *gameObjects);

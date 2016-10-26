@@ -124,9 +124,46 @@ Hit Physics::RayCast(Ray ray, float distance)
 	return RayCast(ray.GetOrigin(), ray.GetDirection(), distance);
 }
 
+Hit Physics::RayPicking(Ray ray)
+{
+	Hit hit = Hit();
+
+	for (int i = 0; i < gameObjects->size(); i++)
+	{
+		if ((*gameObjects)[i] != gameObject && (*gameObjects)[i]->GetComponent<MeshRenderer>() != NULL)
+		{
+			DirectX::BoundingOrientedBox *collider = (*gameObjects)[i]->GetComponent<Physics>()->GetColliderByBoundingBox();
+			float dist = -1.0f;
+
+			if (collider->Intersects(DirectX::XMLoadFloat3(&(ray.GetOrigin())), DirectX::XMLoadFloat3(&(ray.GetDirection())), dist))
+			{
+				XMVECTOR hitPoint = XMVectorMultiplyAdd(DirectX::XMLoadFloat3(&(ray.GetDirection())), XMVectorReplicate(dist), DirectX::XMLoadFloat3(&(ray.GetOrigin())));
+
+				hit.gameObject = (*gameObjects)[i];
+				hit.hitOccured = true;
+				DirectX::XMStoreFloat3(&(hit.position), hitPoint);
+			}
+		}
+	}
+
+	return hit;
+}
+
 std::vector<GameObject*>* Physics::GetGameObjectArray()
 {
 	return gameObjects;
+}
+
+DirectX::BoundingOrientedBox* Physics::GetColliderByBoundingBox()
+{
+	DirectX::BoundingOrientedBox *collider = new DirectX::BoundingOrientedBox();
+
+	DirectX::XMFLOAT3 center = gameObject->GetComponent<MeshRenderer>()->GetBounds().GetCenter();
+	collider->Center = center;
+	collider->Extents = DirectX::XMFLOAT3(gameObject->GetComponent<MeshRenderer>()->GetMesh()->GetBounds().GetXLength(), gameObject->GetComponent<MeshRenderer>()->GetMesh()->GetBounds().GetYLength(), gameObject->GetComponent<MeshRenderer>()->GetMesh()->GetBounds().GetZLength());
+	collider->Orientation = DirectX::XMFLOAT4(gameObject->GetTransform()->GetForward().x, gameObject->GetTransform()->GetForward().y, gameObject->GetTransform()->GetForward().z, 1.0f);
+
+	return collider;
 }
 
 void Physics::SetGameObjectArray(std::vector<GameObject*> *gameObjects)

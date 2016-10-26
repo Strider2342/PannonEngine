@@ -31,7 +31,7 @@ void Editor::Init(EditorGraphics *graphics)
 	//light->GetTransform()->GetRotation() = DirectX::XMFLOAT3(4.0f, 4.0f, 4.0f);
 
 	teapot = new GameObject();
-	teapot->SetName("Probanev");
+	teapot->SetName("Teapot");
 	teapot->GetTransform()->GetPosition() = DirectX::XMFLOAT3(0.0f, 0.0f, 0.0f);
 	teapot->AddComponent<MeshRenderer>();
 
@@ -45,6 +45,13 @@ void Editor::Init(EditorGraphics *graphics)
 	teapot->AddComponent<BoxCollider>();
 	teapot->AddComponent<SphereCollider>();
 
+	bottle = new GameObject();
+	bottle->SetName("Bottle");
+	bottle->GetTransform()->GetPosition() = DirectX::XMFLOAT3(1.0f, 0.5f, 0.0f);
+	bottle->AddComponent<MeshRenderer>();
+
+	bottle->GetTransform()->MultiplyScale(0.005f);
+
 	ContentManager content = ContentManager();
 	content.Init(graphics->GetDevice(), graphics->GetDeviceContext());
 
@@ -54,8 +61,15 @@ void Editor::Init(EditorGraphics *graphics)
 	teapot->GetComponent<MeshRenderer>()->SetMesh(mesh);
 	teapot->GetComponent<MeshRenderer>()->SetLights(&lights);
 
+	Mesh *mesh2 = content.LoadMesh("Meshes/minisorosuveg.DAE");
+	bottle->GetComponent<MeshRenderer>()->Init(graphics->GetDevice(), graphics->GetDeviceContext());
+	bottle->GetComponent<MeshRenderer>()->SetCamera(camera->GetComponent<Camera>());
+	bottle->GetComponent<MeshRenderer>()->SetMesh(mesh2);
+	bottle->GetComponent<MeshRenderer>()->SetLights(&lights);
+
 	gameObjects.push_back(camera);
 	gameObjects.push_back(teapot);
+	gameObjects.push_back(bottle);
 	gameObjects.push_back(light);
 
 	gui.SetGameObjectList(&gameObjects);

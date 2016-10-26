@@ -13,3 +13,18 @@ Triangle::Triangle(DirectX::XMFLOAT3 pointA, DirectX::XMFLOAT3 pointB, DirectX::
 	this->pointB = pointB;
 	this->pointC = pointC;
 }
+
+DirectX::XMFLOAT3& Triangle::GetPointA()
+{
+	return pointA;
+}
+
+DirectX::XMFLOAT3& Triangle::GetPointB()
+{
+	return pointB;
+}
+
+DirectX::XMFLOAT3& Triangle::GetPointC()
+{
+	return pointC;
+}

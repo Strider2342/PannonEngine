@@ -220,6 +220,37 @@ Camera* MeshRenderer::GetCamera()
 	return camera;
 }
 
+Bounds3D& MeshRenderer::GetBounds()
+{
+	Bounds3D originalBounds = mesh->GetBounds();
+	Bounds3D bounds = Bounds3D();
+
+	bounds.GetXBounds() = DirectX::XMFLOAT2(originalBounds.GetXBounds().x * gameObject->GetTransform()->GetScale().x, originalBounds.GetXBounds().y * gameObject->GetTransform()->GetScale().y);
+	bounds.GetYBounds() = DirectX::XMFLOAT2(originalBounds.GetYBounds().x * gameObject->GetTransform()->GetScale().x, originalBounds.GetYBounds().y * gameObject->GetTransform()->GetScale().y);
+	bounds.GetZBounds() = DirectX::XMFLOAT2(originalBounds.GetZBounds().x * gameObject->GetTransform()->GetScale().x, originalBounds.GetZBounds().y * gameObject->GetTransform()->GetScale().y);
+
+	return bounds;
+}
+
+std::vector<Triangle>& MeshRenderer::GetTriangles()
+{
+	std::vector<Triangle> originaltriangles = mesh->GetTriangles();
+	std::vector<Triangle> triangles = std::vector<Triangle>();
+
+	for (int i = 0; i < triangles.size(); i++)
+	{
+		DirectX::XMFLOAT3 pointA = DirectX::XMFLOAT3(originaltriangles.at(i).GetPointA().x * gameObject->GetTransform()->GetScale().x, originaltriangles.at(i).GetPointA().y * gameObject->GetTransform()->GetScale().y, originaltriangles.at(i).GetPointA().z * gameObject->GetTransform()->GetScale().z);
+		DirectX::XMFLOAT3 pointB = DirectX::XMFLOAT3(originaltriangles.at(i).GetPointB().x * gameObject->GetTransform()->GetScale().x, originaltriangles.at(i).GetPointB().y * gameObject->GetTransform()->GetScale().y, originaltriangles.at(i).GetPointB().z * gameObject->GetTransform()->GetScale().z);
+		DirectX::XMFLOAT3 pointC = DirectX::XMFLOAT3(originaltriangles.at(i).GetPointC().x * gameObject->GetTransform()->GetScale().x, originaltriangles.at(i).GetPointC().y * gameObject->GetTransform()->GetScale().y, originaltriangles.at(i).GetPointC().z * gameObject->GetTransform()->GetScale().z);
+
+		Triangle triangle = Triangle(pointA, pointB, pointC);
+		
+		triangles.push_back(triangle);
+	}
+
+	return triangles;
+}
+
 void MeshRenderer::SetMaterial(Material *material)
 {
 	this->material = material;

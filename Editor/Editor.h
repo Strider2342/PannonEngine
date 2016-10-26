@@ -19,7 +19,7 @@ private:
 
 	GameObject *selected;
 	
-	GameObject *teapot;
+	GameObject *teapot, *bottle;
 	GameObject *camera;
 	GameObject *light;
 
