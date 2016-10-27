@@ -1,7 +1,9 @@
 #include "GameScene.h"
 
 GameScene::GameScene()
-{ }
+{
+	ImGui_ImplDX11_Init(graphics.GetHWND(), graphics.GetDevice(), graphics.GetDeviceContext());
+}
 
 void GameScene::SetScene(GameScene *scene)
 {
@@ -67,10 +69,6 @@ void GameScene::CheckCollision()
 			}
 		}
 	}
-}
-
-void GameScene::Load()
-{
 }
 
 void GameScene::Start()

@@ -7,8 +7,8 @@ Light::Light()
 	constantAttenuation = 0.25f;
 	linearAttenuation = 0.25f;
 	quadraticAttenuation = 0.25f;
-	float intensity = 0.75f;
-	int type = Type::Point;
+	intensity = 0.75f;
+	type = Type::Point;
 
 	enabled = true;
 }

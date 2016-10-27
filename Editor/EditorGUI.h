@@ -3,7 +3,7 @@
 #include <string>
 #include <vector>
 #include "imgui/imgui.h"
-#include "imgui/imgui_impl_dx11.h"
+#include "imgui\imgui_impl_dx11.h"
 #include "GameObject.h"
 #include "Component.h";
 #include "Physics.h";
@@ -57,4 +57,6 @@ public:
 
 	void SetSelected(GameObject *&selected);
 	void SetGameObjectList(std::vector<GameObject *> *gameObjects);
+
+	void Render();
 };

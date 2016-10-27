@@ -153,7 +153,7 @@ void EditorGUI::InspectorView()
 	ImGui::SetNextWindowSize(ImVec2(300, 900));
 
 	char name[128];
-	strcpy(name, selected->GetName().c_str());
+	strcpy_s(name, selected->GetName().c_str());
 
 	if (ImGui::Begin("Inspector"))
 	{
@@ -238,7 +238,7 @@ void EditorGUI::HierarchyView()
 			}
 		}
 
-		std::cout << "Selected: " << selected->GetName() << std::endl;
+		//std::cout << "Selected: " << selected->GetName() << std::endl;
 
 		ImGui::End();
 	}
@@ -429,4 +429,9 @@ void EditorGUI::SetSelected(GameObject *&selected)
 void EditorGUI::SetGameObjectList(std::vector<GameObject*> *gameObjects)
 {
 	this->gameObjects = gameObjects;
+}
+
+void EditorGUI::Render()
+{
+	ImGui::Render();
 }

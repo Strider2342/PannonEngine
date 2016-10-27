@@ -8,9 +8,9 @@ class Light : public Component
 public:
 	static enum Type
 	{
-		Directional = 0,
-		Point = 1,
-		Spot = 2
+		Directional,
+		Point,
+		Spot
 	};
 
 	struct ShaderInput

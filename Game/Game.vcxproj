@@ -84,10 +84,10 @@
     <ClInclude Include="CameraScript.h" />
     <ClInclude Include="CharacterController.h" />
     <ClInclude Include="MainScript.h" />
+    <ClInclude Include="Scene1.h" />
     <ClInclude Include="Scene2.h" />
     <ClInclude Include="TestScript1.h" />
     <ClInclude Include="MyFirstScript.h" />
-    <ClInclude Include="Scene1.h" />
     <ClInclude Include="TestScript2.h" />
   </ItemGroup>
   <ItemGroup>

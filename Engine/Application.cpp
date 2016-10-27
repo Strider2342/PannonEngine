@@ -5,14 +5,20 @@ Application::Application()
 	graphics = Graphics();
 }
 
+Application::Application(HWND& hWnd)
+{
+	graphics = Graphics();
+	graphics.Init(hWnd);
+}
+
 void Application::Run()
 {
-	graphics.Init();
 	MSG msg;
 
-	scenes[currentScene]->Init(graphics);
-	scenes[currentScene]->Start();
-	scenes[currentScene]->Load();
+	GameScene *scene = dynamic_cast<GameScene *>(scenes[currentScene]);
+
+	scene->Init(graphics);
+	scene->Start();
 
 	std::cout << "Application started";
 
@@ -23,17 +29,25 @@ void Application::Run()
 			TranslateMessage(&msg);
 			DispatchMessage(&msg);
 
+			if (msg.message == WM_SIZE)
+				graphics.Resize();
+
 			if (msg.message == WM_QUIT)
 				break;
 		}
 
-		scenes[currentScene]->PreUpdate();
-		scenes[currentScene]->Update();
-		scenes[currentScene]->PostUpdate();
+		scene->PreUpdate();
+		scene->Update();
+		scene->PostUpdate();
 
-		scenes[currentScene]->Render();
-		scenes[currentScene]->PostRender();
+		scene->Render();
+		scene->PostRender();
 	}
 
 	graphics.CleanD3D();
+}
+
+void Application::SetType(ApplicationType type)
+{
+	this->type = type;
 }

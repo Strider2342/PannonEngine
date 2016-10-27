@@ -1,7 +1,6 @@
 #pragma once
 #include <iostream>
 #include <list>
-#include "stb_image.h"
 #include "GameScene.h"
 #include "Texture.h"
 #include "Material.h"

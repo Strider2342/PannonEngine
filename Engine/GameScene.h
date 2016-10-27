@@ -2,6 +2,8 @@
 #include <vector>
 #include <string>
 #include "Graphics.h"
+#include "imgui\imgui.h"
+#include "imgui\imgui_impl_dx11.h"
 #include "Scene.h"
 #include "GameTime.h"
 #include "Physics.h"
@@ -14,6 +16,8 @@
 
 class GameScene : public Scene
 {
+public:
+
 protected:
 
 public:
@@ -23,7 +27,6 @@ public:
 
 	void CheckCollision();
 
-	virtual void Load();
 	virtual void Start();
 	virtual void PreUpdate();
 	virtual void Update();

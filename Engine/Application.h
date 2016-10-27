@@ -8,13 +8,18 @@ class Application
 {
 private:
 	Graphics graphics;
-	std::vector<GameScene *> scenes;
+
+	std::vector<Scene *> scenes;
 	int currentScene = 0;
+
+	ApplicationType type;
 
 public:
 	Application();
+	Application(HWND& hWnd);
 
 	void Run();
+	void SetType(ApplicationType type);
 
 	template <class T>
 	void AddScene();

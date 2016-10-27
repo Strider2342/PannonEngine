@@ -2,6 +2,7 @@
 
 Scene::Scene()
 {
+	graphics = Graphics();
 }
 
 void Scene::Init(Graphics &graphics)

@@ -2,6 +2,7 @@
 #include <iostream>
 #include <windows.h>
 #include <windowsx.h>
+#include <d3d11.h>
 
 #define LEAN_AND_MEAN
 #define VC_EXTRALEAN
@@ -21,14 +22,12 @@ private:
 
 public:
 	GameWindow();
-	GameWindow(int SCREEN_WIDTH, int SCREEN_HEIGHT, LPCWSTR WINDOW_NAME, LPCWSTR CLASS_NAME);
-
-	static LRESULT CALLBACK WindowProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
+	GameWindow(int SCREEN_WIDTH, int SCREEN_HEIGHT, LPCWSTR WINDOW_NAME, LPCWSTR CLASS_NAME, WNDPROC WindowProc);
 
 	HWND& Create();
 	HWND& CreateBorderless();
 
-	WNDCLASSEX& CreateWindowClass(LPCWSTR CLASS_NAME);
+	WNDCLASSEX& CreateWindowClass(LPCWSTR CLASS_NAME, WNDPROC &WindowProc);
 
 	// get
 	HWND& GetHWND();

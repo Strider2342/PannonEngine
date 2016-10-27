@@ -1,22 +1,23 @@
 #include "Graphics.h"
 
 Graphics::Graphics()
+{ }
+
+void Graphics::Init(HWND &hWnd)
 {
 	backbufferWidth = options.resolutionX;
 	backbufferHeight = options.resolutionY;
-}
 
-void Graphics::Init()
-{
-	window = GameWindow(options.resolutionX, options.resolutionY, L"PannonEngine", L"PannonClass");
-	hWnd = window.GetHWND();
-	InitD3D();
-}
-void Graphics::InitD3D()
-{
+	this->hWnd = hWnd;
+
+	RECT rect;
+	GetWindowRect(hWnd, &rect);
+	int width = rect.right - rect.left;
+	int height = rect.bottom - rect.top;
+
 	if (!CreateDevice()) { exit(0); }
-	if (!CreateSwapChain(hWnd, backbufferWidth, backbufferHeight, 60, false)) { exit(0); }
-	if (!CreateDepthBuffer()) { exit(0); }
+	if (!CreateSwapChain(this->hWnd, width, height, 60, false)) { exit(0); }
+	if (!CreateDepthBuffer(width, height)) { exit(0); }
 
 	CreateRasterizerState();
 }
@@ -44,8 +45,8 @@ bool Graphics::CreateSwapChain(HWND hWnd, int width, int height, int rate, bool 
 
 	desc.BufferCount = 1;														// one back buffer
 	desc.BufferDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM_SRGB;					// use 32-bit color, srgb: lineáris interpolációval exponenciális helyett
-	desc.BufferDesc.Width = width;												// set the back buffer width
-	desc.BufferDesc.Height = height;											// set the back buffer height
+	desc.BufferDesc.Width = 0;													// set the back buffer width
+	desc.BufferDesc.Height = 0;													// set the back buffer height
 	desc.BufferDesc.Scaling = DXGI_MODE_SCALING_UNSPECIFIED;					// set the scaling mode
 	desc.BufferDesc.ScanlineOrdering = DXGI_MODE_SCANLINE_ORDER_UNSPECIFIED;	// set the scanline drawing mode
 	desc.BufferDesc.RefreshRate.Numerator = rate;								// set the screen's maximum refresh rate
@@ -73,14 +74,14 @@ bool Graphics::CreateSwapChain(HWND hWnd, int width, int height, int rate, bool 
 		return false;
 	}
 }
-bool Graphics::CreateDepthBuffer()
+bool Graphics::CreateDepthBuffer(int width, int height)
 {
 	// create the depth buffer texture
 	D3D11_TEXTURE2D_DESC texd;
 	ZeroMemory(&texd, sizeof(texd));
 
-	texd.Width = backbufferWidth;
-	texd.Height = backbufferHeight;
+	texd.Width = width;
+	texd.Height = height;
 	texd.MipLevels = 1;
 	texd.ArraySize = 1;
 	texd.Format = DXGI_FORMAT_D32_FLOAT;
@@ -155,6 +156,22 @@ void Graphics::CreateViewport()
 	viewport.MaxDepth = 1;    // the farthest an object can be on the depth buffer is 1.0	
 	devcon->RSSetViewports(1, &viewport);
 }
+void Graphics::Resize()
+{
+	// device not yet resized
+
+	RECT rect;
+	GetWindowRect(hWnd, &rect);
+	int width = rect.right - rect.left;
+	int height = rect.bottom - rect.top;
+
+	ImGui_ImplDX11_InvalidateDeviceObjects();
+
+	ImGuiIO& io = ImGui::GetIO();
+	io.DisplaySize.x = width;
+	io.DisplaySize.y = height;
+	ImGui_ImplDX11_CreateDeviceObjects();
+}
 void Graphics::Begin()
 {
 	CreateViewport();
@@ -162,6 +179,22 @@ void Graphics::Begin()
 	devcon->RSSetState(g_pRasterState);
 
 	float clearColor[4] = { 0.0f, 0.2f, 0.4f, 1.0f };
+
+	devcon->OMSetRenderTargets(1, &backbuffer, zbuffer);
+
+	// clear the back buffer to a deep blue
+	devcon->ClearRenderTargetView(backbuffer, clearColor);
+
+	// clear the depth buffer
+	devcon->ClearDepthStencilView(zbuffer, D3D11_CLEAR_DEPTH, 1.0f, 0);
+}
+void Graphics::Begin(float r, float g, float b)
+{
+	CreateViewport();
+
+	devcon->RSSetState(g_pRasterState);
+
+	float clearColor[4] = { r, g, b, 1.0f };
 
 	devcon->OMSetRenderTargets(1, &backbuffer, zbuffer);
 
@@ -187,9 +220,24 @@ ID3D11DeviceContext* Graphics::GetDeviceContext()
 	return devcon;
 }
 
+GraphicsOptions* Graphics::GetGraphicsOptions()
+{
+	return &options;
+}
+
 HWND& Graphics::GetHWND()
 {
 	return hWnd;
+}
+
+int Graphics::GetWindowWidth()
+{
+	return 0;
+}
+
+int Graphics::GetWindowHeight()
+{
+	return 0;
 }
 
 bool Graphics::IsWindowActive()

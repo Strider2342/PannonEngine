@@ -3,7 +3,7 @@
 GameWindow::GameWindow()
 { }
 
-GameWindow::GameWindow(int SCREEN_WIDTH, int SCREEN_HEIGHT, LPCWSTR WINDOW_NAME, LPCWSTR CLASS_NAME)
+GameWindow::GameWindow(int SCREEN_WIDTH, int SCREEN_HEIGHT, LPCWSTR WINDOW_NAME, LPCWSTR CLASS_NAME, WNDPROC WindowProc)
 {
 	this->SCREEN_WIDTH = SCREEN_WIDTH;
 	this->SCREEN_HEIGHT = SCREEN_HEIGHT;
@@ -11,31 +11,10 @@ GameWindow::GameWindow(int SCREEN_WIDTH, int SCREEN_HEIGHT, LPCWSTR WINDOW_NAME,
 	this->CLASS_NAME = CLASS_NAME;
 
 	this->hInstance = GetModuleHandle(NULL);
-	this->wc = CreateWindowClass(L"WindowClass");
+	this->wc = CreateWindowClass(L"WindowClass", WindowProc);
 
 	this->hWnd = Create();
 	ShowWindow(hWnd, 10);
-}
-
-LRESULT CALLBACK GameWindow::WindowProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
-{
-	switch (message)
-	{
-		case WM_DESTROY:
-		{
-			PostQuitMessage(0);
-			return 0;
-		}
-		case WM_KEYDOWN:
-		{
-			if (wParam == VK_ESCAPE)
-			{
-				PostQuitMessage(0);
-				return 0;
-			}
-		}
-	}
-	return DefWindowProc(hWnd, message, wParam, lParam);
 }
 
 HWND& GameWindow::Create()
@@ -75,7 +54,7 @@ HWND& GameWindow::CreateBorderless()
 	return hwnd;
 }
 
-WNDCLASSEX& GameWindow::CreateWindowClass(LPCWSTR CLASS_NAME)
+WNDCLASSEX& GameWindow::CreateWindowClass(LPCWSTR CLASS_NAME, WNDPROC &WindowProc)
 {
 	ZeroMemory(&wc, sizeof(WNDCLASSEX));
 
