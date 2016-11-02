@@ -30,7 +30,7 @@ void Scene1::Start()
 	camera.GetComponent<Camera>()->Init();
 	camera.GetComponent<Camera>()->SetTransform(camera.GetTransform());
 	SetMainCamera(camera.GetComponent<Camera>());
-	camera.GetTransform()->GetPosition() = DirectX::XMFLOAT3(0.0f, 0.0f, -3.0f);
+	camera.GetTransform()->GetPosition() = DirectX::XMFLOAT3(0.0f, 0.0f, -4.0f);
 	camera.AddComponent<Physics>();
 	camera.GetComponent<Physics>()->SetGameObjectArray(&gameObjects);
 	//camera.GetTransform()->GetRotation() = DirectX::XMFLOAT3(0.0f, 3.14f, 0.0f);
@@ -44,7 +44,7 @@ void Scene1::Start()
 	/*light2.AddComponent<Light>();
 	light2.GetTransform()->GetPosition() = DirectX::XMFLOAT3(-2.0f, 0.0f, -1.0f);*/
 
-	camera.AddComponent<CameraScript>();
+	//camera.AddComponent<CameraScript>();
 
 	teapot.SetName("Object 1");
 	teapot.AddComponent<Physics>();
@@ -55,8 +55,8 @@ void Scene1::Start()
 	teapot.GetComponent<MeshRenderer>()->SetCamera(mainCamera);
 	
 	teapot.GetTransform()->MultiplyScale(0.025f);
-	teapot.GetTransform()->GetPosition() = DirectX::XMFLOAT3(0.0f, 0.15f, 0.0f);
-	teapot.GetTransform()->GetRotation() = DirectX::XMFLOAT3(AI_MATH_PI / 2, 0.0f, 0.0f);
+	//teapot.GetTransform()->GetPosition() = DirectX::XMFLOAT3(0.0f, 0.15f, 0.0f);
+	//teapot.GetTransform()->GetRotation() = DirectX::XMFLOAT3(AI_MATH_PI / 2, 0.0f, 0.0f);
 
 	teapot.AddComponent<SphereCollider>();
 	teapot.GetComponent<SphereCollider>()->SetRadius(16.0f);
@@ -72,14 +72,14 @@ void Scene1::Start()
 	teapot2.GetComponent<MeshRenderer>()->SetCamera(mainCamera);
 	//teapot2.GetComponent<MeshRenderer>()->GetMaterial()->SetDiffuse(0.0f, 1.0f, 0.0f);
 
-	teapot2.GetTransform()->GetPosition() = DirectX::XMFLOAT3(-1.0f, 0.15f, 0.0f);
+	teapot2.GetTransform()->GetPosition() = DirectX::XMFLOAT3(-2.0f, 1.15f, 0.0f);
 	teapot2.GetTransform()->GetRotation() = DirectX::XMFLOAT3(AI_MATH_PI / 2, 0.0f, 0.0f);
 	teapot2.GetTransform()->MultiplyScale(0.025f);
 
 	teapot2.AddComponent<SphereCollider>();
 	teapot2.GetComponent<SphereCollider>()->SetRadius(16.0f);	
 
-	//teapot2.AddComponent<TestScript1>();
+	teapot2.AddComponent<TestScript2>();
 
 
 	ContentManager content = ContentManager();

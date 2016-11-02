@@ -1,5 +1,10 @@
 #include "Input.h"
 
+Input::Input()
+{
+	SetPreviousPosition();
+}
+
 bool Input::GetKeyDown(KeyCode keycode)
 {
 	return GetAsyncKeyState(keycode);
@@ -21,6 +26,22 @@ DirectX::XMFLOAT2 Input::GetMousePosition()
 		ScreenToClient(hWnd, &p);
 		return DirectX::XMFLOAT2(p.x, p.y);
 	}
-	else
-		return DirectX::XMFLOAT2(0, 0);
+
+	return DirectX::XMFLOAT2(0.0f, 0.0f);
+}
+
+DirectX::XMFLOAT2 Input::GetDeltaPosition()
+{
+	DirectX::XMFLOAT2 delta;
+
+	delta = GetMousePosition();
+	delta.x -= prevPos.x;
+	delta.y -= prevPos.y;
+
+	return delta;
+}
+
+void Input::SetPreviousPosition()
+{
+	prevPos = GetMousePosition();
 }

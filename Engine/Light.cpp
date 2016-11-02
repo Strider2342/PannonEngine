@@ -3,7 +3,7 @@
 Light::Light()
 {
 	color = DirectX::XMFLOAT4(0.8f, 0.8f, 0.8f, 1.0f);
-	spotAngle = 5.0f;
+	spotAngle = 0.05f;
 	constantAttenuation = 0.25f;
 	linearAttenuation = 0.25f;
 	quadraticAttenuation = 0.25f;

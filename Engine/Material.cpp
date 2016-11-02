@@ -17,7 +17,7 @@ void Material::Init(ID3D11Device *dev, ID3D11DeviceContext *devcon)
 	shader = new Shader();
 	shader->Init(dev, devcon);
 
-	diffuse = DirectX::XMFLOAT3(0.4f, 0.4f, 0.4f);
+	diffuse = DirectX::XMFLOAT3(0.8f, 0.8f, 0.8f);
 	specular = DirectX::XMFLOAT3(0.774597f, 0.774597f, 0.774597f);
 	ambient = DirectX::XMFLOAT3(0.25f, 0.25f, 0.25f);
 	emissive = DirectX::XMFLOAT3(0.0f, 0.0f, 0.0f);

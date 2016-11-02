@@ -1,0 +1,20 @@
+﻿<Window x:Class="Launcher.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Launcher"
+        mc:Ignorable="d"
+        Title="PannonLauncher" Height="390.197" Width="398.53" Background="#FFCFCFCF">
+    <Grid>
+        <Button x:Name="new_btn" Content="New" HorizontalAlignment="Left" Margin="216,10,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button x:Name="open_btn" Content="Open" HorizontalAlignment="Left" Margin="296,10,0,0" VerticalAlignment="Top" Width="75"/>
+        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="150" Margin="10,192,0,0" VerticalAlignment="Top" Width="361">
+            <Label x:Name="pinned_lbl" Content="Pinned projects:"/>
+        </Border>
+        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="150" Margin="10,37,0,0" VerticalAlignment="Top" Width="361">
+            <Label x:Name="recent_lbl" Content="Recent projects:"/>
+        </Border>
+
+    </Grid>
+</Window>

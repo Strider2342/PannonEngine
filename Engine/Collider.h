@@ -25,7 +25,7 @@ public:
 	virtual void SetCenter(DirectX::XMFLOAT3 center);
 
 	virtual void Start();
-	virtual void Update(GameTime gameTime);
+	virtual void Update(GameTime gameTime, Input input);
 
 	virtual bool Colliding(DirectX::BoundingSphere *collider2);
 	virtual bool Colliding(DirectX::BoundingOrientedBox *collider2);
@@ -50,10 +50,14 @@ public:
 	void SetRadius(float radius);
 
 	void Start();
-	void Update(GameTime gameTime);
+	void Update(GameTime gameTime, Input input);
 
 	bool Colliding(DirectX::BoundingSphere *collider2);
 	bool Colliding(DirectX::BoundingOrientedBox *collider2);
+
+	// object
+	std::string Export();
+	void Import(std::string json);
 };
 
 class BoxCollider : public Collider
@@ -75,10 +79,14 @@ public:
 	void SetSize(DirectX::XMFLOAT3 size);
 
 	void Start();
-	void Update(GameTime gameTime);
+	void Update(GameTime gameTime, Input input);
 
 	bool Colliding(DirectX::BoundingSphere *collider2);
 	bool Colliding(DirectX::BoundingOrientedBox *collider2);
+
+	// object
+	std::string Export();
+	void Import(std::string json);
 };
 
 class MeshCollider : public Collider

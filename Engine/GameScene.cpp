@@ -94,7 +94,7 @@ void GameScene::Update()
 {
 	for (int i = 0; i < gameObjects.size(); i++)
 	{
-		gameObjects[i]->Update(gameTime);
+		gameObjects[i]->Update(gameTime, input);
 	}
 }
 
@@ -105,6 +105,7 @@ void GameScene::PostUpdate()
 		gameObjects[i]->PostUpdate();
 	}
 
+	input.SetPreviousPosition();
 	gameTime.SetPrevTime();
 }
 

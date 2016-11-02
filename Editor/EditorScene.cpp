@@ -27,8 +27,10 @@ void EditorScene::Start()
 	camera.AddComponent<Camera>();
 	camera.GetComponent<Camera>()->Init();
 	camera.GetComponent<Camera>()->SetTransform(camera.GetTransform());
-	camera.GetTransform()->GetPosition() = DirectX::XMFLOAT3(0.0f, 0.0f, 4.0f);
-	camera.GetTransform()->GetRotation() = DirectX::XMFLOAT3(0.0f, DirectX::XM_PI, 0.0f);
+	camera.AddComponent<Light>();
+	camera.GetComponent<Light>()->SetType(1);
+	camera.GetTransform()->GetPosition() = DirectX::XMFLOAT3(0.0f, 0.0f, -25.0f);
+	camera.GetTransform()->GetRotation() = DirectX::XMFLOAT3(0.0f, 0.0f, 0.0f);
 
 	SetMainCamera(camera.GetComponent<Camera>());
 
@@ -37,10 +39,10 @@ void EditorScene::Start()
 	light.GetComponent<Light>()->SetType(1);
 	light.GetTransform()->GetPosition() = DirectX::XMFLOAT3(0.0f, -10.3f, 0.0f);
 
-	
 	teapot.SetName("Teapot");
 	teapot.GetTransform()->GetPosition() = DirectX::XMFLOAT3(0.0f, 0.0f, 0.0f);
-	teapot.GetTransform()->MultiplyScale(0.025f);
+	teapot.GetTransform()->GetRotation() = DirectX::XMFLOAT3(-DirectX::XM_PI * 0.5f, 0.0f, 0.0f);
+	teapot.GetTransform()->MultiplyScale(0.25f);
 	teapot.AddComponent<MeshRenderer>();
 	teapot.GetComponent<MeshRenderer>()->Init(graphics.GetDevice(), graphics.GetDeviceContext());
 	teapot.GetComponent<MeshRenderer>()->SetCamera(mainCamera);
@@ -49,8 +51,9 @@ void EditorScene::Start()
 	teapot.AddComponent<SphereCollider>();
 
 	bottle.SetName("Bottle");
-	bottle.GetTransform()->GetPosition() = DirectX::XMFLOAT3(1.0f, 0.5f, 0.0f);
-	bottle.GetTransform()->MultiplyScale(0.005f);	
+	bottle.GetTransform()->GetPosition() = DirectX::XMFLOAT3(10.0f, 0.5f, 0.0f);
+	bottle.GetTransform()->GetRotation() = DirectX::XMFLOAT3(-DirectX::XM_PI * 0.5f, 0.0f, 0.0f);
+	bottle.GetTransform()->MultiplyScale(0.05f);	
 	bottle.AddComponent<MeshRenderer>();
 	bottle.GetComponent<MeshRenderer>()->Init(graphics.GetDevice(), graphics.GetDeviceContext());
 	bottle.GetComponent<MeshRenderer>()->SetCamera(mainCamera);

@@ -16,16 +16,23 @@ public:
 		
 	}
 
-	void Update(GameTime gameTime)
+	void Update(GameTime gameTime, Input input)
 	{
-		if (Input::GetKeyDown(KeyCode::W))
+		if (input.GetKeyDown(KeyCode::W))
 		{
 			gameObject->GetTransform()->GetPosition().z += speed * gameTime.GetDeltaTime();
 		}
-		else if (Input::GetKeyDown(KeyCode::S))
+		else if (input.GetKeyDown(KeyCode::S))
 		{
 			gameObject->GetTransform()->GetPosition().z -= speed * gameTime.GetDeltaTime();
 		}
+
+		/*if (input.GetMouseButtonDown(MouseButton::LeftButton))
+		{
+			DirectX::XMFLOAT2 delta = input.GetDeltaPosition();
+			DirectX::XMFLOAT3 rotation = gameObject->GetTransform()->GetRotation();
+			gameObject->GetTransform()->GetRotation() = DirectX::XMFLOAT3(rotation.x - delta.x * 0.0005f, rotation.y + delta.x * 0.0005f, rotation.z);
+		}*/
 
 		/*if (Input::GetKeyDown(KeyCode::LeftArrow))
 		{

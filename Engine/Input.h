@@ -72,9 +72,17 @@ enum MouseButton
 
 class Input
 {
-public:
-	static bool GetKeyDown(KeyCode keycode);
+private:
+	DirectX::XMFLOAT2 prevPos;
 
-	static bool GetMouseButtonDown(MouseButton mousebutton);
-	static DirectX::XMFLOAT2 GetMousePosition();
+public:
+	Input();
+
+	bool GetKeyDown(KeyCode keycode);
+
+	bool GetMouseButtonDown(MouseButton mousebutton);
+	DirectX::XMFLOAT2 GetMousePosition();
+	DirectX::XMFLOAT2 GetDeltaPosition();
+
+	void SetPreviousPosition();
 };

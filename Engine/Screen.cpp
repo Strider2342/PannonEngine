@@ -10,56 +10,6 @@ Screen::Screen(int width, int height)
 	this->height = height;
 }
 
-/*DirectX::XMFLOAT3 Screen::ScreenToWorld(DirectX::XMFLOAT2 position)
-{
-	//float x = Input::GetMousePosition().x;
-	//float y = Input::GetMousePosition().y;
-
-	DirectX::XMFLOAT3 view;
-	DirectXExt::XMFloat3Subtract(&view, camera->GetTransform()->GetForward(), camera->GetTransform()->GetPosition());
-	DirectXExt::XMFloat3Normalize(&view);
-
-	DirectX::XMFLOAT3 h;
-	DirectXExt::XMFloat3CrossProduct(&h, view, camera->GetTransform()->GetUp());
-	DirectXExt::XMFloat3Normalize(&h);
-
-	DirectX::XMFLOAT3 v;
-	DirectXExt::XMFloat3CrossProduct(&v, h, view);
-	DirectXExt::XMFloat3Normalize(&v);
-
-	float rad = camera->GetFOV() * DirectX::XM_PI / 180.0f;
-	float vLength = tan(rad / 2) * camera->GetNearClippingPlane();
-	float hLength = vLength * camera->GetAspectRatio();
-
-	DirectXExt::XMFloat3Multiply(&v, vLength);
-	DirectXExt::XMFloat3Multiply(&h, hLength);
-
-	position.x -= width / 2;
-	position.y -= height / 2;
-
-	position.x /= width / 2;
-	position.y /= height / 2;
-
-	DirectX::XMFLOAT3 viewXnear;
-	DirectXExt::XMFloat3Multiply(&viewXnear, camera->GetNearClippingPlane());
-
-	DirectX::XMFLOAT3 hXx = h;
-	DirectXExt::XMFloat3Multiply(&hXx, position.x);
-
-	DirectX::XMFLOAT3 vXy = v;
-	DirectXExt::XMFloat3Multiply(&vXy, position.y);
-
-	DirectX::XMFLOAT3 pos;
-	DirectXExt::XMFloat3Add(&pos, camera->GetTransform()->GetPosition(), viewXnear);
-	DirectXExt::XMFloat3Add(&pos, pos, hXx);
-	DirectXExt::XMFloat3Add(&pos, pos, vXy);
-
-	DirectX::XMFLOAT3 dir;
-	DirectXExt::XMFloat3Subtract(&dir, pos, camera->GetTransform()->GetPosition());
-
-	return pos;
-}*/
-
 Ray Screen::ScreenPointToRay(DirectX::XMFLOAT2 position)
 {
 	Ray ray = Ray();
@@ -68,8 +18,6 @@ Ray Screen::ScreenPointToRay(DirectX::XMFLOAT2 position)
 
 	normalized.x *= tan(camera->GetFOV() * 0.5f);
 	normalized.y *= tan(camera->GetFOV() * 0.5f);
-
-	DirectX::XMFLOAT3 forward = camera->GetTransform()->GetForward();
 
 	DirectX::XMFLOAT3 v_origin = DirectX::XMFLOAT3(normalized.x * camera->GetNearClippingPlane(), normalized.y * camera->GetNearClippingPlane(), camera->GetNearClippingPlane());
 	DirectX::XMFLOAT3 v_endpoint = DirectX::XMFLOAT3(normalized.x * camera->GetFarClippingPlane(), normalized.y * camera->GetFarClippingPlane(), camera->GetFarClippingPlane());
@@ -93,6 +41,8 @@ Ray Screen::ScreenPointToRay(DirectX::XMFLOAT2 position)
 
 	ray.SetOrigin(origin);
 	ray.SetDirection(direction);
+
+	std::cout << "Ray: x: " << origin.x << " y: " << origin.y << std::endl;
 
 	return ray;
 }

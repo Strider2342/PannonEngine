@@ -139,8 +139,6 @@ std::string Transform::Export()
 	Writer<StringBuffer> writer(s);
 
 	writer.StartObject();
-	writer.Key("transform");
-	writer.StartObject();
 	writer.Key("parent");
 	writer.String("parentid");
 	writer.Key("position");
@@ -171,9 +169,18 @@ std::string Transform::Export()
 	writer.Double(scale.z);
 	writer.EndObject();
 	writer.EndObject();
-	writer.EndObject();
 
-	return s.GetString();
+	std::string str = s.GetString();
+
+	for (int i = 0; i < str.size(); i++)
+	{
+		if (str[i] == '\"')
+		{
+			str[i] = '\'';
+		}
+	}
+
+	return str;
 }
 
 void Transform::Import(std::string json)

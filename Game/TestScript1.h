@@ -23,40 +23,40 @@ public:
 		light = gameObject->GetComponent<Light>();
 	}
 
-	void Update(GameTime gameTime)
+	void Update(GameTime gameTime, Input input)
 	{
-		if (Input::GetKeyDown(KeyCode::LeftArrow))
+		if (input.GetKeyDown(KeyCode::LeftArrow))
 		{
 			transform->GetPosition().x += speed * gameTime.GetDeltaTime();
 		}
-		else if (Input::GetKeyDown(KeyCode::RightArrow))
+		else if (input.GetKeyDown(KeyCode::RightArrow))
 		{
 			transform->GetPosition().x -= speed * gameTime.GetDeltaTime();
 		}
 
-		if (Input::GetKeyDown(KeyCode::UpArrow))
+		if (input.GetKeyDown(KeyCode::UpArrow))
 		{
 			transform->GetPosition().y -= speed * gameTime.GetDeltaTime();
 		}
-		else if (Input::GetKeyDown(KeyCode::DownArrow))
+		else if (input.GetKeyDown(KeyCode::DownArrow))
 		{
 			transform->GetPosition().y += speed * gameTime.GetDeltaTime();
 		}
 
-		if (Input::GetKeyDown(KeyCode::Plus))
+		if (input.GetKeyDown(KeyCode::Plus))
 		{
 			transform->GetPosition().z += speed * gameTime.GetDeltaTime();
 		}
-		else if (Input::GetKeyDown(KeyCode::Minus))
+		else if (input.GetKeyDown(KeyCode::Minus))
 		{
 			transform->GetPosition().z -= speed * gameTime.GetDeltaTime();
 		}
 
-		if (Input::GetKeyDown(KeyCode::U))
+		if (input.GetKeyDown(KeyCode::U))
 		{
 			transform->GetRotation().y += speed * gameTime.GetDeltaTime();
 		}
-		else if (Input::GetKeyDown(KeyCode::I))
+		else if (input.GetKeyDown(KeyCode::I))
 		{
 			transform->GetRotation().y -= speed * gameTime.GetDeltaTime();
 		}

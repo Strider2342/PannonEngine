@@ -1,6 +1,7 @@
 #pragma once
 #include <d3d11.h>
 #include <vector>
+#include "Input.h"
 #include "Object.h"
 #include "Transform.h"
 #include "Component.h"
@@ -20,7 +21,7 @@ public:
 
 	void Start();
 	void PreUpdate();
-	void Update(GameTime gameTime);
+	void Update(GameTime gameTime, Input input);
 	void PostUpdate();
 	void Render();
 	void PostRender();
@@ -36,6 +37,10 @@ public:
 	bool IsEmpty();
 	int GetNumberOfComponents();
 	Component* GetComponentById(int id);
+
+	// object
+	std::string Export();
+	void Import(std::string json);
 
 	// set
 	void SetName(std::string name);

@@ -3,6 +3,7 @@
 #include <string>
 #include "Object.h"
 #include "GameTime.h"
+#include "Input.h"
 
 class GameObject;
 class Component : public Object
@@ -18,7 +19,7 @@ public:
 
 	virtual void Start();
 	virtual void PreUpdate();
-	virtual void Update(GameTime gameTime);
+	virtual void Update(GameTime gameTime, Input input);
 	virtual void PostUpdate();
 	virtual void Render();
 	virtual void PostRender();

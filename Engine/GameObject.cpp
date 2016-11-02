@@ -22,11 +22,11 @@ void GameObject::PreUpdate()
 		components[i]->PreUpdate();
 	}
 }
-void GameObject::Update(GameTime gameTime)
+void GameObject::Update(GameTime gameTime, Input input)
 {
 	for (int i = 0; i < components.size(); i++)
 	{
-		components[i]->Update(gameTime);
+		components[i]->Update(gameTime, input);
 	}
 }
 void GameObject::PostUpdate()
@@ -102,6 +102,42 @@ int GameObject::GetNumberOfComponents()
 Component* GameObject::GetComponentById(int id)
 {
 	return components[id];
+}
+
+std::string GameObject::Export()
+{
+	StringBuffer s;
+	Writer<StringBuffer> writer(s);
+
+	writer.StartObject();
+	writer.Key("name");
+	writer.String(name.c_str());
+	writer.Key("transform");
+	std::string json = GetTransform()->Export();
+	writer.RawValue(json.c_str(), GetTransform()->Export().size(), rapidjson::Type::kStringType);
+	writer.EndObject();
+
+	std::string str = s.GetString();
+
+	for (int i = 0; i < str.size(); i++)
+	{
+		if (str[i] == '\"')
+		{
+			str[i] = '\'';
+		}
+	}
+
+	return str;
+}
+
+void GameObject::Import(std::string json)
+{
+	Document d;
+	d.Parse(json.c_str());
+
+	name = d["gameObject"]["name"].GetString();
+
+	GetTransform()->Import(d["gameObject"]["transform"].GetString());
 }
 
 void GameObject::SetName(std::string name)

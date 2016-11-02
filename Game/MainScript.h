@@ -13,16 +13,17 @@ public:
 
 	}
 
-	void Update(GameTime gameTime)
+	void Update(GameTime gameTime, Input input)
 	{
-		if (Input::GetMouseButtonDown(MouseButton::LeftButton))
+		if (input.GetMouseButtonDown(MouseButton::LeftButton))
 		{
-			Ray ray = screen->ScreenPointToRay(Input::GetMousePosition());
+			Ray ray = screen->ScreenPointToRay(input.GetMousePosition());
 			Hit hit = gameObject->GetComponent<Physics>()->RayPicking(ray);
 
 			if (hit.hitOccured)
 			{
 				hit.gameObject->OnCollision();
+				//std::cout << "Hit: x: " << hit.position.x << " y: " << hit.position.y << std::endl;
 			}
 		}
 	}

@@ -10,5 +10,5 @@ public:
 	MyFirstScript();
 
 	void Start();
-	void Update(GameTime gameTime);
+	void Update(GameTime gameTime, Input input);
 };

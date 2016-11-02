@@ -28,3 +28,18 @@ DirectX::XMFLOAT3& Triangle::GetPointC()
 {
 	return pointC;
 }
+
+DirectX::XMFLOAT3& Triangle::GetPointATransformed(DirectX::XMMATRIX& matView)
+{
+	return pointA;
+}
+
+DirectX::XMFLOAT3& Triangle::GetPointBTransformed(DirectX::XMMATRIX& matView)
+{
+	return pointB;
+}
+
+DirectX::XMFLOAT3& Triangle::GetPointCTransformed(DirectX::XMMATRIX& matView)
+{
+	return pointC;
+}

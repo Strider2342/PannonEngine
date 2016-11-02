@@ -127,12 +127,12 @@ Hit Physics::RayCast(Ray ray, float distance)
 Hit Physics::RayPicking(Ray ray)
 {
 	Hit hit = Hit();
-
+	
 	for (int i = 0; i < gameObjects->size(); i++)
 	{
-		if ((*gameObjects)[i] != gameObject && (*gameObjects)[i]->GetComponent<MeshRenderer>() != NULL)
+		if ((*gameObjects)[i]->GetComponent<MeshRenderer>() != NULL)
 		{
-			DirectX::BoundingOrientedBox *collider = (*gameObjects)[i]->GetComponent<Physics>()->GetColliderByBoundingBox();
+			/*DirectX::BoundingOrientedBox *collider = (*gameObjects)[i]->GetComponent<Physics>()->GetColliderByBoundingBox();
 			float dist = -1.0f;
 
 			if (collider->Intersects(DirectX::XMLoadFloat3(&(ray.GetOrigin())), DirectX::XMLoadFloat3(&(ray.GetDirection())), dist))
@@ -142,6 +142,19 @@ Hit Physics::RayPicking(Ray ray)
 				hit.gameObject = (*gameObjects)[i];
 				hit.hitOccured = true;
 				DirectX::XMStoreFloat3(&(hit.position), hitPoint);
+			}*/
+
+			GameObject *gameObject1 = (*gameObjects)[i];
+
+			std::vector<Triangle> triangles = gameObject1->GetComponent<MeshRenderer>()->GetTriangles();
+			
+			for (int j = 0; j < triangles.size(); j++)
+			{
+				float dist = 1000.0f;
+				if (DirectX::TriangleTests::Intersects(DirectX::XMLoadFloat3(&ray.GetOrigin()), DirectX::XMLoadFloat3(&ray.GetDirection()), DirectX::XMLoadFloat3(&triangles[j].GetPointA()), DirectX::XMLoadFloat3(&triangles[j].GetPointB()), DirectX::XMLoadFloat3(&triangles[j].GetPointC()), dist))
+				{
+					std::cout << "kjldfkjbvgnlsvjlsrtfjv" << std::endl;
+				}
 			}
 		}
 	}

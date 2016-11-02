@@ -1,7 +1,10 @@
 #pragma once
 #include <iostream>
+#include <fstream>
 #include <vector>
 #include "Graphics.h"
+#include "GameTime.h"
+#include "Input.h"
 #include "Object.h"
 #include "GameObject.h"
 #include "MeshRenderer.h"
@@ -16,6 +19,7 @@ class Scene : public Object
 protected:
 	Graphics graphics;
 	GameTime gameTime;
+	Input input;
 
 	std::vector<GameObject*> gameObjects;
 	std::vector<Light::ShaderInput> lights;
@@ -41,4 +45,8 @@ public:
 	void SetMainCamera(Camera *camera);
 
 	void RefreshLights();
+
+	// object
+	std::string Export();
+	void Import(std::string json);
 };

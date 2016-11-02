@@ -45,7 +45,7 @@ void Scene2::Update()
 {
 	for (int i = 0; i < gameObjects.size(); i++)
 	{
-		gameObjects[i]->Update(gameTime);
+		gameObjects[i]->Update(gameTime, input);
 	}
 }
 

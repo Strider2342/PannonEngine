@@ -28,33 +28,33 @@ public:
 		//Move(gameTime);
 	}
 
-	void Move(GameTime gameTime)
+	void Move(GameTime gameTime, Input input)
 	{
 		DirectX::XMFLOAT3 velocity = DirectX::XMFLOAT3(0.0f, 0.0f, 0.0f);
 
-		if (Input::GetKeyDown(KeyCode::A))
+		if (input.GetKeyDown(KeyCode::A))
 		{
 			velocity.x += speed * gameTime.GetDeltaTime();
 		}
-		else if (Input::GetKeyDown(KeyCode::D))
+		else if (input.GetKeyDown(KeyCode::D))
 		{
 			velocity.x -= speed * gameTime.GetDeltaTime();
 		}
 
-		if (Input::GetKeyDown(KeyCode::W))
+		if (input.GetKeyDown(KeyCode::W))
 		{
 			velocity.y -= speed * gameTime.GetDeltaTime();
 		}
-		else if (Input::GetKeyDown(KeyCode::S))
+		else if (input.GetKeyDown(KeyCode::S))
 		{
 			velocity.y += speed * gameTime.GetDeltaTime();
 		}
 
-		if (Input::GetKeyDown(KeyCode::Plus))
+		if (input.GetKeyDown(KeyCode::Plus))
 		{
 			velocity.z += speed * gameTime.GetDeltaTime();
 		}
-		else if (Input::GetKeyDown(KeyCode::Minus))
+		else if (input.GetKeyDown(KeyCode::Minus))
 		{
 			velocity.z -= speed * gameTime.GetDeltaTime();
 		}

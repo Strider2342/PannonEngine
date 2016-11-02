@@ -5,8 +5,8 @@ Camera::Camera()
 
 void Camera::Init()
 {
-	fov = 75.0f;
-	aspectRatio = 1280.0f / 720.0f;
+	fov = 0.785398163f;
+	aspectRatio = 1706.0f / 960.0f;
 	nearClippingPlane = 0.1f;
 	farClippingPlane = 100.0f;
 }
@@ -64,15 +64,6 @@ void Camera::SetTransform(Transform *transform)
 void Camera::SetFOV(float fov)
 {
 	this->fov = fov;
-
-	if (this->fov < 40.0f)
-	{
-		this->fov = 40.0f;
-	}
-	else if (this->fov > 110.0f)
-	{
-		this->fov = 110.0f;
-	}
 }
 
 void Camera::SetAspectRatio(float aspectRatio)

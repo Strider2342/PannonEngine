@@ -19,7 +19,7 @@ void Application::Run()
 
 	scene->Init(graphics);
 	scene->Start();
-
+	
 	std::cout << "Application started";
 
 	while (true)
@@ -42,6 +42,8 @@ void Application::Run()
 
 		scene->Render();
 		scene->PostRender();
+
+		scene->Export();
 	}
 
 	graphics.CleanD3D();

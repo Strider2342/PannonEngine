@@ -147,7 +147,7 @@ void MeshRenderer::SetConstantBuffers()
 	perObjectCB.WVP = WVP;
 
 	lightCB.eyePosition = camera->GetTransform()->GetPosition();
-	lightCB.globalAmbient = DirectX::XMFLOAT3(0.0f, 0.0f, 0.0f);
+	lightCB.globalAmbient = DirectX::XMFLOAT3(0.05f, 0.05f, 0.05f);
 	for (int i = 0; i < lights->size(); i++)
 	{
 		Light::ShaderInput lightInput = lights->at(i);
@@ -235,19 +235,22 @@ Bounds3D& MeshRenderer::GetBounds()
 std::vector<Triangle>& MeshRenderer::GetTriangles()
 {
 	std::vector<Triangle> originaltriangles = mesh->GetTriangles();
-	std::vector<Triangle> triangles = std::vector<Triangle>();
+	triangles.clear();
 
-	for (int i = 0; i < triangles.size(); i++)
+	for (int i = 0; i < originaltriangles.size(); i++)
 	{
-		DirectX::XMFLOAT3 pointA = DirectX::XMFLOAT3(originaltriangles.at(i).GetPointA().x * gameObject->GetTransform()->GetScale().x, originaltriangles.at(i).GetPointA().y * gameObject->GetTransform()->GetScale().y, originaltriangles.at(i).GetPointA().z * gameObject->GetTransform()->GetScale().z);
-		DirectX::XMFLOAT3 pointB = DirectX::XMFLOAT3(originaltriangles.at(i).GetPointB().x * gameObject->GetTransform()->GetScale().x, originaltriangles.at(i).GetPointB().y * gameObject->GetTransform()->GetScale().y, originaltriangles.at(i).GetPointB().z * gameObject->GetTransform()->GetScale().z);
-		DirectX::XMFLOAT3 pointC = DirectX::XMFLOAT3(originaltriangles.at(i).GetPointC().x * gameObject->GetTransform()->GetScale().x, originaltriangles.at(i).GetPointC().y * gameObject->GetTransform()->GetScale().y, originaltriangles.at(i).GetPointC().z * gameObject->GetTransform()->GetScale().z);
+		Triangle triangle = Triangle();
+		DirectX::XMVECTOR A = DirectX::XMVector3Transform(DirectX::XMLoadFloat3(&triangle.GetPointA()), transform->GetWorldMatrix());
+		DirectX::XMVECTOR B = DirectX::XMVector3Transform(DirectX::XMLoadFloat3(&triangle.GetPointB()), transform->GetWorldMatrix());
+		DirectX::XMVECTOR C = DirectX::XMVector3Transform(DirectX::XMLoadFloat3(&triangle.GetPointC()), transform->GetWorldMatrix());
 
-		Triangle triangle = Triangle(pointA, pointB, pointC);
-		
+		DirectX::XMStoreFloat3(&triangle.GetPointA(), A);
+		DirectX::XMStoreFloat3(&triangle.GetPointB(), B);
+		DirectX::XMStoreFloat3(&triangle.GetPointC(), C);
+
 		triangles.push_back(triangle);
 	}
-
+	
 	return triangles;
 }
 

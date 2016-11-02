@@ -9,7 +9,7 @@ void Component::Start()
 { }
 void Component::PreUpdate()
 { }
-void Component::Update(GameTime gameTime)
+void Component::Update(GameTime gameTime, Input input)
 { }
 void Component::PostUpdate()
 {

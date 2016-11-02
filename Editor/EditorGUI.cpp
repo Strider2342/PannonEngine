@@ -208,7 +208,6 @@ void EditorGUI::HierarchyView()
 
 	if (ImGui::Begin("Hierarchy"))
 	{
-		static int selection_mask = 0x02;
 		static int selected_node = 0;
 
 		for (int i = 0; i < gameObjects->size(); i++)
@@ -248,7 +247,7 @@ void EditorGUI::MaterialEditor()
 	ImGui::SetNextWindowSize(ImVec2(400, 600));
 	if (ImGui::Begin("Material editor"))
 	{
-		static int mateditor_shader = 0;
+		int mateditor_shader = 0;
 		float ambient[3] = { 255.0f, 255.0f, 255.0f };
 		float diffuse[3] = { 255.0f, 255.0f, 255.0f };
 		float specular[3] = { 255.0f, 255.0f, 255.0f };
@@ -289,7 +288,7 @@ void EditorGUI::TransformComponent()
 	float position[3] = { selected->GetTransform()->GetPosition().x, selected->GetTransform()->GetPosition().y, selected->GetTransform()->GetPosition().z };
 	float rotation[3] = { selected->GetTransform()->GetRotation().x, selected->GetTransform()->GetRotation().y, selected->GetTransform()->GetRotation().z };
 	float scale[3] = { selected->GetTransform()->GetScale().x, selected->GetTransform()->GetScale().y, selected->GetTransform()->GetScale().z };
-	static int parent = 0;
+	int parent = 0;
 
 	ImGui::SetNextWindowPos(ImVec2(1375, 20));
 	ImGui::SetNextWindowSize(ImVec2(300, 900));
@@ -324,33 +323,33 @@ void EditorGUI::MeshRendererComponent()
 
 void EditorGUI::CameraComponent()
 {
-	float fov = selected->GetComponent<Camera>()->GetFOV();
+	float fov = DirectX::XMConvertToDegrees(selected->GetComponent<Camera>()->GetFOV());
 	float nearClippingPlane = selected->GetComponent<Camera>()->GetNearClippingPlane();
 	float farClippingPlane = selected->GetComponent<Camera>()->GetFarClippingPlane();
 
 	if (ImGui::CollapsingHeader("Camera"))
 	{
 		ImGui::DragFloat("FOV", &fov, 0.1f);
-		ImGui::DragFloat("Near clipping plane", &nearClippingPlane, 0.1f);
-		ImGui::DragFloat("Far clipping plane", &farClippingPlane, 0.1f);
+		ImGui::DragFloat("Near clipping plane", &nearClippingPlane, 0.05f);
+		ImGui::DragFloat("Far clipping plane", &farClippingPlane, 0.05f);
 	}
 
-	selected->GetComponent<Camera>()->SetFOV(fov);
+	selected->GetComponent<Camera>()->SetFOV(DirectX::XMConvertToRadians(fov));
 	selected->GetComponent<Camera>()->SetNearClippingPlane(nearClippingPlane);
 	selected->GetComponent<Camera>()->SetFarClippingPlane(farClippingPlane);
 }
 
 void EditorGUI::LightComponent()
 {
-	static int light_type;
-	static bool enabled = selected->GetComponent<Light>()->GetEnabled();
+	int light_type = selected->GetComponent<Light>()->GetType();
+	bool enabled = selected->GetComponent<Light>()->GetEnabled();
 	DirectX::XMFLOAT4 color = selected->GetComponent<Light>()->GetColor();
-	static float light_color[3] = { color.x, color.y, color.z };
+	float light_color[3] = { color.x, color.y, color.z };
 	//static float intensity = selected->GetComponent<Light>()->GetIntensity();
-	static float constantAttenuation = selected->GetComponent<Light>()->GetConstantAttenuation();
-	static float linearAttenuation = selected->GetComponent<Light>()->GetLinearAttenuation();
-	static float quadraticAttenuation = selected->GetComponent<Light>()->GetQuadraticAttenuation();
-	static float spotAngle = selected->GetComponent<Light>()->GetSpotAngle();
+	float constantAttenuation = selected->GetComponent<Light>()->GetConstantAttenuation();
+	float linearAttenuation = selected->GetComponent<Light>()->GetLinearAttenuation();
+	float quadraticAttenuation = selected->GetComponent<Light>()->GetQuadraticAttenuation();
+	float spotAngle = DirectX::XMConvertToDegrees(selected->GetComponent<Light>()->GetSpotAngle());
 
 	if (ImGui::CollapsingHeader("Light"))
 	{
@@ -358,19 +357,23 @@ void EditorGUI::LightComponent()
 		ImGui::Checkbox("Enabled", &enabled);
 		ImGui::ColorEdit3("Color", light_color);
 		//ImGui::InputFloat("Intensity", &intensity);
-		ImGui::InputFloat("Constant attenuation", &constantAttenuation, 0.05f, 0.01f, 2);
-		ImGui::InputFloat("Linear attenuation", &linearAttenuation, 0.05f, 0.01f, 2);
-		ImGui::InputFloat("Quadratic attenuation", &quadraticAttenuation, 0.05f, 0.01f, 2);
+		ImGui::DragFloat("Constant attenuation", &constantAttenuation, 0.05f);
+		ImGui::DragFloat("Linear attenuation", &linearAttenuation, 0.05f);
+		ImGui::DragFloat("Quadratic attenuation", &quadraticAttenuation, 0.005f);
 
 		if (light_type == 2)
 		{
-			ImGui::InputFloat("Spot angle", &spotAngle, 1.0f, 0.5f, 2);
+			ImGui::DragFloat("Spot angle", &spotAngle, 0.005f);
 		}
 	}
 
 	selected->GetComponent<Light>()->SetType(light_type);
 	selected->GetComponent<Light>()->SetEnabled(enabled);
 	selected->GetComponent<Light>()->SetColor(DirectX::XMFLOAT4(light_color[0], light_color[1], light_color[2], 1.0f));
+	selected->GetComponent<Light>()->SetConstantAttenuation(constantAttenuation);
+	selected->GetComponent<Light>()->SetLinearAttenuation(linearAttenuation);
+	selected->GetComponent<Light>()->SetQuadraticAttenuation(quadraticAttenuation);
+	selected->GetComponent<Light>()->SetSpotAngle(DirectX::XMConvertToRadians(spotAngle));
 }
 
 void EditorGUI::ScriptComponent()

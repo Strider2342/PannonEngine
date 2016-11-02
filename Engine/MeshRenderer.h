@@ -53,6 +53,8 @@ private:
 	Transform *transform;
 	Camera *camera;
 
+	std::vector<Triangle> triangles;
+
 public:
 	MeshRenderer();
 	~MeshRenderer();
