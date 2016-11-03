@@ -144,6 +144,9 @@
     <ClInclude Include="imgui\imgui_impl_dx11.h">
       <Filter>Header Files\imgui</Filter>
     </ClInclude>
+    <ClInclude Include="GameSerializer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Graphics.cpp">
@@ -244,6 +247,9 @@
     </ClCompile>
     <ClCompile Include="imgui\imgui_impl_dx11.cpp">
       <Filter>Header Files\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="GameSerializer.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

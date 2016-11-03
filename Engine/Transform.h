@@ -49,8 +49,4 @@ public:
 
 	bool HasParent();
 	bool HasChildren();
-
-	// object
-	std::string Export();
-	void Import(const Value &component);
 };

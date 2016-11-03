@@ -38,12 +38,9 @@ public:
 	int GetNumberOfComponents();
 	Component* GetComponentById(int id);
 
-	// object
-	std::string Export();
-	void Import(std::string json);
-
 	// set
 	void SetName(std::string name);
+	void SetTransform(Transform *transform);
 
 	template <class T>
 	void AddComponent();

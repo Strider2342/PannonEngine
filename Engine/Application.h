@@ -23,6 +23,9 @@ public:
 
 	template <class T>
 	void AddScene();
+
+	template <class T>
+	void AddScene(T *scene);
 	
 	template <class T>
 	T* GetScene();
@@ -32,6 +35,12 @@ template<class T>
 inline void Application::AddScene()
 {
 	T *scene = new T();
+	scenes.push_back(scene);
+}
+
+template<class T>
+inline void Application::AddScene(T * scene)
+{
 	scenes.push_back(scene);
 }
 

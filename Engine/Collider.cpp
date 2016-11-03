@@ -78,51 +78,6 @@ bool SphereCollider::Colliding(DirectX::BoundingOrientedBox *collider2)
 	return collider.Intersects(*collider2);
 }
 
-std::string SphereCollider::Export()
-{
-	StringBuffer s;
-	Writer<StringBuffer> writer(s);
-
-	writer.StartObject();
-	writer.Key("sphereCollider");
-	writer.StartObject();
-	writer.Key("center");
-	writer.StartObject();
-	writer.Key("x");
-	writer.Double(center.x);
-	writer.Key("y");
-	writer.Double(center.y);
-	writer.Key("z");
-	writer.Double(center.z);
-	writer.EndObject();
-	writer.Key("radius");
-	writer.Double(radius);
-	writer.EndObject();
-	writer.EndObject();
-
-	std::string str = s.GetString();
-
-	for (int i = 0; i < str.size(); i++)
-	{
-		if (str[i] == '\"')
-		{
-			str[i] = '\'';
-		}
-	}
-
-	return str;
-}
-
-void SphereCollider::Import(const Value &component)
-{
-	float center_x = component["center"]["x"].GetFloat();
-	float center_y = component["center"]["y"].GetFloat();
-	float center_z = component["center"]["x"].GetFloat();
-
-	center = DirectX::XMFLOAT3(center_x, center_y, center_z);
-	radius = component["radius"].GetFloat();
-}
-
 // box collider
 BoxCollider::BoxCollider()
 { 
@@ -171,60 +126,4 @@ bool BoxCollider::Colliding(DirectX::BoundingSphere *collider2)
 bool BoxCollider::Colliding(DirectX::BoundingOrientedBox *collider2)
 {
 	return collider.Intersects(*collider2);
-}
-
-std::string BoxCollider::Export()
-{
-	StringBuffer s;
-	Writer<StringBuffer> writer(s);
-
-	writer.StartObject();
-	writer.Key("boxCollider");
-	writer.StartObject();
-	writer.Key("center");
-	writer.StartObject();
-	writer.Key("x");
-	writer.Double(center.x);
-	writer.Key("y");
-	writer.Double(center.y);
-	writer.Key("z");
-	writer.Double(center.z);
-	writer.EndObject();
-	writer.Key("size");
-	writer.StartObject();
-	writer.Key("x");
-	writer.Double(size.x);
-	writer.Key("y");
-	writer.Double(size.y);
-	writer.Key("z");
-	writer.Double(size.z);
-	writer.EndObject();
-	writer.EndObject();
-	writer.EndObject();
-
-	std::string str = s.GetString();
-
-	for (int i = 0; i < str.size(); i++)
-	{
-		if (str[i] == '\"')
-		{
-			str[i] = '\'';
-		}
-	}
-
-	return str;
-}
-
-void BoxCollider::Import(const Value &component)
-{
-	float center_x = component["center"]["x"].GetFloat();
-	float center_y = component["center"]["y"].GetFloat();
-	float center_z = component["center"]["x"].GetFloat();
-
-	float size_x = component["size"]["x"].GetFloat();
-	float size_y = component["size"]["y"].GetFloat();
-	float size_z = component["size"]["x"].GetFloat();
-
-	center = DirectX::XMFLOAT3(center_x, center_y, center_z);
-	size = DirectX::XMFLOAT3(size_x, size_y, size_z);
 }

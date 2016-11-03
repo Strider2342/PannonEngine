@@ -21,8 +21,4 @@ public:
 	virtual void OnCollisionEnter();
 	virtual void OnCollisionStay();
 	virtual void OnCollisionExit();
-
-	// object
-	std::string Export();
-	void Import(const Value &component);
 };

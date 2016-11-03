@@ -54,10 +54,6 @@ public:
 
 	bool Colliding(DirectX::BoundingSphere *collider2);
 	bool Colliding(DirectX::BoundingOrientedBox *collider2);
-
-	// object
-	std::string Export();
-	void Import(const Value &component);
 };
 
 class BoxCollider : public Collider
@@ -83,10 +79,6 @@ public:
 
 	bool Colliding(DirectX::BoundingSphere *collider2);
 	bool Colliding(DirectX::BoundingOrientedBox *collider2);
-
-	// object
-	std::string Export();
-	void Import(const Value &component);
 };
 
 class MeshCollider : public Collider

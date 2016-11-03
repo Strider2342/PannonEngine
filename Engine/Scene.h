@@ -35,6 +35,7 @@ protected:
 
 public:
 	Scene();
+	virtual ~Scene();
 
 	void Init(Graphics &graphics);
 
@@ -51,9 +52,4 @@ public:
 	void SetGlobalAmbient(DirectX::XMFLOAT3 globalAmbient);
 
 	void RefreshLights();
-
-	// object
-	std::string Export();
-	void ImportFromFile(std::string json);
-	void Import(const Value &component);
 };

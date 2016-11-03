@@ -104,50 +104,13 @@ Component* GameObject::GetComponentById(int id)
 	return components[id];
 }
 
-std::string GameObject::Export()
-{
-	StringBuffer s;
-	Writer<StringBuffer> writer(s);
-
-	writer.StartObject();
-	writer.Key("name");
-	writer.String(name.c_str());
-
-	writer.Key("components");
-	writer.StartArray();
-	for (int i = 0; i < components.size(); i++)
-	{
-		std::string json = components.at(i)->Export();
-		writer.RawValue(json.c_str(), json.size(), rapidjson::Type::kStringType);
-
-		std::cout << json << std::endl;
-
-	}
-	writer.EndArray();
-	writer.EndObject();
-
-	std::string str = s.GetString();
-
-	for (int i = 0; i < str.size(); i++)
-	{
-		if (str[i] == '\"')
-		{
-			str[i] = '\'';
-		}
-	}
-
-	return str;
-}
-
-void GameObject::Import(std::string json)
-{
-	Document d;
-	d.Parse(json.c_str());
-
-	name = d["gameObject"]["name"].GetString();
-}
-
 void GameObject::SetName(std::string name)
 {
 	this->name = name;
+}
+
+void GameObject::SetTransform(Transform* transform)
+{
+	delete components[0];
+	components[0] = transform;
 }

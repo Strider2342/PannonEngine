@@ -94,30 +94,3 @@ void Camera::SetFarClippingPlane(float farClippingPlane)
 		this->farClippingPlane = nearClippingPlane + 0.1f;
 	}
 }
-
-std::string Camera::Export()
-{
-	StringBuffer s;
-	Writer<StringBuffer> writer(s);
-
-	writer.StartObject();
-	writer.Key("fov");
-	writer.StartObject();
-	writer.Key("camera");
-	writer.Double(fov);
-	writer.Key("nearClippingPlane");
-	writer.Double(nearClippingPlane);
-	writer.Key("farClippingPlane");
-	writer.Double(farClippingPlane);
-	writer.EndObject();
-	writer.EndObject();
-
-	return s.GetString();
-}
-
-void Camera::Import(const Value &component)
-{
-	fov = component["fov"].GetFloat();
-	nearClippingPlane = component["nearClippingPlane"].GetFloat();
-	farClippingPlane = component["farClippingPlane"].GetFloat();
-}

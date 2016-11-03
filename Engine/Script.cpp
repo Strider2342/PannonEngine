@@ -30,23 +30,3 @@ void Script::OnCollisionStay()
 void Script::OnCollisionExit()
 {
 }
-
-std::string Script::Export()
-{
-	StringBuffer s;
-	Writer<StringBuffer> writer(s);
-
-	writer.StartObject();
-	writer.Key("script");
-	writer.StartObject();
-	writer.Key("classname");
-	writer.String(classname.c_str());
-	writer.EndObject();
-	writer.EndObject();
-	
-	return s.GetString();
-}
-
-void Script::Import(const Value &component)
-{
-}
