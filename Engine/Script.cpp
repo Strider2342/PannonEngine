@@ -43,10 +43,10 @@ std::string Script::Export()
 	writer.String(classname.c_str());
 	writer.EndObject();
 	writer.EndObject();
-
+	
 	return s.GetString();
 }
 
-void Script::Import(std::string json)
+void Script::Import(const Value &component)
 {
 }

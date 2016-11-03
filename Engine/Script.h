@@ -24,5 +24,5 @@ public:
 
 	// object
 	std::string Export();
-	void Import(std::string json);
+	void Import(const Value &component);
 };

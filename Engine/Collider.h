@@ -57,7 +57,7 @@ public:
 
 	// object
 	std::string Export();
-	void Import(std::string json);
+	void Import(const Value &component);
 };
 
 class BoxCollider : public Collider
@@ -86,7 +86,7 @@ public:
 
 	// object
 	std::string Export();
-	void Import(std::string json);
+	void Import(const Value &component);
 };
 
 class MeshCollider : public Collider

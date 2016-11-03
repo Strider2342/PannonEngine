@@ -18,7 +18,8 @@ void Application::Run()
 	GameScene *scene = dynamic_cast<GameScene *>(scenes[currentScene]);
 
 	scene->Init(graphics);
-	scene->Start();
+	//scene->Start();
+	scene->ImportFromFile("scene1.scn");
 	
 	std::cout << "Application started";
 
@@ -43,7 +44,7 @@ void Application::Run()
 		scene->Render();
 		scene->PostRender();
 
-		scene->Export();
+		//scene->Export();
 	}
 
 	graphics.CleanD3D();

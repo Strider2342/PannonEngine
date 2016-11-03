@@ -15,5 +15,5 @@ public:
 	Object();
 
 	virtual std::string Export();
-	virtual void Import(std::string json);
+	virtual void Import(const Value &component);
 };

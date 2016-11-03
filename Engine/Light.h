@@ -1,6 +1,7 @@
 #pragma once
 #include <DirectXMath.h>
 #include "GameObject.h"
+#include "Transform.h"
 #include "Component.h"
 
 class Light : public Component
@@ -79,5 +80,5 @@ public:
 
 	// object
 	std::string Export();
-	void Import(std::string json);
+	void Import(const Value &component);
 };

@@ -1,7 +1,7 @@
 #pragma once
 #include <d3d11.h>
 #include <DirectXMath.h>
-#include "GameObject.h"
+#include "Transform.h"
 #include "Component.h"
 
 enum ProjectionType
@@ -49,5 +49,5 @@ public:
 
 	// object
 	std::string Export();
-	void Import(std::string json);
+	void Import(const Value &component);
 };

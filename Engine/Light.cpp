@@ -146,20 +146,17 @@ std::string Light::Export()
 	return s.GetString();
 }
 
-void Light::Import(std::string json)
+void Light::Import(const Value &component)
 {
-	Document d;
-	d.Parse(json.c_str());
-
-	float color_x = d["color"]["x"].GetFloat();
-	float color_y = d["color"]["y"].GetFloat();
-	float color_z = d["color"]["z"].GetFloat();
+	float color_x = component["x"].GetFloat();
+	float color_y = component["y"].GetFloat();
+	float color_z = component["z"].GetFloat();
 	color = DirectX::XMFLOAT4(color_x, color_y, color_z, 1.0f);
 
-	spotAngle				= d["light"]["spotAngle"].GetFloat();
-	constantAttenuation		= d["light"]["constantAttenuation"].GetFloat();
-	linearAttenuation		= d["light"]["linearAttenuation"].GetFloat();
-	quadraticAttenuation	= d["light"]["quadraticAttenuation"].GetFloat();
-	intensity				= d["light"]["intensity"].GetFloat();
-	enabled					= d["light"]["enabled"].GetBool();
+	spotAngle				= component["spotAngle"].GetFloat();
+	constantAttenuation		= component["constantAttenuation"].GetFloat();
+	linearAttenuation		= component["linearAttenuation"].GetFloat();
+	quadraticAttenuation	= component["quadraticAttenuation"].GetFloat();
+	intensity				= component["intensity"].GetFloat();
+	enabled					= component["enabled"].GetBool();
 }

@@ -55,6 +55,8 @@ private:
 
 	std::vector<Triangle> triangles;
 
+	DirectX::XMFLOAT3 globalAmbient;
+
 public:
 	MeshRenderer();
 	~MeshRenderer();
@@ -77,6 +79,7 @@ public:
 	Mesh *GetMesh();
 	Transform *GetTransform();
 	Camera *GetCamera();
+	DirectX::XMFLOAT3& GetGlobalAmbient();
 
 	// mesh
 	Bounds3D& GetBounds();
@@ -86,4 +89,5 @@ public:
 	void SetMesh(Mesh *mesh);
 	void SetCamera(Camera *camera);
 	void SetLights(std::vector<Light::ShaderInput> *lights);
+	void SetGlobalAmbient(DirectX::XMFLOAT3 globalAmbient);
 };

@@ -2,6 +2,7 @@
 
 MeshRenderer::MeshRenderer()
 { 
+	globalAmbient = DirectX::XMFLOAT3(0.0f, 0.0f, 0.0f);
 }
 
 MeshRenderer::~MeshRenderer()
@@ -147,7 +148,7 @@ void MeshRenderer::SetConstantBuffers()
 	perObjectCB.WVP = WVP;
 
 	lightCB.eyePosition = camera->GetTransform()->GetPosition();
-	lightCB.globalAmbient = DirectX::XMFLOAT3(0.05f, 0.05f, 0.05f);
+	lightCB.globalAmbient = globalAmbient;
 	for (int i = 0; i < lights->size(); i++)
 	{
 		Light::ShaderInput lightInput = lights->at(i);
@@ -220,6 +221,11 @@ Camera* MeshRenderer::GetCamera()
 	return camera;
 }
 
+DirectX::XMFLOAT3& MeshRenderer::GetGlobalAmbient()
+{
+	return globalAmbient;
+}
+
 Bounds3D& MeshRenderer::GetBounds()
 {
 	Bounds3D originalBounds = mesh->GetBounds();
@@ -273,4 +279,9 @@ void MeshRenderer::SetCamera(Camera *camera)
 void MeshRenderer::SetLights(std::vector<Light::ShaderInput> *lights)
 {
 	this->lights = lights;
+}
+
+void MeshRenderer::SetGlobalAmbient(DirectX::XMFLOAT3 globalAmbient)
+{
+	this->globalAmbient = globalAmbient;
 }

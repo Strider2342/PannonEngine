@@ -100,20 +100,27 @@ std::string SphereCollider::Export()
 	writer.EndObject();
 	writer.EndObject();
 
-	return s.GetString();
+	std::string str = s.GetString();
+
+	for (int i = 0; i < str.size(); i++)
+	{
+		if (str[i] == '\"')
+		{
+			str[i] = '\'';
+		}
+	}
+
+	return str;
 }
 
-void SphereCollider::Import(std::string json)
+void SphereCollider::Import(const Value &component)
 {
-	Document d;
-	d.Parse(json.c_str());
-
-	float center_x = d["sphereCollider"]["center"]["x"].GetFloat();
-	float center_y = d["sphereCollider"]["center"]["y"].GetFloat();
-	float center_z = d["sphereCollider"]["center"]["x"].GetFloat();
+	float center_x = component["center"]["x"].GetFloat();
+	float center_y = component["center"]["y"].GetFloat();
+	float center_z = component["center"]["x"].GetFloat();
 
 	center = DirectX::XMFLOAT3(center_x, center_y, center_z);
-	radius = d["sphereCollider"]["radius"].GetFloat();
+	radius = component["radius"].GetFloat();
 }
 
 // box collider
@@ -195,21 +202,28 @@ std::string BoxCollider::Export()
 	writer.EndObject();
 	writer.EndObject();
 
-	return s.GetString();
+	std::string str = s.GetString();
+
+	for (int i = 0; i < str.size(); i++)
+	{
+		if (str[i] == '\"')
+		{
+			str[i] = '\'';
+		}
+	}
+
+	return str;
 }
 
-void BoxCollider::Import(std::string json)
+void BoxCollider::Import(const Value &component)
 {
-	Document d;
-	d.Parse(json.c_str());
+	float center_x = component["center"]["x"].GetFloat();
+	float center_y = component["center"]["y"].GetFloat();
+	float center_z = component["center"]["x"].GetFloat();
 
-	float center_x = d["boxCollider"]["center"]["x"].GetFloat();
-	float center_y = d["boxCollider"]["center"]["y"].GetFloat();
-	float center_z = d["boxCollider"]["center"]["x"].GetFloat();
-
-	float size_x = d["boxCollider"]["size"]["x"].GetFloat();
-	float size_y = d["boxCollider"]["size"]["y"].GetFloat();
-	float size_z = d["boxCollider"]["size"]["x"].GetFloat();
+	float size_x = component["size"]["x"].GetFloat();
+	float size_y = component["size"]["y"].GetFloat();
+	float size_z = component["size"]["x"].GetFloat();
 
 	center = DirectX::XMFLOAT3(center_x, center_y, center_z);
 	size = DirectX::XMFLOAT3(size_x, size_y, size_z);

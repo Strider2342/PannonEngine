@@ -7,6 +7,7 @@
 #include "Input.h"
 #include "Object.h"
 #include "GameObject.h"
+#include "Collider.h"
 #include "MeshRenderer.h"
 #include "Camera.h"
 #include "Light.h"
@@ -28,6 +29,8 @@ protected:
 	std::vector<Mesh*> meshes;
 	std::vector<Texture*> textures;
 
+	DirectX::XMFLOAT3 globalAmbient;
+
 	Camera *mainCamera = nullptr;
 
 public:
@@ -40,13 +43,17 @@ public:
 	GameObject* FindGameObject(std::string name);
 
 	std::vector<Camera*>& GetCameraList();
-	void AddCamera(Camera *camera);
 	Camera* GetMainCamera();
+	DirectX::XMFLOAT3& GetGlobalAmbient();
+
+	void AddCamera(Camera *camera);
 	void SetMainCamera(Camera *camera);
+	void SetGlobalAmbient(DirectX::XMFLOAT3 globalAmbient);
 
 	void RefreshLights();
 
 	// object
 	std::string Export();
-	void Import(std::string json);
+	void ImportFromFile(std::string json);
+	void Import(const Value &component);
 };

@@ -139,6 +139,8 @@ std::string Transform::Export()
 	Writer<StringBuffer> writer(s);
 
 	writer.StartObject();
+	writer.Key("transform");
+	writer.StartObject();
 	writer.Key("parent");
 	writer.String("parentid");
 	writer.Key("position");
@@ -169,6 +171,7 @@ std::string Transform::Export()
 	writer.Double(scale.z);
 	writer.EndObject();
 	writer.EndObject();
+	writer.EndObject();
 
 	std::string str = s.GetString();
 
@@ -183,22 +186,22 @@ std::string Transform::Export()
 	return str;
 }
 
-void Transform::Import(std::string json)
+void Transform::Import(const Value &component)
 {
-	Document d;
-	d.Parse(json.c_str());
+	/*Document d;
+	d.Parse(json.c_str());*/
 
-	float position_x = d["transform"]["position"]["x"].GetFloat();
-	float position_y = d["transform"]["position"]["y"].GetFloat();
-	float position_z = d["transform"]["position"]["x"].GetFloat();
+	float position_x = component["position"]["x"].GetFloat();
+	float position_y = component["position"]["y"].GetFloat();
+	float position_z = component["position"]["x"].GetFloat();
 
-	float rotation_x = d["transform"]["position"]["x"].GetFloat();
-	float rotation_y = d["transform"]["position"]["y"].GetFloat();
-	float rotation_z = d["transform"]["position"]["z"].GetFloat();
+	float rotation_x = component["rotation"]["x"].GetFloat();
+	float rotation_y = component["rotation"]["y"].GetFloat();
+	float rotation_z = component["rotation"]["z"].GetFloat();
 
-	float scale_x = d["transform"]["position"]["x"].GetFloat();
-	float scale_y = d["transform"]["position"]["y"].GetFloat();
-	float scale_z = d["transform"]["position"]["z"].GetFloat();
+	float scale_x = component["scale"]["x"].GetFloat();
+	float scale_y = component["scale"]["y"].GetFloat();
+	float scale_z = component["scale"]["z"].GetFloat();
 
 	position = DirectX::XMFLOAT3(position_x, position_y, position_z);
 	rotation = DirectX::XMFLOAT3(rotation_x, rotation_y, rotation_z);

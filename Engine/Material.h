@@ -63,4 +63,8 @@ public:
 	void SetEmissive(float r, float g, float b);
 	void SetPower(float value);
 	void SetUseTexture(bool value);
+
+	// object
+	std::string Export();
+	void Import(const Value &component);
 };

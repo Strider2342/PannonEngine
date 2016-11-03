@@ -3,6 +3,8 @@
 Scene::Scene()
 {
 	graphics = Graphics();
+
+	globalAmbient = DirectX::XMFLOAT3(0.5f, 0.5f, 0.5f);
 }
 
 void Scene::Init(Graphics &graphics)
@@ -56,9 +58,19 @@ Camera* Scene::GetMainCamera()
 	return mainCamera;
 }
 
+DirectX::XMFLOAT3& Scene::GetGlobalAmbient()
+{
+	return globalAmbient;
+}
+
 void Scene::SetMainCamera(Camera *camera)
 {
 	mainCamera = camera;
+}
+
+void Scene::SetGlobalAmbient(DirectX::XMFLOAT3 globalAmbient)
+{
+	this->globalAmbient = globalAmbient;
 }
 
 void Scene::RefreshLights()
@@ -91,14 +103,26 @@ std::string Scene::Export()
 	Writer<StringBuffer> writer(s);
 
 	writer.StartObject();
+	writer.Key("scene");
+	writer.StartObject();
+	writer.Key("globalAmbient");
+	writer.StartObject();
+	writer.Key("x");
+	writer.Double(globalAmbient.x);
+	writer.Key("y");
+	writer.Double(globalAmbient.y);
+	writer.Key("z");
+	writer.Double(globalAmbient.z);
+	writer.EndObject();
 	writer.Key("gameObjects");
 	writer.StartArray();
 	for (int i = 0; i < gameObjects.size(); i++)
 	{
 		std::string json = gameObjects[i]->Export();
-		writer.RawValue(json.c_str(), gameObjects[i]->Export().size(), rapidjson::Type::kStringType);
+		writer.RawValue(json.c_str(), json.size(), rapidjson::Type::kStringType);
 	}
 	writer.EndArray();
+	writer.EndObject();
 	writer.EndObject();
 
 	//std::cout << "Scene: " << s.GetString() << std::endl;
@@ -123,32 +147,73 @@ std::string Scene::Export()
 	return str;
 }
 
-void Scene::Import(std::string filename)
+void Scene::ImportFromFile(std::string filename)
 {
 	std::ifstream file("scene1.scn");
 	std::string json = "";
 
 	if (file.is_open())
 	{
-		while (getline(file, json))
+		std::string line;
+		while (getline(file, line))
 		{
-			//std::cout << line << '\n';
+			json += line;
 		}
 		file.close();
 	}
-
+	
 	Document d;
 	d.Parse(json.c_str());
 
-	for (rapidjson::SizeType i = 0; i < d["gameObjects"].Size(); i++)
+	const Value &objects = d["scene"]["gameObjects"];
+	assert(objects.IsArray());
+	for (rapidjson::SizeType i = 0; i < objects.Size(); i++)
 	{
-		/*const Value& c = go[i];*/
-		
-		std::cout << d["gameObjects"][i]["name"].GetString() << std::endl;
+		std::cout << objects[i]["name"].GetString() << std::endl;
 
 		GameObject *gameObject = new GameObject();
-		gameObject->SetName(d["gameObjects"][i]["name"].GetString());
+		gameObject->SetName(objects[i]["name"].GetString());
+
+		const Value &components = objects[i]["components"];
+		
+		std::cout << components.Size() << std::endl;
+
+		for (Value::ConstMemberIterator iter = components.MemberBegin(); iter != components.MemberEnd(); ++iter)
+		{
+			/*if (iter->name.GetString() == "transform")
+			{
+				gameObject->GetComponent<Transform>()->Import(components["transform"]);
+			}
+			else if (iter->name == "meshRenderer")
+			{
+				gameObject->AddComponent<MeshRenderer>();
+			}
+			else if (iter->name == "camera")
+			{
+				gameObject->AddComponent<Camera>();
+				gameObject->GetComponent<Camera>()->Import(components["camera"]);
+			}
+			else if (iter->name == "sphereCollider")
+			{
+				gameObject->AddComponent<SphereCollider>();
+				gameObject->GetComponent<SphereCollider>()->Import(components["sphereCollider"]);
+			}
+			else if (iter->name == "boxCollider")
+			{
+				gameObject->AddComponent<BoxCollider>();
+				gameObject->GetComponent<BoxCollider>()->Import(components["boxCollider"]);
+			}
+			else if (iter->name == "light")
+			{
+				gameObject->AddComponent<Light>();
+				gameObject->GetComponent<Light>()->Import(components["light"]);
+			}*/
+		}
 
 		gameObjects.push_back(gameObject);
 	}
+}
+
+void Scene::Import(const Value & component)
+{
 }

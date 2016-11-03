@@ -3,8 +3,8 @@
 #include <vector>
 #include "Input.h"
 #include "Object.h"
-#include "Transform.h"
 #include "Component.h"
+#include "Transform.h"
 
 class GameObject : public Object
 {

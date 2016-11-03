@@ -101,9 +101,9 @@ std::string Camera::Export()
 	Writer<StringBuffer> writer(s);
 
 	writer.StartObject();
-	writer.Key("camera");
-	writer.StartObject();
 	writer.Key("fov");
+	writer.StartObject();
+	writer.Key("camera");
 	writer.Double(fov);
 	writer.Key("nearClippingPlane");
 	writer.Double(nearClippingPlane);
@@ -115,12 +115,9 @@ std::string Camera::Export()
 	return s.GetString();
 }
 
-void Camera::Import(std::string json)
+void Camera::Import(const Value &component)
 {
-	Document d;
-	d.Parse(json.c_str());
-
-	fov = d["camera"]["fov"].GetFloat();
-	nearClippingPlane = d["camera"]["nearClippingPlane"].GetFloat();
-	farClippingPlane = d["camera"]["farClippingPlane"].GetFloat();
+	fov = component["fov"].GetFloat();
+	nearClippingPlane = component["nearClippingPlane"].GetFloat();
+	farClippingPlane = component["farClippingPlane"].GetFloat();
 }

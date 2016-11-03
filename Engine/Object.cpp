@@ -9,6 +9,6 @@ std::string Object::Export()
 	return std::string();
 }
 
-void Object::Import(std::string json)
+void Object::Import(const Value &component)
 {
 }
