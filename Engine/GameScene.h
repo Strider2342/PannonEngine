@@ -23,6 +23,8 @@ protected:
 public:
 	GameScene();
 
+	GameScene* Get();
+
 	void SetScene(GameScene *scene);
 
 	void CheckCollision();
@@ -33,4 +35,7 @@ public:
 	virtual void PostUpdate();
 	virtual void Render();
 	virtual void PostRender();
+
+	/*virtual void ImportFromFile();
+	virtual void ExportToFile();*/
 };

@@ -17,9 +17,9 @@ Light::ShaderInput& Light::GetShaderInput()
 {
 	ShaderInput shaderInput;
 
-	shaderInput.position = DirectX::XMFLOAT4(transform->GetPosition().x, transform->GetPosition().y, transform->GetPosition().z, 1.0f);
-	shaderInput.direction = DirectX::XMFLOAT4(transform->GetForward().x, transform->GetForward().y, transform->GetForward().z, 1.0f);
-	shaderInput.color = color; // DirectX::XMFLOAT4(color.x * intensity, color.y * intensity, color.z * intensity, 1.0f);
+	shaderInput.position = DirectX::XMFLOAT4(gameObject->GetTransform()->GetPosition().x, gameObject->GetTransform()->GetPosition().y, gameObject->GetTransform()->GetPosition().z, 1.0f);
+	shaderInput.direction = DirectX::XMFLOAT4(gameObject->GetTransform()->GetForward().x, gameObject->GetTransform()->GetForward().y, gameObject->GetTransform()->GetForward().z, 1.0f);
+	shaderInput.color = DirectX::XMFLOAT4(color.x * intensity, color.y * intensity, color.z * intensity, 1.0f);
 	shaderInput.spotAngle = spotAngle;
 	shaderInput.constantAttenuation = constantAttenuation;
 	shaderInput.linearAttenuation = linearAttenuation;
@@ -81,6 +81,15 @@ void Light::SetType(int type)
 void Light::SetIntensity(float intensity)
 {
 	this->intensity = intensity;
+
+	if (this->intensity < 0.0f)
+	{
+		this->intensity = 0.0f;
+	}
+	else if (this->intensity > 8.0f)
+	{
+		this->intensity = 8.0f;
+	}
 }
 void Light::SetConstantAttenuation(float constantAttenuation)
 {

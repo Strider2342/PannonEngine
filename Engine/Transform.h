@@ -43,6 +43,7 @@ public:
 	
 	void SetParent(Transform *parent);
 	void AddChild(Transform *transform);
+	void RemoveChild(Transform *child);
 
 	DirectX::XMMATRIX GetWorldMatrix();
 	DirectX::XMMATRIX GetRotationMatrix();

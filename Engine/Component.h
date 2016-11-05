@@ -11,7 +11,7 @@ class Component : public Object
 	friend class GameObject;
 
 protected:
-	GameObject *gameObject;
+	GameObject *gameObject = nullptr;
 
 public:
 	Component();

@@ -81,12 +81,43 @@ void Transform::MultiplyScale(float value)
 
 void Transform::SetParent(Transform* parent)
 {
+	if (HasParent())
+	{
+		this->parent->RemoveChild(this);
+	}
+
 	this->parent = parent;
+	parent->AddChild(this);
 }
 
 void Transform::AddChild(Transform *child)
 {
-	children.push_back(child);
+	bool contained = false;
+	for (int i = 0; i < children.size(); i++)
+	{
+		if (child == children.at(i))
+		{
+			contained = true;
+			break;
+		}
+	}
+
+	if (!contained)
+	{
+		children.push_back(child);
+	}
+}
+
+void Transform::RemoveChild(Transform * child)
+{
+	for (int i = 0; i < children.size(); i++)
+	{
+		if (child == children.at(i))
+		{
+			children.erase(children.begin() + i);
+			break;
+		}
+	}
 }
 
 DirectX::XMMATRIX Transform::GetWorldMatrix()
@@ -130,5 +161,8 @@ bool Transform::HasParent()
 
 bool Transform::HasChildren()
 {
-	return false;
+	if (children.size() > 0)
+		return true;
+	else
+		return false;
 }

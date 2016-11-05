@@ -89,11 +89,15 @@ void EditorGUI::CreateMenu()
 		}
 		if (ImGui::MenuItem("Light"))
 		{
-			//
+			GameObject *gameObject = new GameObject();
+			gameObject->AddComponent<Light>();
+			gameObjects->push_back(gameObject);
 		}
 		if (ImGui::MenuItem("Camera"))
 		{
-			//
+			GameObject *gameObject = new GameObject();
+			gameObject->AddComponent<Camera>();
+			gameObjects->push_back(gameObject);
 		}
 		if (ImGui::MenuItem("Material"))
 		{
@@ -212,33 +216,34 @@ void EditorGUI::HierarchyView()
 
 		for (int i = 0; i < gameObjects->size(); i++)
 		{
-			ImGuiTreeNodeFlags node_flags = 0;
-
-			bool hasChildren = gameObjects->at(i)->GetTransform()->HasChildren();
-
-			if (!hasChildren)
+			if (!gameObjects->at(i)->GetTransform()->HasParent())
 			{
-				node_flags = (selected_node == i) ? ImGuiTreeNodeFlags_Selected : 0;
-			}
-			else
-			{
-				node_flags = ((selected_node == i) ? ImGuiTreeNodeFlags_Selected : 0) | ImGuiTreeNodeFlags_OpenOnArrow;
-			}
+				ImGuiTreeNodeFlags node_flags = 0;
 
-			if (ImGui::TreeNodeEx(&i, node_flags, gameObjects->at(i)->GetName().c_str()))
-			{
-				ImGui::TreePop();
-			}
+				bool hasChildren = gameObjects->at(i)->GetTransform()->HasChildren();
 
-			if (ImGui::IsItemClicked())
-			{
-				selected_node = i;
-				selected = gameObjects->at(i);
+				if (!hasChildren)
+				{
+					node_flags = ((selected_node == i) ? ImGuiTreeNodeFlags_Selected : 0) | ImGuiTreeNodeFlags_Leaf;
+				}
+				else
+				{
+					node_flags = ((selected_node == i) ? ImGuiTreeNodeFlags_Selected : 0) | ImGuiTreeNodeFlags_OpenOnArrow;
+				}
+
+				if (ImGui::TreeNodeEx(&i, node_flags, gameObjects->at(i)->GetName().c_str()))
+				{
+					ImGui::TreePop();
+				}
+
+				if (ImGui::IsItemClicked())
+				{
+					selected_node = i;
+					selected = gameObjects->at(i);
+				}
 			}
 		}
-
-		//std::cout << "Selected: " << selected->GetName() << std::endl;
-
+		
 		ImGui::End();
 	}
 }
@@ -345,7 +350,7 @@ void EditorGUI::LightComponent()
 	bool enabled = selected->GetComponent<Light>()->GetEnabled();
 	DirectX::XMFLOAT4 color = selected->GetComponent<Light>()->GetColor();
 	float light_color[3] = { color.x, color.y, color.z };
-	//static float intensity = selected->GetComponent<Light>()->GetIntensity();
+	float intensity = selected->GetComponent<Light>()->GetIntensity();
 	float constantAttenuation = selected->GetComponent<Light>()->GetConstantAttenuation();
 	float linearAttenuation = selected->GetComponent<Light>()->GetLinearAttenuation();
 	float quadraticAttenuation = selected->GetComponent<Light>()->GetQuadraticAttenuation();
@@ -356,7 +361,7 @@ void EditorGUI::LightComponent()
 		ImGui::Combo("Type", &light_type, "Directional\0Point\0Spot\0\0");
 		ImGui::Checkbox("Enabled", &enabled);
 		ImGui::ColorEdit3("Color", light_color);
-		//ImGui::InputFloat("Intensity", &intensity);
+		ImGui::DragFloat("Intensity", &intensity, 0.05f);
 		ImGui::DragFloat("Constant attenuation", &constantAttenuation, 0.05f);
 		ImGui::DragFloat("Linear attenuation", &linearAttenuation, 0.05f);
 		ImGui::DragFloat("Quadratic attenuation", &quadraticAttenuation, 0.005f);
@@ -370,6 +375,7 @@ void EditorGUI::LightComponent()
 	selected->GetComponent<Light>()->SetType(light_type);
 	selected->GetComponent<Light>()->SetEnabled(enabled);
 	selected->GetComponent<Light>()->SetColor(DirectX::XMFLOAT4(light_color[0], light_color[1], light_color[2], 1.0f));
+	selected->GetComponent<Light>()->SetIntensity(intensity);
 	selected->GetComponent<Light>()->SetConstantAttenuation(constantAttenuation);
 	selected->GetComponent<Light>()->SetLinearAttenuation(linearAttenuation);
 	selected->GetComponent<Light>()->SetQuadraticAttenuation(quadraticAttenuation);

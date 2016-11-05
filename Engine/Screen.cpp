@@ -23,7 +23,7 @@ Ray Screen::ScreenPointToRay(DirectX::XMFLOAT2 position)
 	DirectX::XMFLOAT3 v_endpoint = DirectX::XMFLOAT3(normalized.x * camera->GetFarClippingPlane(), normalized.y * camera->GetFarClippingPlane(), camera->GetFarClippingPlane());
 
 	DirectX::XMMATRIX viewMatrix = camera->GetViewMatrix();
-	DirectX::XMMATRIX inverseViewMat = DirectX::XMMatrixInverse(NULL, viewMatrix);
+	DirectX::XMMATRIX inverseViewMat = DirectX::XMMatrixInverse(nullptr, viewMatrix);
 
 	DirectX::XMFLOAT3 origin;
 	DirectX::XMFLOAT3 endpoint;
@@ -35,15 +35,11 @@ Ray Screen::ScreenPointToRay(DirectX::XMFLOAT2 position)
 	DirectX::XMFLOAT3 difference = DirectX::XMFLOAT3(endpoint.x - origin.x, endpoint.y - origin.y, endpoint.z - origin.z);
 	DirectX::XMStoreFloat3(&direction, DirectX::XMVector3Normalize(DirectX::XMLoadFloat3(&difference)));
 
-	origin.x += camera->GetTransform()->GetPosition().x;
-	origin.y += camera->GetTransform()->GetPosition().y;
-	origin.z += camera->GetTransform()->GetPosition().z;
+	origin = origin + camera->GetTransform()->GetPosition();
 
 	ray.SetOrigin(origin);
 	ray.SetDirection(direction);
-
-	std::cout << "Ray: x: " << origin.x << " y: " << origin.y << std::endl;
-
+	
 	return ray;
 }
 

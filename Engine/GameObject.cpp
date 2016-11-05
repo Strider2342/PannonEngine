@@ -2,6 +2,7 @@
 
 GameObject::GameObject()
 {
+	SetName("GameObject");
 	AddComponent<Transform>();
 }
 

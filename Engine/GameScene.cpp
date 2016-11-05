@@ -5,12 +5,15 @@ GameScene::GameScene()
 	ImGui_ImplDX11_Init(graphics.GetHWND(), graphics.GetDevice(), graphics.GetDeviceContext());
 }
 
+GameScene* GameScene::Get()
+{
+	return this;
+}
+
 void GameScene::SetScene(GameScene *scene)
 {
 	this->gameObjects = scene->GetGameObjectList();
-	this->cameras = scene->GetCameraList();
-
-	this->mainCamera = *(cameras.begin());
+	//this->cameras = scene->GetCameraList();
 }
 
 void GameScene::CheckCollision()
@@ -21,13 +24,13 @@ void GameScene::CheckCollision()
 		{
 			Collider *collider1 = gameObjects[i]->GetComponent<Collider>();
 
-			if (collider1 != NULL)
+			if (collider1 != nullptr)
 			{
 				for (int j = i + 1; j < gameObjects.size(); j++)
 				{
 					Collider *collider2 = gameObjects[j]->GetComponent<Collider>();
 
-					if (collider2 != NULL)
+					if (collider2 != nullptr)
 					{
 						if (dynamic_cast<BoxCollider *>(collider1))
 						{
@@ -119,6 +122,7 @@ void GameScene::Render()
 	for (int i = 0; i < gameObjects.size(); i++)
 	{
 		gameObjects[i]->Render();
+		gameObjects[i]->PostRender();
 	}
 
 	graphics.End();
@@ -126,8 +130,18 @@ void GameScene::Render()
 
 void GameScene::PostRender()
 {
-	for (int i = 0; i < gameObjects.size(); i++)
+	/*for (int i = 0; i < gameObjects.size(); i++)
 	{
 		gameObjects[i]->PostRender();
-	}
+	}*/
 }
+
+/*
+void GameScene::ExportToFile()
+{
+	GameSerializer serializer = GameSerializer();
+	json json_scene = serializer.ExportScene(this);
+
+	std::cout << json_scene.dump() << std::endl;
+}
+*/

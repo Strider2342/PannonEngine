@@ -3,12 +3,16 @@
 Application::Application()
 {
 	graphics = Graphics();
+
+	scenes = std::vector<Scene *>();
 }
 
 Application::Application(HWND& hWnd)
 {
 	graphics = Graphics();
 	graphics.Init(hWnd);
+
+	scenes = std::vector<Scene *>();
 }
 
 void Application::Run()

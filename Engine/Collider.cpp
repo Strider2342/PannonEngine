@@ -44,7 +44,14 @@ DirectX::BoundingSphere* SphereCollider::GetCollider()
 void SphereCollider::SetCenter(DirectX::XMFLOAT3 center)
 {
 	this->center = center;
-	this->collider.Center = DirectX::XMFLOAT3(gameObject->GetTransform()->GetPosition().x + center.x, gameObject->GetTransform()->GetPosition().y + center.y, gameObject->GetTransform()->GetPosition().z + center.z);
+	if (gameObject != NULL)
+	{
+		this->collider.Center = DirectX::XMFLOAT3(gameObject->GetTransform()->GetPosition().x + center.x, gameObject->GetTransform()->GetPosition().y + center.y, gameObject->GetTransform()->GetPosition().z + center.z);
+	}
+	else
+	{
+		this->collider.Center = DirectX::XMFLOAT3(center.x, center.y, center.z);
+	}
 }
 void SphereCollider::SetRadius(float radius)
 {
@@ -57,7 +64,7 @@ void SphereCollider::Start()
 	if (gameObject->GetTransform()->GetScale().y > max) { max = gameObject->GetTransform()->GetScale().y; }
 	if (gameObject->GetTransform()->GetScale().z > max) { max = gameObject->GetTransform()->GetScale().z; }
 
-	collider.Center = DirectX::XMFLOAT3(gameObject->GetTransform()->GetPosition().x + gameObject->GetComponent<MeshRenderer>()->GetMesh()->GetBounds().GetCenter().x, gameObject->GetTransform()->GetPosition().y + gameObject->GetComponent<MeshRenderer>()->GetMesh()->GetBounds().GetCenter().y, gameObject->GetTransform()->GetPosition().z + gameObject->GetComponent<MeshRenderer>()->GetMesh()->GetBounds().GetCenter().z);
+	collider.Center = DirectX::XMFLOAT3(gameObject->GetTransform()->GetPosition().x + center.x, gameObject->GetTransform()->GetPosition().y + center.y, gameObject->GetTransform()->GetPosition().z + center.z);
 	collider.Radius = radius * max;
 }
 void SphereCollider::Update(GameTime gameTime, Input input)
@@ -98,12 +105,26 @@ DirectX::BoundingOrientedBox* BoxCollider::GetCollider()
 void BoxCollider::SetCenter(DirectX::XMFLOAT3 center)
 {
 	this->center = center;
-	collider.Center = DirectX::XMFLOAT3(gameObject->GetTransform()->GetPosition().x + center.x, gameObject->GetTransform()->GetPosition().y + center.y, gameObject->GetTransform()->GetPosition().z + center.z);
+	if (gameObject != NULL)
+	{
+		this->collider.Center = DirectX::XMFLOAT3(gameObject->GetTransform()->GetPosition().x + center.x, gameObject->GetTransform()->GetPosition().y + center.y, gameObject->GetTransform()->GetPosition().z + center.z);
+	}
+	else
+	{
+		this->collider.Center = DirectX::XMFLOAT3(center.x, center.y, center.z);
+	}
 }
 void BoxCollider::SetSize(DirectX::XMFLOAT3 size)
 {
 	this->size = size;
-	collider.Extents = DirectX::XMFLOAT3(gameObject->GetTransform()->GetScale().x * size.x, gameObject->GetTransform()->GetScale().y * size.y, gameObject->GetTransform()->GetScale().z * size.z);
+	if (gameObject != NULL)
+	{
+		collider.Extents = DirectX::XMFLOAT3(gameObject->GetTransform()->GetScale().x * size.x, gameObject->GetTransform()->GetScale().y * size.y, gameObject->GetTransform()->GetScale().z * size.z);
+	}
+	else
+	{
+		this->collider.Extents = DirectX::XMFLOAT3(size.x, size.y, size.z);
+	}
 }
 void BoxCollider::Start()
 {

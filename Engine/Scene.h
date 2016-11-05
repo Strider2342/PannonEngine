@@ -5,7 +5,6 @@
 #include "Graphics.h"
 #include "GameTime.h"
 #include "Input.h"
-#include "Object.h"
 #include "GameObject.h"
 #include "Collider.h"
 #include "MeshRenderer.h"
@@ -15,7 +14,7 @@
 #include "Mesh.h"
 #include "Texture.h"
 
-class Scene : public Object
+class Scene
 {
 protected:
 	Graphics graphics;

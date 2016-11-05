@@ -36,10 +36,9 @@ int main()
 
 	GameScene *scene = serializer.ImportScene("scene1.scn");
 
-	//application.AddScene<Scene1>();
-	application.AddScene<GameScene>(scene);
+	application.AddScene<Scene1>();
+	//application.AddScene<GameScene>(scene);
 	application.Run();
 
-	std::cin.get();
 	return 0;
 }

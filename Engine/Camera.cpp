@@ -51,7 +51,7 @@ float Camera::GetFarClippingPlane()
 	return farClippingPlane;
 }
 
-Transform * Camera::GetTransform()
+Transform* Camera::GetTransform()
 {
 	return transform;
 }
@@ -63,7 +63,14 @@ void Camera::SetTransform(Transform *transform)
 
 void Camera::SetFOV(float fov)
 {
-	this->fov = fov;
+	if (fov <= 0.0f)
+	{
+		this->fov = 0.1f;
+	}
+	else
+	{
+		this->fov = fov;
+	}
 }
 
 void Camera::SetAspectRatio(float aspectRatio)
@@ -79,10 +86,10 @@ void Camera::SetNearClippingPlane(float nearClippingPlane)
 	{
 		this->nearClippingPlane = 0.01f;
 	}
-	else if (this->nearClippingPlane > farClippingPlane)
+	/*else if (this->nearClippingPlane > farClippingPlane)
 	{
 		this->nearClippingPlane = farClippingPlane - 0.1f;
-	}
+	}*/
 }
 
 void Camera::SetFarClippingPlane(float farClippingPlane)

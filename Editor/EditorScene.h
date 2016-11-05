@@ -24,6 +24,8 @@ private:
 public:
 	EditorScene();
 
+	void LoadScene(GameScene *scene);
+
 	void Start();
 	void PreUpdate();
 	void Update();

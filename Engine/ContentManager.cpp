@@ -179,3 +179,7 @@ Mesh* ContentManager::LoadMesh(std::string filename)
 
 	return newmesh;
 }
+
+void ContentManager::Instantiate(GameObject *prefab)
+{
+}

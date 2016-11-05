@@ -53,9 +53,9 @@
 					}
 				}
 			}, {
-				"fov": {
-					"camera": 0.7853981852531433,
-					"nearClippingPlane": 0.10000000149011612,
+				"camera": {
+					"fov": 0.7853981852531433,
+					"nearClippingPlane": 0.1,
 					"farClippingPlane": 100.0
 				}
 			}]

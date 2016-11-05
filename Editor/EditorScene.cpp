@@ -3,6 +3,10 @@
 EditorScene::EditorScene()
 { }
 
+void EditorScene::LoadScene(GameScene *scene)
+{
+}
+
 void EditorScene::Start()
 {
 	ContentManager content = ContentManager();
@@ -51,6 +55,7 @@ void EditorScene::Start()
 	teapot.AddComponent<SphereCollider>();
 
 	bottle.SetName("Bottle");
+	bottle.GetTransform()->SetParent(teapot.GetTransform());
 	bottle.GetTransform()->GetPosition() = DirectX::XMFLOAT3(10.0f, 0.5f, 0.0f);
 	bottle.GetTransform()->GetRotation() = DirectX::XMFLOAT3(-DirectX::XM_PI * 0.5f, 0.0f, 0.0f);
 	bottle.GetTransform()->MultiplyScale(0.05f);	

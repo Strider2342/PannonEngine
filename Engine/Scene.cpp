@@ -4,6 +4,7 @@ Scene::Scene()
 {
 	graphics = Graphics();
 
+	gameObjects = std::vector<GameObject*>();
 	globalAmbient = DirectX::XMFLOAT3(0.5f, 0.5f, 0.5f);
 }
 
@@ -15,7 +16,6 @@ void Scene::Init(Graphics &graphics)
 {
 	this->graphics = graphics;
 
-	gameObjects = std::vector<GameObject*>();
 	lights = std::vector<Light::ShaderInput>();
 	cameras = std::vector<Camera*>();
 

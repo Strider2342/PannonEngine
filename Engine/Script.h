@@ -4,7 +4,7 @@
 #include "Component.h"
 #include "Input.h"
 
-class Script :public Component
+class Script : public Component
 {
 protected:
 	std::string classname;

@@ -27,4 +27,6 @@ public:
 	Texture* LoadTexture(std::string filename);
 	Material* LoadMaterial(std::string filename);
 	Mesh* LoadMesh(std::string filename);
+
+	void Instantiate(GameObject *prefab);
 };
