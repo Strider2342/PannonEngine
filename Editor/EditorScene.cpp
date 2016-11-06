@@ -9,6 +9,7 @@ void EditorScene::LoadScene(GameScene *scene)
 
 void EditorScene::Start()
 {
+	gui->Init();
 	ContentManager content = ContentManager();
 	content.Init(graphics.GetDevice(), graphics.GetDeviceContext());
 
@@ -63,12 +64,7 @@ void EditorScene::Start()
 	bottle.GetComponent<MeshRenderer>()->Init(graphics.GetDevice(), graphics.GetDeviceContext());
 	bottle.GetComponent<MeshRenderer>()->SetCamera(mainCamera);
 	bottle.GetComponent<MeshRenderer>()->SetMesh(mesh2);
-
-	gui.SetGameObjectList(&gameObjects);
-
-	selected = &teapot;
-	gui.SetSelected(selected);
-
+	
 	for (int i = 0; i < gameObjects.size(); i++)
 	{
 		gameObjects[i]->Start();
@@ -91,7 +87,7 @@ void EditorScene::PostUpdate()
 
 void EditorScene::Render()
 {
-	gui.AssembleGUI();
+	gui->AssembleGUI();
 	graphics.Begin(0.3f, 0.3f, 0.3f);
 
 	for (int i = 0; i < gameObjects.size(); i++)
@@ -99,7 +95,7 @@ void EditorScene::Render()
 		gameObjects[i]->Render();
 	}
 
-	gui.Render();
+	gui->Render();
 	graphics.End();
 }
 

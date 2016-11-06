@@ -24,7 +24,7 @@ void EditorGUI::FileMenu()
 	{
 		if (ImGui::MenuItem("Open project"))
 		{
-
+			
 		}
 		if (ImGui::MenuItem("Save project"))
 		{
@@ -35,13 +35,17 @@ void EditorGUI::FileMenu()
 
 		}
 		ImGui::Separator();
-		if (ImGui::MenuItem("Open scene"))
+		if (ImGui::MenuItem("New scene"))
 		{
 
 		}
+		if (ImGui::MenuItem("Open scene"))
+		{
+			scene->ImportFromFile("scene2.scn");
+		}
 		if (ImGui::MenuItem("Save scene"))
 		{
-
+			scene->ExportToFile("scene2.scn");
 		}
 		if (ImGui::MenuItem("Save scene as"))
 		{
@@ -156,53 +160,54 @@ void EditorGUI::InspectorView()
 	ImGui::SetNextWindowPos(ImVec2(1375, 20));
 	ImGui::SetNextWindowSize(ImVec2(300, 900));
 
-	char name[128];
-	strcpy_s(name, selected->GetName().c_str());
-
 	if (ImGui::Begin("Inspector"))
 	{
-		ImGui::InputText("", name, IM_ARRAYSIZE(name));
-
-		for (int i = 0; i < selected->GetNumberOfComponents(); i++)
+		if (selected != nullptr)
 		{
-			if (dynamic_cast<Transform *>(selected->GetComponentById(i)) != NULL)
+			char name[128];
+			strcpy_s(name, selected->GetName().c_str());
+			ImGui::InputText("", name, IM_ARRAYSIZE(name));
+
+			for (int i = 0; i < selected->GetNumberOfComponents(); i++)
 			{
-				ImGui::SetNextTreeNodeOpen(true);
-				TransformComponent();
+				if (dynamic_cast<Transform *>(selected->GetComponentById(i)) != NULL)
+				{
+					ImGui::SetNextTreeNodeOpen(true);
+					TransformComponent();
+				}
+				else if (dynamic_cast<Physics *>(selected->GetComponentById(i)) != NULL)
+				{
+					PhysicsComponent();
+				}
+				else if (dynamic_cast<MeshRenderer *>(selected->GetComponentById(i)) != NULL)
+				{
+					MeshRendererComponent();
+				}
+				else if (dynamic_cast<Camera *>(selected->GetComponentById(i)) != NULL)
+				{
+					CameraComponent();
+				}
+				else if (dynamic_cast<Light *>(selected->GetComponentById(i)) != NULL)
+				{
+					LightComponent();
+				}
+				else if (dynamic_cast<Script *>(selected->GetComponentById(i)) != NULL)
+				{
+					ScriptComponent();
+				}
+				else if (dynamic_cast<SphereCollider *>(selected->GetComponentById(i)) != NULL)
+				{
+					SphereColliderComponent();
+				}
+				else if (dynamic_cast<BoxCollider *>(selected->GetComponentById(i)) != NULL)
+				{
+					BoxColliderComponent();
+				}
 			}
-			else if (dynamic_cast<Physics *>(selected->GetComponentById(i)) != NULL)
-			{
-				PhysicsComponent();
-			}
-			else if (dynamic_cast<MeshRenderer *>(selected->GetComponentById(i)) != NULL)
-			{
-				MeshRendererComponent();
-			}
-			else if (dynamic_cast<Camera *>(selected->GetComponentById(i)) != NULL)
-			{
-				CameraComponent();
-			}
-			else if (dynamic_cast<Light *>(selected->GetComponentById(i)) != NULL)
-			{
-				LightComponent();
-			}
-			else if (dynamic_cast<Script *>(selected->GetComponentById(i)) != NULL)
-			{
-				ScriptComponent();
-			}
-			else if (dynamic_cast<SphereCollider *>(selected->GetComponentById(i)) != NULL)
-			{
-				SphereColliderComponent();
-			}
-			else if (dynamic_cast<BoxCollider *>(selected->GetComponentById(i)) != NULL)
-			{
-				BoxColliderComponent();
-			}
+			selected->SetName(name);
 		}
 
 		ImGui::End();
-
-		selected->SetName(name);
 	}
 }
 void EditorGUI::HierarchyView()
@@ -422,22 +427,17 @@ void EditorGUI::BoxColliderComponent()
 	selected->GetComponent<BoxCollider>()->SetCenter(DirectX::XMFLOAT3(size[0], size[1], size[2]));
 }
 
+void EditorGUI::Init()
+{
+	gameObjects = scene->GetGameObjectList();
+}
+
 void EditorGUI::AssembleGUI()
 {
 	ImGui_ImplDX11_NewFrame();
 
 	MenuBar();
 	Views();
-}
-
-void EditorGUI::SetSelected(GameObject *&selected)
-{
-	this->selected = selected;
-}
-
-void EditorGUI::SetGameObjectList(std::vector<GameObject*> *gameObjects)
-{
-	this->gameObjects = gameObjects;
 }
 
 void EditorGUI::Render()

@@ -1,7 +1,6 @@
 #include <iostream>
 #define STB_IMAGE_IMPLEMENTATION
 #include "GameWindow.h"
-#include "GameSerializer.h"
 #include "Application.h"
 
 #include "imgui\imgui_impl_dx11.h"
@@ -27,19 +26,18 @@ LRESULT CALLBACK WindowProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPara
 }
 
 #include "EditorScene.h"
+#include "EditorGUI.h"
 
 int main()
 {
 	GameWindow window = GameWindow(1706, 960, L"PannonEditor", L"WindowClass", WindowProc);
-	GameSerializer serializer = GameSerializer();
 	Application application = Application(window.GetHWND());
 	
-	EditorScene *scene = static_cast<EditorScene *>(serializer.ImportScene("scene1.scn"));
-
 	EditorScene *editor = new EditorScene();
-	editor->SetScene(scene);
+	EditorGUI *gui = new EditorGUI();
+	editor->SetGUI(gui);
+	gui->SetScene(editor);
 
-	//application.AddScene<EditorScene>();
 	application.AddScene<EditorScene>(editor);
 	application.Run();
 

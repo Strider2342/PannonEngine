@@ -4,6 +4,8 @@ Scene::Scene()
 {
 	graphics = Graphics();
 
+	serializer = GameSerializer();
+
 	gameObjects = std::vector<GameObject*>();
 	globalAmbient = DirectX::XMFLOAT3(0.5f, 0.5f, 0.5f);
 }
@@ -23,9 +25,9 @@ void Scene::Init(Graphics &graphics)
 	textures = std::vector<Texture*>();
 }
 
-std::vector<GameObject*>& Scene::GetGameObjectList()
+std::vector<GameObject*>* Scene::GetGameObjectList()
 {
-	return gameObjects;
+	return &gameObjects;
 }
 
 void Scene::AddGameObject(GameObject *gameObject)

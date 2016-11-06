@@ -12,7 +12,7 @@ GameScene* GameScene::Get()
 
 void GameScene::SetScene(GameScene *scene)
 {
-	this->gameObjects = scene->GetGameObjectList();
+	this->gameObjects = *(scene->GetGameObjectList());
 	//this->cameras = scene->GetCameraList();
 }
 
@@ -136,12 +136,57 @@ void GameScene::PostRender()
 	}*/
 }
 
-/*
-void GameScene::ExportToFile()
+void GameScene::ImportFromFile(std::string filename)
 {
-	GameSerializer serializer = GameSerializer();
-	json json_scene = serializer.ExportScene(this);
+	std::ifstream file(filename);
+	std::string text = "";
 
-	std::cout << json_scene.dump() << std::endl;
+	if (file.is_open())
+	{
+		std::string line;
+		while (getline(file, line))
+		{
+			text += line;
+		}
+		file.close();
+	}
+
+	json scene_json = json::parse(text.c_str())["scene"];
+
+	gameObjects.clear();
+
+	// global ambient light
+	DirectX::XMFLOAT3 globalAmbient = DirectX::XMFLOAT3(scene_json["globalAmbient"]["x"], scene_json["globalAmbient"]["y"], scene_json["globalAmbient"]["z"]);
+	SetGlobalAmbient(globalAmbient);
+
+	// game objects
+	json gameObjects_json = scene_json["gameObjects"];
+	for (json::iterator it = gameObjects_json.begin(); it != gameObjects_json.end(); ++it)
+	{
+		AddGameObject(serializer.ImportGameObject((*it), globalAmbient));
+	}
 }
-*/
+
+void GameScene::ExportToFile(std::string filename)
+{
+	json json_object;
+	json game_objects_json;
+
+	json_object["scene"]["globalAmbient"]["x"] = globalAmbient.x;
+	json_object["scene"]["globalAmbient"]["y"] = globalAmbient.y;
+	json_object["scene"]["globalAmbient"]["z"] = globalAmbient.z;
+
+	for (int i = 0; i < gameObjects.size(); i++)
+	{
+		game_objects_json.push_back(serializer.ExportGameObject(gameObjects.at(i)));
+	}
+
+	json_object["scene"]["gameObjects"] = game_objects_json;
+
+	std::ofstream file(filename);
+	if (file.is_open())
+	{
+		file << json_object.dump();
+		file.close();
+	}
+}

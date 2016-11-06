@@ -3,6 +3,7 @@
 #include <fstream>
 #include <vector>
 #include "Graphics.h"
+#include "GameSerializer.h"
 #include "GameTime.h"
 #include "Input.h"
 #include "GameObject.h"
@@ -21,6 +22,8 @@ protected:
 	GameTime gameTime;
 	Input input;
 
+	GameSerializer serializer;
+
 	std::vector<GameObject*> gameObjects;
 	std::vector<Light::ShaderInput> lights;
 	std::vector<Camera*> cameras;
@@ -38,7 +41,7 @@ public:
 
 	void Init(Graphics &graphics);
 
-	std::vector<GameObject*>& GetGameObjectList();
+	std::vector<GameObject*>* GetGameObjectList();
 	void AddGameObject(GameObject *gameObject);
 	GameObject* FindGameObject(std::string name);
 

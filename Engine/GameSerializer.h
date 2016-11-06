@@ -1,6 +1,8 @@
 #pragma once
 #include "json.hpp"
-#include "GameScene.h"
+#include "GameObject.h"
+#include "MeshRenderer.h"
+#include "Collider.h"
 
 using json = nlohmann::json;
 
@@ -11,7 +13,7 @@ public:
 	GameSerializer();
 
 	// Import
-	GameScene*		ImportScene(std::string filename);
+	//GameScene*		ImportScene(std::string filename);
 
 	GameObject*		ImportGameObject(json json_object, DirectX::XMFLOAT3 globalAmbient);
 	Transform*		ImportTransform(json json_object);
@@ -23,7 +25,7 @@ public:
 	Material*		ImportMaterial(json json_object);
 
 	// Export
-	json ExportScene(GameScene *gameScene);
+	//json ExportScene(GameScene *gameScene);
 
 	json ExportGameObject(GameObject *gameObject);
 	json ExportTransform(Transform *transform);

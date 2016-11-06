@@ -1,6 +1,7 @@
 #pragma once
 #include <vector>
 #include <string>
+#include <fstream>
 #include "Graphics.h"
 #include "imgui\imgui.h"
 #include "imgui\imgui_impl_dx11.h"
@@ -16,8 +17,6 @@
 
 class GameScene : public Scene
 {
-public:
-
 protected:
 
 public:
@@ -36,6 +35,6 @@ public:
 	virtual void Render();
 	virtual void PostRender();
 
-	/*virtual void ImportFromFile();
-	virtual void ExportToFile();*/
+	virtual void ImportFromFile(std::string filename);
+	virtual void ExportToFile(std::string filename);
 };

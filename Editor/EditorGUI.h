@@ -4,6 +4,8 @@
 #include <vector>
 #include "imgui/imgui.h"
 #include "imgui\imgui_impl_dx11.h"
+#include "GUI.h"
+#include "GameScene.h"
 #include "GameObject.h"
 #include "Component.h";
 #include "Physics.h";
@@ -14,10 +16,10 @@
 
 #define IM_ARRAYSIZE(_ARR) ((int)(sizeof(_ARR)/sizeof(*_ARR)))
 
-class EditorGUI
+class EditorGUI : public GUI
 {
 private:
-	GameObject *selected;
+	GameObject *selected = nullptr;
 	std::vector<GameObject *> *gameObjects;
 
 	bool showInspectorView = true;
@@ -53,10 +55,8 @@ public:
 	void SphereColliderComponent();
 	void BoxColliderComponent();
 
+	void Init();
 	void AssembleGUI();
-
-	void SetSelected(GameObject *&selected);
-	void SetGameObjectList(std::vector<GameObject *> *gameObjects);
 
 	void Render();
 };
