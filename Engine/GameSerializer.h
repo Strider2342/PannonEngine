@@ -1,5 +1,7 @@
 #pragma once
 #include "json.hpp"
+#include "Graphics.h"
+#include "ContentManager.h"
 #include "GameObject.h"
 #include "MeshRenderer.h"
 #include "Collider.h"
@@ -8,6 +10,8 @@ using json = nlohmann::json;
 
 class GameSerializer
 {
+private:
+	Graphics *graphics;
 
 public:
 	GameSerializer();
@@ -35,4 +39,6 @@ public:
 	json ExportSphereCollider(SphereCollider *sphereCollider);
 	json ExportBoxCollider(BoxCollider *boxCollider);
 	json ExportMaterial(Material *material);
+
+	void SetGraphics(Graphics *graphics);
 };

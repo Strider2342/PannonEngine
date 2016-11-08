@@ -15,9 +15,11 @@ public:
 		DirectX::XMFLOAT4 emissive;
 		float power;
 		
+		DirectX::XMFLOAT3 padding1;
+
 		bool useTexture;
 
-		DirectX::XMFLOAT2 padding;
+		DirectX::XMFLOAT3 padding2;
 	};
 
 private:

@@ -88,6 +88,7 @@ void GameScene::Start()
 void GameScene::PreUpdate()
 {
 	RefreshLights();
+	SetSceneProperties();
 	CheckCollision();
 
 	for (int i = 0; i < gameObjects.size(); i++)

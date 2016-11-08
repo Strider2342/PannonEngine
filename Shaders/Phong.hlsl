@@ -17,7 +17,6 @@ struct Material
 	
 	float   specularPower;
 	bool    useTexture;
-	float2  padding;
 };
 struct Light
 {
@@ -209,12 +208,13 @@ float4 PShader(PSInput input) : SV_TARGET
 
 	float4 texColor = { 1, 1, 1, 1 };
 
-	if (material.useTexture)
+	float4 finalColor = (emissive + ambient + diffuse + specular);
+
+	if (!material.useTexture)
 	{
 		texColor = Texture.Sample(Sampler, input.uv);
+		finalColor *= texColor;
 	}
-
-	float4 finalColor = (emissive + ambient + diffuse + specular) * texColor;
 
 	return finalColor;
 }

@@ -25,6 +25,8 @@ GameObject* GameSerializer::ImportGameObject(json json_object, DirectX::XMFLOAT3
 		else if (comp_it->count("camera"))
 		{
 			gameObject->AddComponent<Camera>(ImportCamera((*comp_it)["camera"]));
+			gameObject->GetComponent<Camera>()->Init();
+			gameObject->GetComponent<Camera>()->SetTransform(gameObject->GetTransform());
 		}
 		else if (comp_it->count("light"))
 		{
@@ -55,6 +57,14 @@ Transform* GameSerializer::ImportTransform(json json_object)
 MeshRenderer* GameSerializer::ImportMeshRenderer(json json_object)
 {
 	MeshRenderer *meshRenderer = new MeshRenderer();
+
+	ContentManager content = ContentManager();
+	std::string path = json_object["meshpath"];
+
+	meshRenderer->SetMesh(content.LoadMesh("../" + path));
+
+	Material *material = new Material();
+	meshRenderer->SetMaterial(material);
 
 	return meshRenderer;
 }
@@ -172,7 +182,7 @@ json GameSerializer::ExportMeshRenderer(MeshRenderer *meshRenderer)
 {
 	json json_object;
 
-	
+	json_object["meshRenderer"]["meshpath"] = meshRenderer->GetMesh()->GetPath();
 
 	return json_object;
 }
@@ -253,4 +263,9 @@ json GameSerializer::ExportMaterial(Material *material)
 	json_object["material"]["power"] = material->GetPower();
 
 	return json_object;
+}
+
+void GameSerializer::SetGraphics(Graphics *graphics)
+{
+	this->graphics = graphics;
 }

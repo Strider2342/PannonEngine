@@ -25,9 +25,9 @@ std::vector<Triangle>& Mesh::GetTriangles()
 	return triangles;
 }
 
-std::string Mesh::GetName()
+std::string Mesh::GetPath()
 {
-	return name;
+	return path;
 }
 
 void Mesh::SetBounds()
@@ -74,7 +74,7 @@ void Mesh::SetIndices(std::vector<DWORD>& indices)
 	this->indices = indices;
 }
 
-void Mesh::SetName(std::string name)
+void Mesh::SetPath(std::string path)
 {
-	this->name = name;
+	this->path = path;
 }

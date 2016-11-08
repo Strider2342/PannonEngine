@@ -145,6 +145,7 @@
     <ClInclude Include="ContentManager.h" />
     <ClInclude Include="DebugHelper.h" />
     <ClInclude Include="DirectXMathExtension.h" />
+    <ClInclude Include="FileFinder.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameSerializer.h" />
     <ClInclude Include="GameWindow.h" />

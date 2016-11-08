@@ -37,7 +37,7 @@ void EditorGUI::FileMenu()
 		ImGui::Separator();
 		if (ImGui::MenuItem("New scene"))
 		{
-
+			scene->ClearScene();
 		}
 		if (ImGui::MenuItem("Open scene"))
 		{
@@ -89,7 +89,7 @@ void EditorGUI::CreateMenu()
 	{
 		if (ImGui::MenuItem("Mesh"))
 		{
-			//
+			showImportMeshWindow ^= 1;
 		}
 		if (ImGui::MenuItem("Light"))
 		{
@@ -154,6 +154,10 @@ void EditorGUI::Views()
 	{
 		DebugConsole();
 	}
+	if (showImportMeshWindow)
+	{
+		ImportMeshWindow();
+	}
 }
 void EditorGUI::InspectorView()
 {
@@ -217,7 +221,7 @@ void EditorGUI::HierarchyView()
 
 	if (ImGui::Begin("Hierarchy"))
 	{
-		static int selected_node = 0;
+		static int selected_node = -1;
 
 		for (int i = 0; i < gameObjects->size(); i++)
 		{
@@ -290,7 +294,43 @@ void EditorGUI::DebugConsole()
 }
 void EditorGUI::GameCanvas()
 {
-	
+
+}
+
+void EditorGUI::ImportMeshWindow()
+{
+	std::vector<std::string> meshes = std::vector<std::string>();
+	GetFileList("dir ..\\Meshes /a-d /b", &meshes);
+
+	if (ImGui::Begin("Import mesh"))
+	{
+		static int node_clicked = -1;
+
+		for (int i = 0; i < meshes.size(); i++)
+		{
+			ImGuiTreeNodeFlags node_flags = ImGuiTreeNodeFlags_Leaf;
+
+			node_flags = ((node_clicked == i) ? ImGuiTreeNodeFlags_Selected : 0) | ImGuiTreeNodeFlags_Leaf;
+			if (ImGui::TreeNodeEx(&i, node_flags, meshes[i].c_str(), i))
+			{
+				if (ImGui::IsItemClicked())
+				{
+					node_clicked = i;
+				}
+			}
+			ImGui::TreePop();
+		}
+
+		if (ImGui::Button("Import"))
+		{
+			if (node_clicked != -1)
+			{
+				scene->ImportMesh("..\\Meshes\\" + meshes[node_clicked]);
+			}
+		}
+
+		ImGui::End();
+	}
 }
 
 void EditorGUI::TransformComponent()

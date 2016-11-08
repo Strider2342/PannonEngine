@@ -108,7 +108,7 @@ void Transform::AddChild(Transform *child)
 	}
 }
 
-void Transform::RemoveChild(Transform * child)
+void Transform::RemoveChild(Transform *child)
 {
 	for (int i = 0; i < children.size(); i++)
 	{

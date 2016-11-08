@@ -49,9 +49,13 @@ public:
 	Camera* GetMainCamera();
 	DirectX::XMFLOAT3& GetGlobalAmbient();
 
+	void ImportMesh(std::string path);
 	void AddCamera(Camera *camera);
 	void SetMainCamera(Camera *camera);
 	void SetGlobalAmbient(DirectX::XMFLOAT3 globalAmbient);
 
+	void ClearScene();
+
 	void RefreshLights();
+	void SetSceneProperties();
 };

@@ -14,6 +14,8 @@
 #include "Light.h";
 #include "Script.h";
 
+#include "FileFinder.h"
+
 #define IM_ARRAYSIZE(_ARR) ((int)(sizeof(_ARR)/sizeof(*_ARR)))
 
 class EditorGUI : public GUI
@@ -26,6 +28,7 @@ private:
 	bool showHierarchyView = true;
 	bool showMaterialEditor = false;
 	bool showDebugConsole = true;
+	bool showImportMeshWindow = false;
 
 public:
 	EditorGUI();
@@ -44,6 +47,7 @@ public:
 	void MaterialEditor();
 	void DebugConsole();
 	void GameCanvas();
+	void ImportMeshWindow();
 
 	// components
 	void TransformComponent();

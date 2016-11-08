@@ -11,17 +11,6 @@ void ContentManager::Init(ID3D11Device* dev, ID3D11DeviceContext* devcon)
 	resourceDir = "../";
 }
 
-GameScene* ContentManager::LoadScene(std::string filename)
-{
-	GameScene *newscene;
-
-	Assimp::Importer importer;
-	const aiScene *scene = importer.ReadFile(resourceDir + filename, aiProcessPreset_TargetRealtime_Fast);
-
-
-	return newscene;
-}
-
 Texture* ContentManager::LoadTexture(std::string filename)
 {
 	ID3D11ShaderResourceView *texture_resource;
@@ -110,6 +99,8 @@ Texture* ContentManager::LoadTexture(std::string filename)
 	Texture *texture = new Texture();
 	texture->SetTexture(texture_resource);
 
+	texture->SetPath(filename);
+
 	return texture;
 }
 
@@ -177,9 +168,7 @@ Mesh* ContentManager::LoadMesh(std::string filename)
 	newmesh->SetBounds();
 	newmesh->SetTriangles();
 
-	return newmesh;
-}
+	newmesh->SetPath(filename);
 
-void ContentManager::Instantiate(GameObject *prefab)
-{
+	return newmesh;
 }

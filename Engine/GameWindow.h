@@ -2,7 +2,6 @@
 #include <iostream>
 #include <windows.h>
 #include <windowsx.h>
-#include <d3d11.h>
 
 #define LEAN_AND_MEAN
 #define VC_EXTRALEAN

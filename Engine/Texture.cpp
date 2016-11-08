@@ -26,12 +26,12 @@ void Texture::Destroy()
 	}
 }
 
-std::string Texture::GetName()
+std::string Texture::GetPath()
 {
-	return name;
+	return path;
 }
 
-void Texture::SetName(std::string name)
+void Texture::SetPath(std::string path)
 {
-	this->name = name;
+	this->path = path;
 }

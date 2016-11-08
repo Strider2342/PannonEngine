@@ -3,6 +3,9 @@
 MeshRenderer::MeshRenderer()
 { 
 	globalAmbient = DirectX::XMFLOAT3(0.0f, 0.0f, 0.0f);
+
+	mesh = new Mesh();
+	material = new Material();
 }
 
 MeshRenderer::~MeshRenderer()
@@ -21,16 +24,13 @@ void MeshRenderer::Init(ID3D11Device *dev, ID3D11DeviceContext *devcon)
 {
 	this->dev = dev;
 	this->devcon = devcon;
-
-	mesh = new Mesh();
-
-	material = new Material();
-	material->Init(dev, devcon);	
+	material->Init(dev, devcon);
 }
 
 void MeshRenderer::Start()
 { 
 	transform = gameObject->GetTransform();
+	InitPipeline();
 }
 
 void MeshRenderer::InitPipeline()
@@ -268,7 +268,6 @@ void MeshRenderer::SetMaterial(Material *material)
 void MeshRenderer::SetMesh(Mesh *mesh)
 {
 	this->mesh = mesh;
-	InitPipeline();
 }
 
 void MeshRenderer::SetCamera(Camera *camera)
