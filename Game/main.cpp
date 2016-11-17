@@ -32,10 +32,10 @@ int main()
 	GameWindow window = GameWindow(1706, 960, L"PannonEditor", L"WindowClass", WindowProc);
 	Application application = Application(window.GetHWND());
 	
-	GameScene *scene = new GameScene();
-	scene->ImportFromFile("scene2.scn");
+	/*GameScene *scene = new GameScene();
+	scene->ImportFromFile("scene2.scn");*/
 
-	application.AddScene<GameScene>(scene);
+	application.AddScene<Scene1>();
 	application.Run();
 
 	return 0;

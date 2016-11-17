@@ -27,10 +27,19 @@ public:
 	XMFLOAT3& GetRotation();
 	XMFLOAT3& GetScale();
 
+	XMFLOAT3& GetLocalPosition();
+	XMFLOAT3& GetLocalRotation();
+	XMFLOAT3& GetLocalScale();
+
 	XMFLOAT3& GetForward();
 	XMFLOAT3& GetUp();
 	XMFLOAT3& GetRight();
 
+	XMFLOAT3& GetLocalForward();
+	XMFLOAT3& GetLocalUp();
+	XMFLOAT3& GetLocalRight();
+
+	GameObject* GetGameObject();
 	Transform* GetParent();
 	Transform* GetChild(int id);
 	std::vector<Transform *>& GetChildren();
@@ -46,7 +55,9 @@ public:
 	void RemoveChild(Transform *child);
 
 	DirectX::XMMATRIX GetWorldMatrix();
+	DirectX::XMMATRIX GetTranslationMatrix();
 	DirectX::XMMATRIX GetRotationMatrix();
+	DirectX::XMMATRIX GetScaleMatrix();
 
 	bool HasParent();
 	bool HasChildren();

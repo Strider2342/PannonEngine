@@ -32,13 +32,19 @@ DirectX::XMFLOAT2 Input::GetMousePosition()
 
 DirectX::XMFLOAT2 Input::GetDeltaPosition()
 {
-	DirectX::XMFLOAT2 delta;
+	DirectX::XMFLOAT2 current = GetMousePosition();
 
-	delta = GetMousePosition();
-	delta.x -= prevPos.x;
-	delta.y -= prevPos.y;
+	return DirectX::XMFLOAT2(current.x - prevPos.x, current.y - prevPos.y);
+}
 
-	return delta;
+void Input::SetMousePosition(int x, int y)
+{
+	HWND hWnd = GetActiveWindow();
+	RECT rect;
+	GetClientRect(hWnd, &rect);
+	DirectX::XMFLOAT2 windowPosition = DirectX::XMFLOAT2(rect.left, rect.top);
+
+	SetCursorPos(x + windowPosition.x, y + windowPosition.y);
 }
 
 void Input::SetPreviousPosition()

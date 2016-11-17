@@ -104,6 +104,26 @@ void Scene::ClearScene()
 	lights.clear();
 }
 
+void Scene::ReinitScene()
+{
+	for (int i = 0; i < gameObjects.size(); i++)
+	{
+		if (gameObjects.at(i)->GetComponent<MeshRenderer>() != nullptr)
+		{
+			gameObjects.at(i)->GetComponent<MeshRenderer>()->Init(graphics.GetDevice(), graphics.GetDeviceContext());
+		}
+	}
+
+	SetSceneProperties();
+
+	for (int i = 0; i < gameObjects.size(); i++)
+	{
+		gameObjects[i]->Start();
+	}
+
+	RefreshLights();
+}
+
 void Scene::RefreshLights()
 {
 	lights.clear();

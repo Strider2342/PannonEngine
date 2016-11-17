@@ -27,38 +27,38 @@ public:
 	{
 		if (input.GetKeyDown(KeyCode::LeftArrow))
 		{
-			transform->GetPosition().x += speed * gameTime.GetDeltaTime();
+			transform->GetLocalPosition().x -= speed * gameTime.GetDeltaTime();
 		}
 		else if (input.GetKeyDown(KeyCode::RightArrow))
 		{
-			transform->GetPosition().x -= speed * gameTime.GetDeltaTime();
+			transform->GetLocalPosition().x += speed * gameTime.GetDeltaTime();
 		}
 
 		if (input.GetKeyDown(KeyCode::UpArrow))
 		{
-			transform->GetPosition().y -= speed * gameTime.GetDeltaTime();
+			transform->GetLocalPosition().y += speed * gameTime.GetDeltaTime();
 		}
 		else if (input.GetKeyDown(KeyCode::DownArrow))
 		{
-			transform->GetPosition().y += speed * gameTime.GetDeltaTime();
+			transform->GetLocalPosition().y -= speed * gameTime.GetDeltaTime();
 		}
 
 		if (input.GetKeyDown(KeyCode::Plus))
 		{
-			transform->GetPosition().z += speed * gameTime.GetDeltaTime();
+			transform->GetLocalPosition().z += speed * gameTime.GetDeltaTime();
 		}
 		else if (input.GetKeyDown(KeyCode::Minus))
 		{
-			transform->GetPosition().z -= speed * gameTime.GetDeltaTime();
+			transform->GetLocalPosition().z -= speed * gameTime.GetDeltaTime();
 		}
 
 		if (input.GetKeyDown(KeyCode::U))
 		{
-			transform->GetRotation().y += speed * gameTime.GetDeltaTime();
+			transform->GetLocalRotation().y += speed * gameTime.GetDeltaTime();
 		}
 		else if (input.GetKeyDown(KeyCode::I))
 		{
-			transform->GetRotation().y -= speed * gameTime.GetDeltaTime();
+			transform->GetLocalRotation().y -= speed * gameTime.GetDeltaTime();
 		}
 
 		colliding = false;

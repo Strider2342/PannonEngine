@@ -18,7 +18,9 @@ float GameTime::GetDeltaTime()
 	time_point<system_clock> currentTime = system_clock::now();
 	duration<float> elapsedSec = currentTime - prevTime;
 
-	return elapsedSec.count();
+	float elapsed = floorf(elapsedSec.count() * 10000.0f);
+
+	return elapsed / 10000.0f;
 }
 
 void GameTime::SetPrevTime()

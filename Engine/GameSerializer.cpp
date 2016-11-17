@@ -61,7 +61,7 @@ MeshRenderer* GameSerializer::ImportMeshRenderer(json json_object)
 	ContentManager content = ContentManager();
 	std::string path = json_object["meshpath"];
 
-	meshRenderer->SetMesh(content.LoadMesh("../" + path));
+	meshRenderer->SetMesh(content.LoadMesh(path));
 
 	Material *material = new Material();
 	meshRenderer->SetMaterial(material);

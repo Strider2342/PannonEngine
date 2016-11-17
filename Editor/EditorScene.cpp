@@ -14,20 +14,24 @@ void EditorScene::Start()
 	ImGui_ImplDX11_Init(graphics.GetHWND(), graphics.GetDevice(), graphics.GetDeviceContext());
 	
 	camera = GameObject();
+	cameraMain = GameObject();
 
-	//gameObjects.push_back(&camera);
+	cameraMain.SetName("Main Camera");
+	cameraMain.AddComponent<EditorCameraScript>();
+	cameraMain.GetTransform()->SetPosition(DirectX::XMFLOAT3(0.0f, 0.0f, -15.0f));
+	//cameraMain.GetTransform()->SetRotation(DirectX::XMFLOAT3(0.0f, DirectX::XM_PI / 4.0f, 0.0f));
 
-	camera.SetName("Main Camera");
+	camera.SetName("Camera");
 	camera.AddComponent<Camera>();
 	camera.GetComponent<Camera>()->Init();
 	camera.GetComponent<Camera>()->SetTransform(camera.GetTransform());
-	camera.AddComponent<Light>();
-	camera.GetComponent<Light>()->SetType(1);
-	camera.GetTransform()->GetPosition() = DirectX::XMFLOAT3(0.0f, 0.0f, -25.0f);
-	camera.GetTransform()->GetRotation() = DirectX::XMFLOAT3(0.0f, 0.0f, 0.0f);
+	cameraMain.GetTransform()->SetPosition(DirectX::XMFLOAT3(0.0f, 0.0f, 0.0f));
+	camera.GetTransform()->SetParent(cameraMain.GetTransform());
 	SetMainCamera(camera.GetComponent<Camera>());
 
-	ImportFromFile("scene2.scn");
+	cameraMain.Start();
+
+	ImportFromFile("..\\Scenes\\proba.scn");
 
 	for (int i = 0; i < gameObjects.size(); i++)
 	{
@@ -35,10 +39,10 @@ void EditorScene::Start()
 		{
 			gameObjects.at(i)->GetComponent<MeshRenderer>()->Init(graphics.GetDevice(), graphics.GetDeviceContext());
 		}
-		if (gameObjects.at(i)->GetName() == "Main Camera")
+		/*if (gameObjects.at(i)->GetName() == "Main Camera")
 		{
 			SetMainCamera(gameObjects[0]->GetComponent<Camera>());
-		}
+		}*/
 	}
 	
 	SetSceneProperties();
@@ -58,11 +62,10 @@ void EditorScene::PreUpdate()
 
 void EditorScene::Update()
 {
+	cameraMain.Update(gameTime, input);
+	camera.Update(gameTime, input);
 
-}
-
-void EditorScene::PostUpdate()
-{
+	std::cout << DebugHelper::XMFLOAT3ToString(camera.GetTransform()->GetLocalRotation()) << std::endl;
 }
 
 void EditorScene::Render()

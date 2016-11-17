@@ -29,6 +29,8 @@ private:
 	bool showMaterialEditor = false;
 	bool showDebugConsole = true;
 	bool showImportMeshWindow = false;
+	bool showOpenSceneDialog = false;
+	bool showSaveSceneDialog = false;
 
 public:
 	EditorGUI();
@@ -48,6 +50,8 @@ public:
 	void DebugConsole();
 	void GameCanvas();
 	void ImportMeshWindow();
+	void OpenSceneDialog();
+	void SaveSceneDialog();
 
 	// components
 	void TransformComponent();

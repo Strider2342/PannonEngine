@@ -15,7 +15,7 @@ Ray Screen::ScreenPointToRay(DirectX::XMFLOAT2 position)
 	Ray ray = Ray();
 
 	DirectX::XMFLOAT2 normalized = NormalizeScreenPoint(position);
-
+	
 	normalized.x *= tan(camera->GetFOV() * 0.5f);
 	normalized.y *= tan(camera->GetFOV() * 0.5f);
 

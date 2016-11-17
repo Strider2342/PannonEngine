@@ -20,3 +20,30 @@ inline DirectX::XMFLOAT3 operator + (DirectX::XMFLOAT3 a, DirectX::XMFLOAT3 b)
 
 	return a;
 }
+
+inline DirectX::XMFLOAT3 operator - (DirectX::XMFLOAT3 a, DirectX::XMFLOAT3 b)
+{
+	a.x -= b.x;
+	a.y -= b.y;
+	a.z -= b.z;
+
+	return a;
+}
+
+inline DirectX::XMFLOAT3 operator * (DirectX::XMFLOAT3 a, DirectX::XMFLOAT3 b)
+{
+	a.x *= b.x;
+	a.y *= b.y;
+	a.z *= b.z;
+
+	return a;
+}
+
+inline DirectX::XMFLOAT3 operator * (DirectX::XMFLOAT3 a, float b)
+{
+	a.x *= b;
+	a.y *= b;
+	a.z *= b;
+
+	return a;
+}

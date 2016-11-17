@@ -18,6 +18,8 @@ public:
 	Ray ScreenPointToRay(DirectX::XMFLOAT2 position);
 	DirectX::XMFLOAT2 NormalizeScreenPoint(DirectX::XMFLOAT2 position);
 
+	void ShowCursor(bool value);
+
 	// get
 	Camera* GetCamera();
 

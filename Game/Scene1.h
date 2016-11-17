@@ -18,7 +18,7 @@ private:
 	GameObject main;
 	GameObject camera;
 	GameObject test;
-	GameObject teapot, teapot2;
+	GameObject teapot;// , teapot2;
 	GameObject light1, light2;
 
 public:

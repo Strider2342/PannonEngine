@@ -84,5 +84,6 @@ public:
 	DirectX::XMFLOAT2 GetMousePosition();
 	DirectX::XMFLOAT2 GetDeltaPosition();
 
+	void SetMousePosition(int x, int y);
 	void SetPreviousPosition();
 };

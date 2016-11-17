@@ -12,7 +12,7 @@ private:
 
 	Light *light;
 
-	float speed = 0.9f;
+	float speed = 10.9f;
 
 public:
 	TestScript2() {}
@@ -23,9 +23,9 @@ public:
 		light = gameObject->GetComponent<Light>();
 	}
 
-	void Update(GameTime gameTime)
+	void Update(GameTime gameTime, Input input)
 	{
-		//Move(gameTime);
+		Move(gameTime, input);
 	}
 
 	void Move(GameTime gameTime, Input input)
@@ -59,7 +59,7 @@ public:
 			velocity.z -= speed * gameTime.GetDeltaTime();
 		}
 
-		gameObject->GetTransform()->GetPosition().x += velocity.x;
+		/*gameObject->GetTransform()->GetPosition().x += velocity.x;
 		gameObject->GetTransform()->GetPosition().y += velocity.y;
 		gameObject->GetTransform()->GetPosition().z += velocity.z;
 
@@ -120,6 +120,9 @@ public:
 			gameObject->GetTransform()->GetPosition().x -= velocity.x;
 			gameObject->GetTransform()->GetPosition().y -= velocity.y;
 			gameObject->GetTransform()->GetPosition().z -= velocity.z;
-		}
+		}*/
+		gameObject->GetTransform()->GetLocalPosition().x -= velocity.x;
+		gameObject->GetTransform()->GetLocalPosition().y -= velocity.y;
+		gameObject->GetTransform()->GetLocalPosition().z -= velocity.z;
 	}
 };

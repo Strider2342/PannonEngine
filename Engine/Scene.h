@@ -55,6 +55,7 @@ public:
 	void SetGlobalAmbient(DirectX::XMFLOAT3 globalAmbient);
 
 	void ClearScene();
+	void ReinitScene();
 
 	void RefreshLights();
 	void SetSceneProperties();

@@ -85,6 +85,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="EditorCameraScript.h" />
     <ClInclude Include="EditorGUI.h" />
     <ClInclude Include="EditorScene.h" />
   </ItemGroup>

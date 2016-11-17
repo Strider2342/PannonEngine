@@ -8,13 +8,15 @@ void Camera::Init()
 	fov = 0.785398163f;
 	aspectRatio = 1706.0f / 960.0f;
 	nearClippingPlane = 0.1f;
-	farClippingPlane = 100.0f;
+	farClippingPlane = 1000.0f;
 }
 
 DirectX::XMMATRIX& Camera::GetViewMatrix()
 {
 	DirectX::XMFLOAT3 position = transform->GetPosition();
-	DirectX::XMFLOAT3 look = DirectX::XMFLOAT3(transform->GetPosition().x + transform->GetForward().x, transform->GetPosition().y + transform->GetForward().y, transform->GetPosition().z + transform->GetForward().z);
+
+	XMFLOAT3 forward = transform->GetForward();
+	DirectX::XMFLOAT3 look = DirectX::XMFLOAT3(transform->GetPosition().x + forward.x, transform->GetPosition().y + forward.y, transform->GetPosition().z + forward.z);
 	DirectX::XMFLOAT3 up = transform->GetUp();
 
 	DirectX::XMVECTOR eyePos	= DirectX::XMLoadFloat3(&position);

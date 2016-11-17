@@ -41,7 +41,7 @@ void EditorGUI::FileMenu()
 		}
 		if (ImGui::MenuItem("Open scene"))
 		{
-			scene->ImportFromFile("scene2.scn");
+			showOpenSceneDialog ^= 1;
 		}
 		if (ImGui::MenuItem("Save scene"))
 		{
@@ -49,7 +49,7 @@ void EditorGUI::FileMenu()
 		}
 		if (ImGui::MenuItem("Save scene as"))
 		{
-
+			showSaveSceneDialog ^= 1;
 		}
 		ImGui::Separator();
 		if (ImGui::MenuItem("Exit"))
@@ -157,6 +157,14 @@ void EditorGUI::Views()
 	if (showImportMeshWindow)
 	{
 		ImportMeshWindow();
+	}
+	if (showOpenSceneDialog)
+	{
+		OpenSceneDialog();
+	}
+	if (showSaveSceneDialog)
+	{
+		SaveSceneDialog();
 	}
 }
 void EditorGUI::InspectorView()
@@ -329,6 +337,63 @@ void EditorGUI::ImportMeshWindow()
 			}
 		}
 
+		ImGui::End();
+	}
+}
+
+void EditorGUI::OpenSceneDialog()
+{
+	std::vector<std::string> scenes = std::vector<std::string>();
+	GetFileList("dir ..\\Scenes /a-d /b", &scenes);
+
+	if (ImGui::Begin("Open scene"))
+	{
+		static int node_clicked = -1;
+
+		for (int i = 0; i < scenes.size(); i++)
+		{
+			ImGuiTreeNodeFlags node_flags = ImGuiTreeNodeFlags_Leaf;
+
+			node_flags = ((node_clicked == i) ? ImGuiTreeNodeFlags_Selected : 0) | ImGuiTreeNodeFlags_Leaf;
+			if (ImGui::TreeNodeEx(&i, node_flags, scenes[i].c_str(), i))
+			{
+				if (ImGui::IsItemClicked())
+				{
+					node_clicked = i;
+				}
+			}
+			ImGui::TreePop();
+		}
+
+		if (ImGui::Button("Open"))
+		{
+			if (node_clicked != -1)
+			{
+				scene->ImportFromFile("..\\Scenes\\" + scenes[node_clicked]);
+				scene->ReinitScene();
+				showOpenSceneDialog ^= 1;
+			}
+		}
+
+		ImGui::End();
+	}
+}
+
+void EditorGUI::SaveSceneDialog()
+{
+	if (ImGui::Begin("Save scene as"))
+	{
+		std::string fn = "";
+		char filename[128];
+		strcpy_s(filename, fn.c_str());
+		ImGui::InputText("Filename", filename, IM_ARRAYSIZE(filename));
+
+		if (ImGui::Button("Save"))
+		{
+			std::string str(filename);
+			std::string path = "..\\scenes\\" + str + ".scn";
+			scene->ExportToFile(path);
+		}
 		ImGui::End();
 	}
 }

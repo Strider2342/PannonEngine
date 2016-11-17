@@ -10,13 +10,17 @@
 #include "GameObject.h"
 #include "Input.h"
 
+#include "DebugHelper.h"
+
+#include "EditorCameraScript.h"
+
 class EditorScene : public GameScene
 {
 private:
 	GUI *gui;
+	GameObject cameraMain, camera;
 		
 	GameObject teapot, bottle;
-	GameObject camera;
 	GameObject light;
 
 public:
@@ -27,7 +31,6 @@ public:
 	void Start();
 	void PreUpdate();
 	void Update();
-	void PostUpdate();
 	void Render();
 	void PostRender();
 

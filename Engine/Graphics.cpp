@@ -104,8 +104,8 @@ bool Graphics::CreateDepthBuffer(int width, int height)
 	ZeroMemory(&dsvd, sizeof(dsvd));
 
 	dsvd.Format = DXGI_FORMAT_D32_FLOAT;
-	dsvd.ViewDimension = D3D11_DSV_DIMENSION_TEXTURE2DMS;
-	dsvd.Texture2D.MipSlice = 0;;
+	dsvd.ViewDimension = D3D11_DSV_DIMENSION_TEXTURE2D;
+	dsvd.Texture2D.MipSlice = 0;
 
 	hr = dev->CreateDepthStencilView(pDepthBuffer, &dsvd, &zbuffer);
 
