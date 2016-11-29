@@ -4,6 +4,8 @@
 #include "Camera.h"
 #include "Ray.h"
 
+#include "DebugHelper.h"
+
 class Screen
 {
 	int width;

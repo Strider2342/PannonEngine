@@ -2,7 +2,7 @@
 #include "Script.h"
 #include "Physics.h"
 
-class MainScript : public Script
+class MainScript : public Script<MainScript>
 {
 
 public:

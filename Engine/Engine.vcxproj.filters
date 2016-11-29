@@ -22,6 +22,9 @@
     <Filter Include="Header Files\imgui">
       <UniqueIdentifier>{6d642e48-f54b-4569-a72d-02be3702460b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\imguizmo">
+      <UniqueIdentifier>{58cfee06-9790-4007-b1f1-74cea7a4a5e7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -153,6 +156,9 @@
     <ClInclude Include="FileFinder.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="ImGuizmo.h">
+      <Filter>Header Files\imguizmo</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Graphics.cpp">
@@ -259,6 +265,9 @@
     </ClCompile>
     <ClCompile Include="GUI.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ImGuizmo.cpp">
+      <Filter>Header Files\imguizmo</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -203,10 +203,10 @@ void EditorGUI::InspectorView()
 				{
 					LightComponent();
 				}
-				else if (dynamic_cast<Script *>(selected->GetComponentById(i)) != NULL)
-				{
-					ScriptComponent();
-				}
+				//else if (dynamic_cast<Script *>(selected->GetComponentById(i)) != NULL)
+				//{
+				//	ScriptComponent();
+				//}
 				else if (dynamic_cast<SphereCollider *>(selected->GetComponentById(i)) != NULL)
 				{
 					SphereColliderComponent();
@@ -540,6 +540,7 @@ void EditorGUI::Init()
 void EditorGUI::AssembleGUI()
 {
 	ImGui_ImplDX11_NewFrame();
+	ImGuizmo::BeginFrame();
 
 	MenuBar();
 	Views();

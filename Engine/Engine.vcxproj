@@ -152,6 +152,7 @@
     <ClInclude Include="Graphics.h" />
     <ClInclude Include="GraphicsOptions.h" />
     <ClInclude Include="GUI.h" />
+    <ClInclude Include="ImGuizmo.h" />
     <ClInclude Include="imgui\imconfig.h" />
     <ClInclude Include="imgui\imgui.h" />
     <ClInclude Include="imgui\imgui_impl_dx11.h" />
@@ -195,6 +196,7 @@
     <ClCompile Include="GameWindow.cpp" />
     <ClCompile Include="Graphics.cpp" />
     <ClCompile Include="GUI.cpp" />
+    <ClCompile Include="ImGuizmo.cpp" />
     <ClCompile Include="imgui\imgui.cpp" />
     <ClCompile Include="imgui\imgui_demo.cpp" />
     <ClCompile Include="imgui\imgui_draw.cpp" />

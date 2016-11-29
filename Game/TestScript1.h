@@ -3,7 +3,7 @@
 #include "Transform.h"
 #include "Light.h"
 
-class TestScript1 : public Script
+class TestScript1 : public Script<TestScript1>
 {
 private:
 	Transform *transform;
@@ -82,5 +82,10 @@ public:
 		gameObject->GetComponent<MeshRenderer>()->GetMaterial()->SetDiffuse(0.0f, 1.0f, 0.0f);
 
 		//std::cout << "I'm hit!" << std::endl;
+	}
+
+	std::string GetName()
+	{
+		return Script::classname;
 	}
 };

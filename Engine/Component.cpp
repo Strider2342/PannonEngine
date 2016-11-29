@@ -33,3 +33,8 @@ void Component::SetGameObject(GameObject *gameObject)
 {
 	this->gameObject = gameObject;
 }
+
+std::string Component::GetName()
+{
+	return typeid(this).name();
+}

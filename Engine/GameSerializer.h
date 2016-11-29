@@ -5,6 +5,7 @@
 #include "GameObject.h"
 #include "MeshRenderer.h"
 #include "Collider.h"
+#include "Script.h"
 
 using json = nlohmann::json;
 
@@ -39,6 +40,7 @@ public:
 	json ExportSphereCollider(SphereCollider *sphereCollider);
 	json ExportBoxCollider(BoxCollider *boxCollider);
 	json ExportMaterial(Material *material);
+	json ExportScript(Component *component);
 
 	void SetGraphics(Graphics *graphics);
 };

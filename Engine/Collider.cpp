@@ -70,9 +70,9 @@ void SphereCollider::Start()
 }
 void SphereCollider::Update(GameTime gameTime, Input input)
 {
-	float max = gameObject->GetTransform()->GetScale().x;
-	if (gameObject->GetTransform()->GetScale().y > max) { max = gameObject->GetTransform()->GetScale().y; }
-	if (gameObject->GetTransform()->GetScale().z > max) { max = gameObject->GetTransform()->GetScale().z; }
+	float max = gameObject->GetTransform()->GetLocalScale().x;
+	if (gameObject->GetTransform()->GetLocalScale().y > max) { max = gameObject->GetTransform()->GetLocalScale().y; }
+	if (gameObject->GetTransform()->GetLocalScale().z > max) { max = gameObject->GetTransform()->GetLocalScale().z; }
 
 	XMFLOAT3 position = gameObject->GetTransform()->GetPosition();
 	collider.Center = DirectX::XMFLOAT3(position.x + center.x, position.y + center.y, position.z + center.z);

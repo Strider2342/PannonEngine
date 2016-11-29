@@ -156,6 +156,11 @@ json GameSerializer::ExportGameObject(GameObject *gameObject)
 		{
 			json_object["components"].push_back(ExportBoxCollider(dynamic_cast<BoxCollider *>(gameObject->GetComponentById(i))));
 		}
+		else if (dynamic_cast<ScriptComponent *>(gameObject->GetComponentById(i)))
+		{
+			std::cout << gameObject->GetComponentById(i)->GetName() << std::endl;
+			json_object["components"].push_back(ExportScript(dynamic_cast<ScriptComponent *>(gameObject->GetComponentById(i))));
+		}
 	}
 
 	return json_object;
@@ -261,6 +266,15 @@ json GameSerializer::ExportMaterial(Material *material)
 	json_object["material"]["emissive"]["z"] = material->GetEmissive().z;
 
 	json_object["material"]["power"] = material->GetPower();
+
+	return json_object;
+}
+
+json GameSerializer::ExportScript(Component *component)
+{
+	json json_object;
+
+	json_object["script"]["name"] = dynamic_cast<ScriptComponent *>(component)->ScriptName();;
 
 	return json_object;
 }

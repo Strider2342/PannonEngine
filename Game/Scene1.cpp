@@ -63,6 +63,8 @@ void Scene1::Start()
 
 	teapot.AddComponent<TestScript1>();
 
+	std::cout << teapot.GetComponent<TestScript1>()->ScriptName();
+
 	/*teapot2.SetName("Object 2");
 	teapot2.AddComponent<Physics>();
 	teapot2.GetComponent<Physics>()->SetGameObjectArray(&gameObjects);

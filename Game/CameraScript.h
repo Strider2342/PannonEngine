@@ -1,7 +1,7 @@
 #pragma once
 #include "Script.h"
 
-class CameraScript : public Script
+class CameraScript : public Script<CameraScript>
 {
 	float speed = 2.5f;
 

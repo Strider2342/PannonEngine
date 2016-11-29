@@ -31,11 +31,15 @@ Ray Screen::ScreenPointToRay(DirectX::XMFLOAT2 position)
 	DirectX::XMStoreFloat3(&origin, DirectX::XMVector3Transform(DirectX::XMLoadFloat3(&v_origin), inverseViewMat));
 	DirectX::XMStoreFloat3(&endpoint, DirectX::XMVector3Transform(DirectX::XMLoadFloat3(&v_endpoint), inverseViewMat));
 
+	//std::cout << "Origin: " << DebugHelper::XMFLOAT3ToString(origin) << std::endl;
+	//std::cout << "Endpoint: " << DebugHelper::XMFLOAT3ToString(endpoint) << std::endl;
+
 	DirectX::XMFLOAT3 direction;
 	DirectX::XMFLOAT3 difference = DirectX::XMFLOAT3(endpoint.x - origin.x, endpoint.y - origin.y, endpoint.z - origin.z);
 	DirectX::XMStoreFloat3(&direction, DirectX::XMVector3Normalize(DirectX::XMLoadFloat3(&difference)));
 
 	origin = origin + camera->GetTransform()->GetPosition();
+	//std::cout << "Origin: " << DebugHelper::XMFLOAT3ToString(origin) << std::endl;
 
 	ray.SetOrigin(origin);
 	ray.SetDirection(direction);

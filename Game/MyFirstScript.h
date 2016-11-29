@@ -4,7 +4,7 @@
 #include "GameObject.h"
 #include "Script.h"
 
-class MyFirstScript : public Script
+class MyFirstScript : public Script<MyFirstScript>
 {
 public:
 	MyFirstScript();

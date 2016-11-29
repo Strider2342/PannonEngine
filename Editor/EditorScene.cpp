@@ -51,6 +51,8 @@ void EditorScene::Start()
 	{
 		gameObjects[i]->Start();
 	}
+
+	gameObjects[1]->AddComponent<EditorCameraScript>();
 }
 
 void EditorScene::PreUpdate()
@@ -64,8 +66,6 @@ void EditorScene::Update()
 {
 	cameraMain.Update(gameTime, input);
 	camera.Update(gameTime, input);
-
-	std::cout << DebugHelper::XMFLOAT3ToString(camera.GetTransform()->GetLocalRotation()) << std::endl;
 }
 
 void EditorScene::Render()

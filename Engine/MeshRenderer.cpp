@@ -117,26 +117,26 @@ void MeshRenderer::CreateConstantBuffers()
 	bd.ByteWidth = sizeof(perObjectCB);
 	bd.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
 
-	dev->CreateBuffer(&bd, NULL, &pCBufferPerObject);
+	dev->CreateBuffer(&bd, nullptr, &pCBufferPerObject);
 
 	// material
 	bd.Usage = D3D11_USAGE_DEFAULT;
 	bd.ByteWidth = sizeof(materialCB);
 	bd.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
 
-	dev->CreateBuffer(&bd, NULL, &pCBufferMaterial);
+	dev->CreateBuffer(&bd, nullptr, &pCBufferMaterial);
 
 	// light
 	bd.Usage = D3D11_USAGE_DEFAULT;
 	bd.ByteWidth = sizeof(lightCB);
 	bd.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
 
-	dev->CreateBuffer(&bd, NULL, &pCBufferLights);
+	dev->CreateBuffer(&bd, nullptr, &pCBufferLights);
 }
 
 void MeshRenderer::SetConstantBuffers()
 {
-	DirectX::XMMATRIX inverseTransposeWorldMatrix = DirectX::XMMatrixTranspose(DirectX::XMMatrixInverse(NULL, transform->GetWorldMatrix()));
+	DirectX::XMMATRIX inverseTransposeWorldMatrix = DirectX::XMMatrixTranspose(DirectX::XMMatrixInverse(nullptr, transform->GetWorldMatrix()));
 	
 	DirectX::XMMATRIX matWorld = transform->GetWorldMatrix();
 	DirectX::XMMATRIX matView = camera->GetViewMatrix();

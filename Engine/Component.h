@@ -30,4 +30,6 @@ public:
 	virtual void OnCollisionExit();
 
 	void SetGameObject(GameObject *gameObject);
+
+	virtual std::string GetName();
 };

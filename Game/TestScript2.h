@@ -5,7 +5,7 @@
 #include "Physics.h"
 #include "Collider.h"
 
-class TestScript2 : public Script
+class TestScript2 : public Script<TestScript2>
 {
 private:
 	Transform *transform;

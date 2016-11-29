@@ -4,6 +4,7 @@
 #include <vector>
 #include "imgui/imgui.h"
 #include "imgui\imgui_impl_dx11.h"
+#include "ImGuizmo.h"
 #include "GUI.h"
 #include "GameScene.h"
 #include "GameObject.h"

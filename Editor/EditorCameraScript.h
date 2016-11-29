@@ -7,7 +7,7 @@
 #include "DirectXMathExtension.h"
 #include "DebugHelper.h"
 
-class EditorCameraScript : public Script
+class EditorCameraScript : public Script<EditorCameraScript>
 {
 private:
 	float speed = 0.025f;
@@ -24,42 +24,41 @@ public:
 	void Update(GameTime gameTime, Input input)
 	{
 		//std::cout << gameObject->GetName() << " " << "{" << std::to_string(gameObject->GetTransform()->GetPosition().x) << "; " << std::to_string(gameObject->GetTransform()->GetPosition().y) << "; " << std::to_string(gameObject->GetTransform()->GetPosition().z) << "}" << std::endl;
-
-		if (input.GetKeyDown(KeyCode::W))
-		{
-			XMFLOAT3 velocity = camtransform->GetForward() * speed;
-			gameObject->GetTransform()->GetLocalPosition() = gameObject->GetTransform()->GetLocalPosition() + velocity;
-		}
-		else if (input.GetKeyDown(KeyCode::S))
-		{
-			XMFLOAT3 velocity = camtransform->GetForward() * -speed;
-			gameObject->GetTransform()->GetLocalPosition() = gameObject->GetTransform()->GetLocalPosition() + velocity;
-		}
-
-		if (input.GetKeyDown(KeyCode::A))
-		{
-			XMFLOAT3 velocity = camtransform->GetRight() * -speed;
-			gameObject->GetTransform()->GetLocalPosition() = gameObject->GetTransform()->GetLocalPosition() + velocity;
-		}
-		else if (input.GetKeyDown(KeyCode::D))
-		{
-			XMFLOAT3 velocity = camtransform->GetRight() * speed;
-			gameObject->GetTransform()->GetLocalPosition() = gameObject->GetTransform()->GetLocalPosition() + velocity;
-		}
-
-		if (input.GetKeyDown(KeyCode::Q))
-		{
-			XMFLOAT3 velocity = camtransform->GetUp() * -speed;
-			gameObject->GetTransform()->GetLocalPosition() = gameObject->GetTransform()->GetLocalPosition() + velocity;
-		}
-		else if (input.GetKeyDown(KeyCode::E))
-		{
-			XMFLOAT3 velocity = camtransform->GetUp() * speed;
-			gameObject->GetTransform()->GetLocalPosition() = gameObject->GetTransform()->GetLocalPosition() + velocity;
-		}
-
 		if (input.GetMouseButtonDown(MouseButton::RightButton))
 		{
+			if (input.GetKeyDown(KeyCode::W))
+			{
+				XMFLOAT3 velocity = camtransform->GetForward() * speed;
+				gameObject->GetTransform()->GetLocalPosition() = gameObject->GetTransform()->GetLocalPosition() + velocity;
+			}
+			else if (input.GetKeyDown(KeyCode::S))
+			{
+				XMFLOAT3 velocity = camtransform->GetForward() * -speed;
+				gameObject->GetTransform()->GetLocalPosition() = gameObject->GetTransform()->GetLocalPosition() + velocity;
+			}
+
+			if (input.GetKeyDown(KeyCode::A))
+			{
+				XMFLOAT3 velocity = camtransform->GetRight() * -speed;
+				gameObject->GetTransform()->GetLocalPosition() = gameObject->GetTransform()->GetLocalPosition() + velocity;
+			}
+			else if (input.GetKeyDown(KeyCode::D))
+			{
+				XMFLOAT3 velocity = camtransform->GetRight() * speed;
+				gameObject->GetTransform()->GetLocalPosition() = gameObject->GetTransform()->GetLocalPosition() + velocity;
+			}
+
+			if (input.GetKeyDown(KeyCode::Q))
+			{
+				XMFLOAT3 velocity = camtransform->GetUp() * -speed;
+				gameObject->GetTransform()->GetLocalPosition() = gameObject->GetTransform()->GetLocalPosition() + velocity;
+			}
+			else if (input.GetKeyDown(KeyCode::E))
+			{
+				XMFLOAT3 velocity = camtransform->GetUp() * speed;
+				gameObject->GetTransform()->GetLocalPosition() = gameObject->GetTransform()->GetLocalPosition() + velocity;
+			}
+
 			//ShowCursor(false);
 			DirectX::XMFLOAT2 delta = input.GetDeltaPosition();
 			DirectX::XMFLOAT3 rotation = gameObject->GetTransform()->GetLocalRotation();
