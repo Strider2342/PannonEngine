@@ -166,11 +166,15 @@ void EditorGUI::Views()
 	{
 		SaveSceneDialog();
 	}
+	if (showNewComponentDialog)
+	{
+		NewComponentDialog();
+	}
 }
 void EditorGUI::InspectorView()
 {
 	ImGui::SetNextWindowPos(ImVec2(1375, 20));
-	ImGui::SetNextWindowSize(ImVec2(300, 900));
+	ImGui::SetNextWindowSize(ImVec2(310, 900));
 
 	if (ImGui::Begin("Inspector"))
 	{
@@ -203,10 +207,10 @@ void EditorGUI::InspectorView()
 				{
 					LightComponent();
 				}
-				//else if (dynamic_cast<Script *>(selected->GetComponentById(i)) != NULL)
-				//{
-				//	ScriptComponent();
-				//}
+				else if (dynamic_cast<ScriptComponent *>(selected->GetComponentById(i)) != NULL)
+				{
+					ScriptComponentBox();
+				}
 				else if (dynamic_cast<SphereCollider *>(selected->GetComponentById(i)) != NULL)
 				{
 					SphereColliderComponent();
@@ -215,6 +219,11 @@ void EditorGUI::InspectorView()
 				{
 					BoxColliderComponent();
 				}
+			}
+
+			if (ImGui::Button("Add component"))
+			{
+				showNewComponentDialog ^= 1;
 			}
 			selected->SetName(name);
 		}
@@ -398,6 +407,18 @@ void EditorGUI::SaveSceneDialog()
 	}
 }
 
+void EditorGUI::NewComponentDialog()
+{
+	if (ImGui::Begin("New component"))
+	{
+		int component = 0;
+		
+		
+
+		ImGui::End();
+	}
+}
+
 void EditorGUI::TransformComponent()
 {
 	float position[3] = { selected->GetTransform()->GetPosition().x, selected->GetTransform()->GetPosition().y, selected->GetTransform()->GetPosition().z };
@@ -492,7 +513,7 @@ void EditorGUI::LightComponent()
 	selected->GetComponent<Light>()->SetSpotAngle(DirectX::XMConvertToRadians(spotAngle));
 }
 
-void EditorGUI::ScriptComponent()
+void EditorGUI::ScriptComponentBox()
 {
 	if (ImGui::CollapsingHeader("Script"))
 	{
@@ -540,7 +561,6 @@ void EditorGUI::Init()
 void EditorGUI::AssembleGUI()
 {
 	ImGui_ImplDX11_NewFrame();
-	ImGuizmo::BeginFrame();
 
 	MenuBar();
 	Views();

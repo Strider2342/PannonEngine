@@ -4,7 +4,6 @@
 #include <vector>
 #include "imgui/imgui.h"
 #include "imgui\imgui_impl_dx11.h"
-#include "ImGuizmo.h"
 #include "GUI.h"
 #include "GameScene.h"
 #include "GameObject.h"
@@ -32,6 +31,7 @@ private:
 	bool showImportMeshWindow = false;
 	bool showOpenSceneDialog = false;
 	bool showSaveSceneDialog = false;
+	bool showNewComponentDialog = false;
 
 public:
 	EditorGUI();
@@ -55,12 +55,13 @@ public:
 	void SaveSceneDialog();
 
 	// components
+	void NewComponentDialog();
 	void TransformComponent();
 	void PhysicsComponent();
 	void MeshRendererComponent();
 	void CameraComponent();
 	void LightComponent();
-	void ScriptComponent();
+	void ScriptComponentBox();
 	void SphereColliderComponent();
 	void BoxColliderComponent();
 
