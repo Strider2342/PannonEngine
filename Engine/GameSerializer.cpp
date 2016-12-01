@@ -4,7 +4,7 @@ GameSerializer::GameSerializer()
 {
 }
 
-GameObject* GameSerializer::ImportGameObject(json json_object, DirectX::XMFLOAT3 globalAmbient)
+GameObject* GameSerializer::ImportGameObject(json json_object, DirectX::XMFLOAT3 globalAmbient, int i)
 {
 	GameObject *gameObject = new GameObject();
 	gameObject->SetName(json_object["name"]);
@@ -39,6 +39,10 @@ GameObject* GameSerializer::ImportGameObject(json json_object, DirectX::XMFLOAT3
 		else if (comp_it->count("boxCollider"))
 		{
 			gameObject->AddComponent<BoxCollider>(ImportBoxCollider((*comp_it)["boxCollider"]));
+		}
+		else if (comp_it->count("script"))
+		{
+			ImportScript((*comp_it)["script"], i);
 		}
 	}
 
@@ -124,6 +128,12 @@ Material* GameSerializer::ImportMaterial(json json_object)
 	return nullptr;
 }
 
+void GameSerializer::ImportScript(json json_object, int i)
+{
+	std::string script = json_object["name"];
+	scripts += std::string("gameObjects\.at\(" + std::to_string(i) + "\)\.AddComponent\<" + script + ">();\n");
+}
+
 json GameSerializer::ExportGameObject(GameObject *gameObject)
 {
 	json json_object;
@@ -156,10 +166,10 @@ json GameSerializer::ExportGameObject(GameObject *gameObject)
 		{
 			json_object["components"].push_back(ExportBoxCollider(dynamic_cast<BoxCollider *>(gameObject->GetComponentById(i))));
 		}
-		else if (dynamic_cast<ScriptComponent *>(gameObject->GetComponentById(i)))
+		else if (dynamic_cast<Script *>(gameObject->GetComponentById(i)))
 		{
 			std::cout << gameObject->GetComponentById(i)->GetName() << std::endl;
-			json_object["components"].push_back(ExportScript(dynamic_cast<ScriptComponent *>(gameObject->GetComponentById(i))));
+			json_object["components"].push_back(ExportScript(dynamic_cast<Script *>(gameObject->GetComponentById(i))));
 		}
 	}
 
@@ -270,11 +280,11 @@ json GameSerializer::ExportMaterial(Material *material)
 	return json_object;
 }
 
-json GameSerializer::ExportScript(Component *component)
+json GameSerializer::ExportScript(Script *script)
 {
 	json json_object;
 
-	json_object["script"]["name"] = dynamic_cast<ScriptComponent *>(component)->ScriptName();;
+	json_object["script"]["name"] = dynamic_cast<Script *>(script)->ScriptName();;
 
 	return json_object;
 }
@@ -282,4 +292,14 @@ json GameSerializer::ExportScript(Component *component)
 void GameSerializer::SetGraphics(Graphics *graphics)
 {
 	this->graphics = graphics;
+}
+
+void GameSerializer::ClearScripts()
+{
+	scripts = "";
+}
+
+std::string GameSerializer::GetScripts()
+{
+	return scripts;
 }

@@ -61,7 +61,7 @@ public:
 	void MeshRendererComponent();
 	void CameraComponent();
 	void LightComponent();
-	void ScriptComponentBox();
+	void ScriptComponent(std::string name);
 	void SphereColliderComponent();
 	void BoxColliderComponent();
 

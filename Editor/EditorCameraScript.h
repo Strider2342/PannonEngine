@@ -7,7 +7,7 @@
 #include "DirectXMathExtension.h"
 #include "DebugHelper.h"
 
-class EditorCameraScript : public Script<EditorCameraScript>
+class EditorCameraScript : public Script
 {
 private:
 	float speed = 0.025f;

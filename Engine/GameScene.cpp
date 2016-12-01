@@ -141,6 +141,7 @@ void GameScene::ImportFromFile(std::string filename)
 {
 	std::ifstream file(filename);
 	std::string text = "";
+	std::string scripts = "";
 
 	if (file.is_open())
 	{
@@ -160,12 +161,17 @@ void GameScene::ImportFromFile(std::string filename)
 	DirectX::XMFLOAT3 globalAmbient = DirectX::XMFLOAT3(scene_json["globalAmbient"]["x"], scene_json["globalAmbient"]["y"], scene_json["globalAmbient"]["z"]);
 	SetGlobalAmbient(globalAmbient);
 
+	serializer.ClearScripts();
+
 	// game objects
 	json gameObjects_json = scene_json["gameObjects"];
-	for (json::iterator it = gameObjects_json.begin(); it != gameObjects_json.end(); ++it)
+	int i = 0;
+	for (json::iterator it = gameObjects_json.begin(); it != gameObjects_json.end(); ++it, i++)
 	{
-		AddGameObject(serializer.ImportGameObject((*it), globalAmbient));
+		AddGameObject(serializer.ImportGameObject((*it), globalAmbient, i));
 	}
+
+	std::cout << serializer.GetScripts();
 }
 
 void GameScene::ExportToFile(std::string filename)

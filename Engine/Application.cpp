@@ -22,10 +22,9 @@ void Application::Run()
 	GameScene *scene = dynamic_cast<GameScene *>(scenes[currentScene]);
 
 	scene->Init(graphics);
-	//scene->ImportFromFile("scene1.scn");
 	scene->Start();
 	
-	std::cout << "Application started";
+	std::cout << "Application started" << std::endl;
 
 	while (true)
 	{

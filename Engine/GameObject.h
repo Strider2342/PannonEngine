@@ -49,6 +49,12 @@ public:
 	void AddComponent(T *component);
 
 	template <class T>
+	void RemoveComponent();
+
+	template <class T>
+	bool HasComponent();
+
+	template <class T>
 	T* GetComponent();
 };
 
@@ -56,6 +62,7 @@ template<class T>
 inline void GameObject::AddComponent()
 {
 	T *component = new T();
+	//RemoveComponent<T>();
 	components.push_back(component);
 	component->SetGameObject(this);
 }
@@ -68,14 +75,39 @@ inline void GameObject::AddComponent(T *component)
 }
 
 template<class T>
+inline void GameObject::RemoveComponent()
+{
+	for (int i = 0; i < components.size(); i++)
+	{
+		if (dynamic_cast<T*>(components[i]))
+		{
+			components.erase(components.begin() + i);
+		}
+	}
+}
+
+template<class T>
+inline bool GameObject::HasComponent()
+{
+	for (int i = 0; i < components.size(); i++)
+	{
+		if (dynamic_cast<T*>(components[i]))
+		{
+			return true;
+		}
+	}
+	return false;
+}
+
+template<class T>
 inline T * GameObject::GetComponent()
 {
 	for (int i = 0; i < components.size(); i++)
 	{
 		T *temp = dynamic_cast<T*>(components[i]);
 
-		if (temp != NULL)
+		if (temp != nullptr)
 			return temp;
 	}
-	return NULL;
+	return nullptr;
 }

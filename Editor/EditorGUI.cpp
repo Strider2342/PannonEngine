@@ -22,21 +22,9 @@ void EditorGUI::FileMenu()
 {
 	if (ImGui::BeginMenu("File"))
 	{
-		if (ImGui::MenuItem("Open project"))
-		{
-			
-		}
-		if (ImGui::MenuItem("Save project"))
-		{
-
-		}
-		if (ImGui::MenuItem("Save project as"))
-		{
-
-		}
-		ImGui::Separator();
 		if (ImGui::MenuItem("New scene"))
 		{
+			selected = nullptr;
 			scene->ClearScene();
 		}
 		if (ImGui::MenuItem("Open scene"))
@@ -207,9 +195,9 @@ void EditorGUI::InspectorView()
 				{
 					LightComponent();
 				}
-				else if (dynamic_cast<ScriptComponent *>(selected->GetComponentById(i)) != NULL)
+				else if (dynamic_cast<Script *>(selected->GetComponentById(i)) != NULL)
 				{
-					ScriptComponentBox();
+					ScriptComponent(dynamic_cast<Script *>(selected->GetComponentById(i))->ScriptName());
 				}
 				else if (dynamic_cast<SphereCollider *>(selected->GetComponentById(i)) != NULL)
 				{
@@ -392,15 +380,15 @@ void EditorGUI::SaveSceneDialog()
 {
 	if (ImGui::Begin("Save scene as"))
 	{
-		std::string fn = "";
-		char filename[128];
-		strcpy_s(filename, fn.c_str());
+		static char filename[128];
 		ImGui::InputText("Filename", filename, IM_ARRAYSIZE(filename));
 
 		if (ImGui::Button("Save"))
 		{
 			std::string str(filename);
 			std::string path = "..\\scenes\\" + str + ".scn";
+			filename[0] = '\0';
+
 			scene->ExportToFile(path);
 		}
 		ImGui::End();
@@ -409,11 +397,72 @@ void EditorGUI::SaveSceneDialog()
 
 void EditorGUI::NewComponentDialog()
 {
+	std::vector<std::string> components = std::vector<std::string>();
+
+	components.push_back("Transform");
+	components.push_back("Camera");
+	components.push_back("Light");
+	components.push_back("SphereCollider");
+	components.push_back("BoxCollider");
+	components.push_back("MeshRenderer");
+
+	GetFileList("dir ..\\Scripts /a-d /b", &components);
+
 	if (ImGui::Begin("New component"))
 	{
-		int component = 0;
-		
-		
+		static int node_clicked = -1;
+
+		for (int i = 0; i < components.size(); i++)
+		{
+			ImGuiTreeNodeFlags node_flags = ImGuiTreeNodeFlags_Leaf;
+
+			node_flags = ((node_clicked == i) ? ImGuiTreeNodeFlags_Selected : 0) | ImGuiTreeNodeFlags_Leaf;
+			if (ImGui::TreeNodeEx(&i, node_flags, components[i].c_str(), i))
+			{
+				if (ImGui::IsItemClicked())
+				{
+					node_clicked = i;
+				}
+			}
+			ImGui::TreePop();
+		}
+
+		if (ImGui::Button("Import"))
+		{
+			if (node_clicked != -1)
+			{
+				if (node_clicked == 0)
+				{
+					selected->RemoveComponent<Camera>();
+					selected->AddComponent<Camera>();
+				}
+				else if (node_clicked == 1)
+				{
+					selected->RemoveComponent<Light>();
+					selected->AddComponent<Light>();
+				}
+				else if (node_clicked == 2)
+				{
+					selected->RemoveComponent<SphereCollider>();
+					selected->AddComponent<SphereCollider>();
+				}
+				else if (node_clicked == 3)
+				{
+					selected->RemoveComponent<BoxCollider>();
+					selected->AddComponent<BoxCollider>();
+				}
+				else if (node_clicked == 4)
+				{
+					selected->RemoveComponent<MeshRenderer>();
+					selected->AddComponent<MeshRenderer>();
+				}
+				else
+
+				selected->RemoveComponent<Script>();
+				selected->AddComponent<Script>();
+				selected->GetComponent<Script>()->SetScriptName(components[node_clicked]);
+			}
+		}
 
 		ImGui::End();
 	}
@@ -513,11 +562,11 @@ void EditorGUI::LightComponent()
 	selected->GetComponent<Light>()->SetSpotAngle(DirectX::XMConvertToRadians(spotAngle));
 }
 
-void EditorGUI::ScriptComponentBox()
+void EditorGUI::ScriptComponent(std::string name)
 {
-	if (ImGui::CollapsingHeader("Script"))
+	if (ImGui::CollapsingHeader(name.c_str()))
 	{
-		
+
 	}
 }
 

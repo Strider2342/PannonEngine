@@ -146,6 +146,7 @@
     <ClInclude Include="DebugHelper.h" />
     <ClInclude Include="DirectXMathExtension.h" />
     <ClInclude Include="FileFinder.h" />
+    <ClInclude Include="GameBuilder.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameSerializer.h" />
     <ClInclude Include="GameWindow.h" />
@@ -190,6 +191,7 @@
     <ClCompile Include="ContentManager.cpp" />
     <ClCompile Include="DebugHelper.cpp" />
     <ClCompile Include="DirectXMathExtension.cpp" />
+    <ClCompile Include="GameBuilder.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GameSerializer.cpp" />
     <ClCompile Include="GameTime.cpp" />

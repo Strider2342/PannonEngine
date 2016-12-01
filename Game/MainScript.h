@@ -2,9 +2,8 @@
 #include "Script.h"
 #include "Physics.h"
 
-class MainScript : public Script<MainScript>
+class MainScript : public Script
 {
-
 public:
 	Screen *screen;
 

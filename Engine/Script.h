@@ -5,27 +5,15 @@
 #include "Component.h"
 #include "Input.h"
 
-class ScriptComponent : public Component
-{
-
-public:
-	ScriptComponent() {}
-	virtual std::string ScriptName() = 0;
-};
-
-template <class T>
-class Script : public ScriptComponent
+class Script : public Component
 {
 protected:
 	std::string classname;
 
 public:
-	std::string ScriptName();
-};
+	Script();
 
-template<class T>
-inline std::string Script<T>::ScriptName()
-{
-	std::string name = typeid(T).name();
-	return name.substr(6, name.size() - 6);
-}
+	std::string ScriptName();
+
+	void SetScriptName(std::string name);
+};

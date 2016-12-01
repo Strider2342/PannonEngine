@@ -159,6 +159,9 @@
     <ClInclude Include="ImGuizmo.h">
       <Filter>Header Files\imguizmo</Filter>
     </ClInclude>
+    <ClInclude Include="GameBuilder.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Graphics.cpp">
@@ -268,6 +271,9 @@
     </ClCompile>
     <ClCompile Include="ImGuizmo.cpp">
       <Filter>Header Files\imguizmo</Filter>
+    </ClCompile>
+    <ClCompile Include="GameBuilder.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

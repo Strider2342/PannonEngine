@@ -3,7 +3,7 @@
 #include "Transform.h"
 #include "Light.h"
 
-class TestScript1 : public Script<TestScript1>
+class TestScript1 : public Script
 {
 private:
 	Transform *transform;
