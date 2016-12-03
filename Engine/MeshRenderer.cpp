@@ -10,14 +10,6 @@ MeshRenderer::MeshRenderer()
 
 MeshRenderer::~MeshRenderer()
 {
-	/*delete material;
-
-	material = nullptr;*/
-}
-
-void MeshRenderer::InitComponent()
-{
-	transform = gameObject->GetTransform();
 }
 
 void MeshRenderer::Init(ID3D11Device *dev, ID3D11DeviceContext *devcon)
@@ -25,6 +17,12 @@ void MeshRenderer::Init(ID3D11Device *dev, ID3D11DeviceContext *devcon)
 	this->dev = dev;
 	this->devcon = devcon;
 	material->Init(dev, devcon);
+}
+
+void MeshRenderer::InitWithMat(ID3D11Device *dev, ID3D11DeviceContext *devcon)
+{
+	this->dev = dev;
+	this->devcon = devcon;
 }
 
 void MeshRenderer::Start()
@@ -45,8 +43,8 @@ void MeshRenderer::InitPipeline()
 
 void MeshRenderer::LoadShader()
 {
-	material->GetShader().LoadVertexShaderFromFile(L"../Shaders/Phong.hlsl", "VShader");
-	material->GetShader().LoadPixelShaderFromFile(L"../Shaders/Phong.hlsl", "PShader");
+	material->GetShader().LoadVertexShaderPrecompiled(L"../Shaders/PhongVS.cso");
+	material->GetShader().LoadPixelShaderPrecompiled(L"../Shaders/PhongPS.cso");
 }
 
 void MeshRenderer::CreateVertexBuffer()
@@ -221,6 +219,11 @@ Camera* MeshRenderer::GetCamera()
 	return camera;
 }
 
+std::vector<Light::ShaderInput>* MeshRenderer::GetLights()
+{
+	return lights;
+}
+
 DirectX::XMFLOAT3& MeshRenderer::GetGlobalAmbient()
 {
 	return globalAmbient;
@@ -236,28 +239,6 @@ Bounds3D& MeshRenderer::GetBounds()
 	bounds.GetZBounds() = DirectX::XMFLOAT2(originalBounds.GetZBounds().x * gameObject->GetTransform()->GetScale().x, originalBounds.GetZBounds().y * gameObject->GetTransform()->GetScale().y);
 
 	return bounds;
-}
-
-std::vector<Triangle>& MeshRenderer::GetTriangles()
-{
-	std::vector<Triangle> originaltriangles = mesh->GetTriangles();
-	triangles.clear();
-
-	for (int i = 0; i < originaltriangles.size(); i++)
-	{
-		Triangle triangle = Triangle();
-		DirectX::XMVECTOR A = DirectX::XMVector3Transform(DirectX::XMLoadFloat3(&triangle.GetPointA()), transform->GetWorldMatrix());
-		DirectX::XMVECTOR B = DirectX::XMVector3Transform(DirectX::XMLoadFloat3(&triangle.GetPointB()), transform->GetWorldMatrix());
-		DirectX::XMVECTOR C = DirectX::XMVector3Transform(DirectX::XMLoadFloat3(&triangle.GetPointC()), transform->GetWorldMatrix());
-
-		DirectX::XMStoreFloat3(&triangle.GetPointA(), A);
-		DirectX::XMStoreFloat3(&triangle.GetPointB(), B);
-		DirectX::XMStoreFloat3(&triangle.GetPointC(), C);
-
-		triangles.push_back(triangle);
-	}
-	
-	return triangles;
 }
 
 void MeshRenderer::SetMaterial(Material *material)
@@ -283,4 +264,14 @@ void MeshRenderer::SetLights(std::vector<Light::ShaderInput> *lights)
 void MeshRenderer::SetGlobalAmbient(DirectX::XMFLOAT3 globalAmbient)
 {
 	this->globalAmbient = globalAmbient;
+}
+
+ID3D11Device * MeshRenderer::GetDev()
+{
+	return dev;
+}
+
+ID3D11DeviceContext * MeshRenderer::GetDevcon()
+{
+	return devcon;
 }

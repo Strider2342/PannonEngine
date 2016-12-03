@@ -9,10 +9,11 @@
 class GameObject : public Object
 {
 private:
-	bool isEmpty = true;
+	bool exists = true;
 
 	std::string name;
 
+	std::vector<GameObject *> *gameObjects;
 	std::vector<Component *> components;
 
 public:
@@ -26,21 +27,23 @@ public:
 	void Render();
 	void PostRender();
 
+	void Destroy();
+
 	virtual void OnCollision();
-	virtual void OnCollisionEnter();
-	virtual void OnCollisionStay();
-	virtual void OnCollisionExit();
 
 	// get
 	Transform *GetTransform();
 	std::string GetName();
-	bool IsEmpty();
 	int GetNumberOfComponents();
 	Component* GetComponentById(int id);
+	bool GetExists();
 
 	// set
 	void SetName(std::string name);
 	void SetTransform(Transform *transform);
+
+	std::vector<GameObject *>* GetGameObjects();
+	void SetGameObjects(std::vector<GameObject *> *gameObjects);
 
 	template <class T>
 	void AddComponent();
@@ -62,7 +65,6 @@ template<class T>
 inline void GameObject::AddComponent()
 {
 	T *component = new T();
-	//RemoveComponent<T>();
 	components.push_back(component);
 	component->SetGameObject(this);
 }

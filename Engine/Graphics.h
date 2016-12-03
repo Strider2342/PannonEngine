@@ -40,7 +40,6 @@ public:
 
 	void CreateRasterizerState();
 	void CreateViewport();
-	void Resize();
 	void Begin();
 	void Begin(float r, float g, float b);
 	void End();

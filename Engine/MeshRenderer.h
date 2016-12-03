@@ -52,18 +52,15 @@ private:
 	Mesh *mesh;
 	Transform *transform;
 	Camera *camera;
-
-	std::vector<Triangle> triangles;
-
+	
 	DirectX::XMFLOAT3 globalAmbient;
 
 public:
 	MeshRenderer();
 	~MeshRenderer();
 
-	void InitComponent();
-
 	void Init(ID3D11Device *dev, ID3D11DeviceContext *devcon);
+	void InitWithMat(ID3D11Device *dev, ID3D11DeviceContext *devcon);
 	void Start();
 	void InitPipeline();
 	void LoadShader();
@@ -79,15 +76,18 @@ public:
 	Mesh *GetMesh();
 	Transform *GetTransform();
 	Camera *GetCamera();
+	std::vector<Light::ShaderInput> *GetLights();
 	DirectX::XMFLOAT3& GetGlobalAmbient();
 
 	// mesh
 	Bounds3D& GetBounds();
-	std::vector<Triangle>& GetTriangles();
 
 	void SetMaterial(Material *material);
 	void SetMesh(Mesh *mesh);
 	void SetCamera(Camera *camera);
 	void SetLights(std::vector<Light::ShaderInput> *lights);
 	void SetGlobalAmbient(DirectX::XMFLOAT3 globalAmbient);
+
+	ID3D11Device* GetDev();
+	ID3D11DeviceContext* GetDevcon();
 };

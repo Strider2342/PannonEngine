@@ -5,11 +5,7 @@ Material::Material()
 
 Material::~Material()
 {
-	/*delete texture;
-	delete shader;
-
-	texture = nullptr;
-	shader = nullptr;*/
+	
 }
 
 void Material::Init(ID3D11Device *dev, ID3D11DeviceContext *devcon)

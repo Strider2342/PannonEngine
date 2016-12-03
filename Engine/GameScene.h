@@ -27,6 +27,7 @@ public:
 	void SetScene(GameScene *scene);
 
 	void CheckCollision();
+	void CheckGameObjects();
 
 	virtual void Start();
 	virtual void PreUpdate();

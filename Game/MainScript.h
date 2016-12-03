@@ -17,7 +17,7 @@ public:
 		if (input.GetMouseButtonDown(MouseButton::LeftButton))
 		{
 			Ray ray = screen->ScreenPointToRay(input.GetMousePosition());
-			Hit hit = gameObject->GetComponent<Physics>()->RayCast(ray);
+			Hit hit = gameObject->GetComponent<RayCaster>()->RayCast(ray);
 
 			if (hit.hitOccured)
 			{

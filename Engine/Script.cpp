@@ -13,3 +13,8 @@ void Script::SetScriptName(std::string name)
 {
 	classname = name;
 }
+
+void Script::SetBuilder(GameBuilder *builder)
+{
+	this->builder = builder;
+}

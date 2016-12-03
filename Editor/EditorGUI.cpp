@@ -179,7 +179,7 @@ void EditorGUI::InspectorView()
 					ImGui::SetNextTreeNodeOpen(true);
 					TransformComponent();
 				}
-				else if (dynamic_cast<Physics *>(selected->GetComponentById(i)) != NULL)
+				else if (dynamic_cast<RayCaster *>(selected->GetComponentById(i)) != NULL)
 				{
 					PhysicsComponent();
 				}

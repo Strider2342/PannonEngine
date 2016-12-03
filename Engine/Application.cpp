@@ -4,6 +4,8 @@ Application::Application()
 {
 	graphics = Graphics();
 
+	builder = GameBuilder();
+
 	scenes = std::vector<Scene *>();
 }
 
@@ -11,6 +13,9 @@ Application::Application(HWND& hWnd)
 {
 	graphics = Graphics();
 	graphics.Init(hWnd);
+
+	builder = GameBuilder();
+	builder.SetProjectPath(projectPath);
 
 	scenes = std::vector<Scene *>();
 }
@@ -33,9 +38,6 @@ void Application::Run()
 			TranslateMessage(&msg);
 			DispatchMessage(&msg);
 
-			if (msg.message == WM_SIZE)
-				graphics.Resize();
-
 			if (msg.message == WM_QUIT)
 				break;
 		}
@@ -46,14 +48,17 @@ void Application::Run()
 
 		scene->Render();
 		scene->PostRender();
-
-		//scene->Export();
 	}
 
 	graphics.CleanD3D();
 }
 
-void Application::SetType(ApplicationType type)
+std::string Application::GetProjectPath()
 {
-	this->type = type;
+	return projectPath;
+}
+
+void Application::SetProjectPath(std::string projectPath)
+{
+	this->projectPath = projectPath;
 }

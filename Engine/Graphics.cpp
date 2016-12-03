@@ -156,22 +156,6 @@ void Graphics::CreateViewport()
 	viewport.MaxDepth = 1;    // the farthest an object can be on the depth buffer is 1.0	
 	devcon->RSSetViewports(1, &viewport);
 }
-void Graphics::Resize()
-{
-	// device not yet resized
-
-	RECT rect;
-	GetWindowRect(hWnd, &rect);
-	int width = rect.right - rect.left;
-	int height = rect.bottom - rect.top;
-
-	ImGui_ImplDX11_InvalidateDeviceObjects();
-
-	ImGuiIO& io = ImGui::GetIO();
-	io.DisplaySize.x = width;
-	io.DisplaySize.y = height;
-	ImGui_ImplDX11_CreateDeviceObjects();
-}
 void Graphics::Begin()
 {
 	CreateViewport();

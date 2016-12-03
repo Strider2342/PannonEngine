@@ -23,16 +23,16 @@ void Scene1::Start()
 	main.AddComponent<MainScript>();
 	main.GetComponent<MainScript>()->screen = &screen;
 
-	main.AddComponent<Physics>();
-	main.GetComponent<Physics>()->SetGameObjectArray(&gameObjects);
+	//main.AddComponent<RayCaster>();
+	//main.GetComponent<RayCaster>()->SetGameObjectArray(&gameObjects);
 
 	camera.AddComponent<Camera>();
 	camera.GetComponent<Camera>()->Init();
 	camera.GetComponent<Camera>()->SetTransform(camera.GetTransform());
 	SetMainCamera(camera.GetComponent<Camera>());
 	camera.GetTransform()->GetPosition() = DirectX::XMFLOAT3(0.0f, 0.0f, -4.0f);
-	camera.AddComponent<Physics>();
-	camera.GetComponent<Physics>()->SetGameObjectArray(&gameObjects);
+	//camera.AddComponent<RayCaster>();
+	//camera.GetComponent<RayCaster>()->SetGameObjectArray(&gameObjects);
 	//camera.GetTransform()->GetRotation() = DirectX::XMFLOAT3(0.0f, 3.14f, 0.0f);
 
 	screen.SetCamera(camera.GetComponent<Camera>());
@@ -47,8 +47,9 @@ void Scene1::Start()
 	//camera.AddComponent<CameraScript>();
 
 	teapot.SetName("Object 1");
-	teapot.AddComponent<Physics>();
-	teapot.GetComponent<Physics>()->SetGameObjectArray(&gameObjects);
+	teapot.SetGameObjects(&gameObjects);
+	//teapot.AddComponent<RayCaster>();
+	//teapot.GetComponent<RayCaster>()->SetGameObjectArray(&gameObjects);
 
 	teapot.AddComponent<MeshRenderer>();
 	teapot.GetComponent<MeshRenderer>()->Init(graphics.GetDevice(), graphics.GetDeviceContext());
@@ -61,13 +62,13 @@ void Scene1::Start()
 	teapot.AddComponent<SphereCollider>();
 	teapot.GetComponent<SphereCollider>()->SetRadius(16.0f);
 
-	teapot.AddComponent<TestScript1>();
+	teapot.AddComponent<AgingObject>();
 
-	std::cout << teapot.GetComponent<TestScript1>()->ScriptName();
+	//std::cout << teapot.GetComponent<TestScript1>()->ScriptName();
 
 	/*teapot2.SetName("Object 2");
-	teapot2.AddComponent<Physics>();
-	teapot2.GetComponent<Physics>()->SetGameObjectArray(&gameObjects);
+	teapot2.AddComponent<RayCaster>();
+	teapot2.GetComponent<RayCaster>()->SetGameObjectArray(&gameObjects);
 
 	teapot2.AddComponent<MeshRenderer>();
 	teapot2.GetComponent<MeshRenderer>()->Init(graphics.GetDevice(), graphics.GetDeviceContext());
@@ -91,6 +92,7 @@ void Scene1::Start()
 
 	teapot.GetTransform()->SetParent(test.GetTransform());
 	teapot.GetComponent<MeshRenderer>()->SetMesh(mesh);
+	teapot.GetComponent<MeshRenderer>()->GetMaterial()->SetTexture(content.LoadTexture("defaulttexture.jpg"));
 
 	//teapot2.GetTransform()->SetParent(teapot.GetTransform());
 	//teapot2.GetComponent<MeshRenderer>()->SetMesh(mesh);

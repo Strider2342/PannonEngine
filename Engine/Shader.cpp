@@ -74,6 +74,10 @@ void Shader::LoadVertexShaderFromFile(LPCWSTR filename, std::string entrypoint)
 	}
 	else
 	{
+		//auto size = VS->GetBufferSize();
+		//FILE *file = fopen("PhongVS.cso", "wb");
+		//fwrite(VS->GetBufferPointer(), sizeof(char), size, file);
+		//fclose(file);
 		dev->CreateVertexShader(VS->GetBufferPointer(), VS->GetBufferSize(), NULL, &pVS);
 	}
 
@@ -92,6 +96,41 @@ void Shader::LoadPixelShaderFromFile(LPCWSTR filename, std::string entrypoint)
 		errorBlob->Release();
 	}
 
+	if (hr != S_OK)
+	{
+		std::cout << "Pixel shader failed to load" << std::endl;
+		return;
+	}
+	else
+	{
+		//auto size = PS->GetBufferSize();
+		//FILE *file = fopen("PhongPS.cso", "wb");
+		//fwrite(PS->GetBufferPointer(), sizeof(char), size, file);
+		//fclose(file);
+		dev->CreatePixelShader(PS->GetBufferPointer(), PS->GetBufferSize(), NULL, &pPS);
+	}
+}
+
+void Shader::LoadVertexShaderPrecompiled(LPCWSTR filename)
+{
+	HRESULT hr = D3DReadFileToBlob(filename, &VS);
+	if (hr != S_OK)
+	{
+		std::cout << "Vertex shader failed to load" << std::endl;
+		return;
+	}
+	else
+	{
+		dev->CreateVertexShader(VS->GetBufferPointer(), VS->GetBufferSize(), NULL, &pVS);
+	}
+
+	SetInputLayout();
+}
+
+void Shader::LoadPixelShaderPrecompiled(LPCWSTR filename)
+{
+	ID3DBlob* PS;
+	HRESULT hr = D3DReadFileToBlob(filename, &PS);
 	if (hr != S_OK)
 	{
 		std::cout << "Pixel shader failed to load" << std::endl;

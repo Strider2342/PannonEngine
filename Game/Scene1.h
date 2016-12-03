@@ -9,6 +9,8 @@
 #include "TestScript2.h"
 #include "CameraScript.h"
 #include "MainScript.h"
+#include "AgingObject.h"
+#include "EnemyScript.h"
 
 class Scene1 : public GameScene
 {
@@ -20,6 +22,8 @@ private:
 	GameObject test;
 	GameObject teapot;// , teapot2;
 	GameObject light1, light2;
+
+	Texture tex;
 
 public:
 	Scene1();

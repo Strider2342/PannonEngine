@@ -77,10 +77,23 @@ void GameScene::CheckCollision()
 	}
 }
 
+void GameScene::CheckGameObjects()
+{
+	for (int i = 0; i < gameObjects.size(); i++)
+	{
+		if (!gameObjects[i]->GetExists())
+		{
+			gameObjects.erase(gameObjects.begin() + i);
+		}
+	}
+}
+
 void GameScene::Start()
 {
 	for (int i = 0; i < gameObjects.size(); i++)
 	{
+		gameObjects[i]->AddComponent<RayCaster>();
+		gameObjects[i]->GetComponent<RayCaster>()->SetGameObjectArray(&gameObjects);
 		gameObjects[i]->Start();
 	}
 }
@@ -103,6 +116,7 @@ void GameScene::Update()
 	{
 		gameObjects[i]->Update(gameTime, input);
 	}
+	CheckGameObjects();
 }
 
 void GameScene::PostUpdate()
@@ -169,6 +183,7 @@ void GameScene::ImportFromFile(std::string filename)
 	for (json::iterator it = gameObjects_json.begin(); it != gameObjects_json.end(); ++it, i++)
 	{
 		AddGameObject(serializer.ImportGameObject((*it), globalAmbient, i));
+		gameObjects[i]->SetGameObjects(&gameObjects);
 	}
 
 	std::cout << serializer.GetScripts();

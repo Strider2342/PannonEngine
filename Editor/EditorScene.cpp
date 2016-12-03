@@ -53,10 +53,12 @@ void EditorScene::Start()
 	}
 
 	gameObjects[1]->AddComponent<EditorCameraScript>();
+	gameObjects[1]->Destroy();
 }
 
 void EditorScene::PreUpdate()
 {
+	CheckGameObjects();
 	RefreshLights();
 	SetSceneProperties();
 	//RefreshCamera();

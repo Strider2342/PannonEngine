@@ -1,4 +1,5 @@
 #pragma once
+#include <stdio.h>
 #include <iostream>
 #include <d3d11.h>
 #include <D3D11Shader.h>

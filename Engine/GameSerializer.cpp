@@ -197,6 +197,7 @@ json GameSerializer::ExportMeshRenderer(MeshRenderer *meshRenderer)
 {
 	json json_object;
 
+	json_object["meshRenderer"]["material"] = ExportMaterial(meshRenderer->GetMaterial());
 	json_object["meshRenderer"]["meshpath"] = meshRenderer->GetMesh()->GetPath();
 
 	return json_object;

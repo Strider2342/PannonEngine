@@ -2,12 +2,16 @@
 #include <iostream>
 #include <vector>
 #include "Graphics.h"
+#include "GameBuilder.h"
 #include "GameScene.h"
 
 class Application
 {
 private:
 	Graphics graphics;
+	GameBuilder builder;
+
+	std::string projectPath = "";
 
 	std::vector<Scene *> scenes;
 	int currentScene = 0;
@@ -19,7 +23,9 @@ public:
 	Application(HWND& hWnd);
 
 	void Run();
-	void SetType(ApplicationType type);
+
+	std::string GetProjectPath();
+	void SetProjectPath(std::string projectPath);
 
 	template <class T>
 	void AddScene();
